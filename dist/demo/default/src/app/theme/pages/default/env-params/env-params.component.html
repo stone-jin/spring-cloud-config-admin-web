@@ -1,0 +1,143 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">
+                环境参数配置
+            </h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="#" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            环境配置中心
+                        </span>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            环境参数配置
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- END: Subheader -->
+<div class="m-content">
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__body">
+            <div class="m-form m-form--label-align-right m--margin-top-10 m--margin-bottom-20">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+                        <div class="form-group m-form__group row">
+                            <label class="col-form-label col-lg-1 col-sm-12">
+                                环境:
+                            </label>
+                            <div class="col-lg-4 col-md-9 col-sm-12">
+                                <select class="form-control m-select2" id="m_select2_5" name="param">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__body">
+            <div class="m-form m-form--label-align-right m--margin-top-10 m--margin-bottom-20">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+                        <div class="form-group m-form__group row align-items-center">
+                            <div class="col-md-4">
+                                <div class="m-input-icon m-input-icon--left">
+                                    <input class="form-control m-input m-input--solid" id="generalSearch" placeholder="请输入搜索的环境参数..." type="text">
+                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                        <button type="button" class="btn btn-info m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" (click)="createEnv()">
+                            <span>
+                                <i class="la la-plus">
+                                </i>
+                                新增环境参数
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="m_datatable"></div>
+        </div>
+        <!--begin::Modal-->
+        <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type != 'edit'">
+                            新增环境
+                        </h5>
+                        <h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type == 'edit'">
+                            编辑环境
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">
+                                &times;
+                            </span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="env-name" class="form-control-label">
+                                    环境名称:
+                                </label>
+                                <input type="text" class="form-control" id="env-name" [(ngModel)]="formData.envName" [ngModelOptions]="{standalone: true}">
+                            </div>
+                            <div class="form-group">
+                                <label for="registryAddress" class="form-control-label">
+                                    注册中心地址:
+                                </label>
+                                <input class="form-control" id="registryAddress" [(ngModel)]="formData.registryAddress" [ngModelOptions]="{standalone: true}">
+                            </div>
+                            <div class="form-group">
+                                <label for="configServerName" class="form-control-label">
+                                    配置中心的访问地址:
+                                </label>
+                                <input class="form-control" id="configServerName" [(ngModel)]="formData.configServerName" [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" (click)="save()">
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
