@@ -1,0 +1,698 @@
+//
+//** Mail App
+//
+
+//==== Component Mixins ====//
+
+//== Component Base
+@mixin m-build-component--mail-base() {
+
+	//== General mode
+    .m-mail {
+    	//== Aside
+	    .m-mail__aside {	
+			background-color: array-get($m--apps-mail, aside, self, bg-color);
+			 
+			.m-mail__compose-button {
+				padding: 3.2rem 3rem 0 3rem;
+
+				.m-mail__compose-btn {
+					width: 100%;
+					@include border-radius(0.22rem);
+					outline: none;
+					border: none;
+					font-size: get-font-size(regular, '-');
+					font-weight: get-font-weight(boldest); 
+					padding: 0.9rem 0;
+				}
+			}
+
+			//== Aside Menu
+	    	.m-mail__menu {
+	    		.m-menu__nav {
+	    			.m-menu__item {
+	    				.m-menu__link {
+	    					.m-menu__link-icon {
+	    						&.m-menu__link-icon--sm {
+	    							font-size: get-font-size(regular, '--');
+	    							padding-left: 0.2rem;	    							
+	    						}	    						 
+	    					}
+
+	    					.m-menu__link-title {
+	    						.m-menu__link-wrap {
+	    							.m-menu__link-text {
+	    								&.m-menu__link-text--sm {
+	    									font-size: 0.95rem;
+	    								}
+	    							}
+
+	    							.m-menu__link-badge--bold {
+		    							font-weight: get-font-weight(boldest);
+		    						} 
+	    						}
+	    					}
+	    				}
+	    			}
+
+	    			.m-mail_menu-space {
+	    				margin-top: 2rem;
+	    			}
+	    		}	
+	    	}
+	    }
+
+	    //== List
+	    .m-mail__list {
+			background-color: array-get($m--apps-mail, list, self, bg-color);			 
+
+			//== Content
+			.m-mail__list-content {
+				padding: 2.3rem 2.5rem;			
+
+				.m-mail__list-item {
+					display: table;
+					width: 100%;
+					margin-top: 0.7rem;
+					text-decoration: none;
+
+					.m-mail__list-search {
+						margin-bottom: 0.5rem;
+
+						.m-mail__list-search-no-border {
+							border: none !important;
+							padding: 0.9rem 1.6rem !important;
+							@include border-radius( 2rem );
+						}
+
+					}
+
+					.m-mail__list-sort {
+						text-align: right;
+						display: table-cell;
+						vertical-align: middle;
+
+						> span {
+							padding-left: 0.3rem;
+							font-weight: get-font-weight(bolder);
+							font-size: 0.9rem;
+
+							i {
+								padding-left: 0.3rem;
+								vertical-align: middle;
+							}
+						}
+					}
+
+					.m-mail__list-pic {
+						display: table-cell;
+						width: 3.2rem;
+
+						> img {                 
+	                        width: 2.14rem;                 
+	                    }
+					}
+
+					.m-mail__list-no-pic {
+						display: table-cell;
+						width: 3.2rem;
+
+						> span {						 
+							width: 2.14rem;
+							height: 2.14rem;
+							display: block;
+							@include border-radius( 100% );
+							text-align: center;
+							line-height: 2.1rem
+						}
+					}
+
+					.m-mail__list-username {
+						display: table-cell;
+						vertical-align: middle;	
+						font-weight: get-font-weight(bolder);
+						font-size: 0.9rem;				 
+					}
+
+					.m-mail__list-datetime {
+						display: table-cell;
+						vertical-align: middle;
+						line-height: 0;
+						font-weight: get-font-weight(bolder);
+						font-size: 0.9rem;	
+
+						&.m-mail__list-datetime--right {
+							text-align: right;
+							vertical-align: middle;	
+
+							> span {
+								padding-left: 0.3rem;
+							}					 
+						}
+					}
+
+					.m-mail__list-checkbox {
+						display: table-cell;
+						padding-bottom: 0.65rem;
+						width: 3.2rem;
+						padding-left: 0.4rem;
+					}
+
+					.m-mail__list-text {
+						display: table-cell;
+						vertical-align: middle;
+						font-weight: get-font-weight(boldest);
+						font-size: get-font-size(regular, '++');
+
+						&.m-mail__list-text--bolder {						 
+							font-weight: get-font-weight(bolder) !important;
+							font-size: 0.9rem;
+						}
+
+						&.m-mail__list-text--size {						 
+							font-size: 0.9rem;
+						}
+					}			
+
+					.m-mail__list-icon {
+						display: table-cell;
+						vertical-align: middle;
+						line-height: 0;
+						padding-left: 0.4rem;
+						width: 3.2rem;
+
+						&.m-mail__list-icon--right {
+							text-align: right;
+						}
+
+						&.m-mail__list-icon--cricle {
+							width: 1rem;
+							padding-right: 0.3rem;
+							padding-left: 3.28rem;
+							vertical-align: middle;
+
+							> i {
+								font-weight: 900;
+								font-size: get-font-size(regular);								 
+								font-size: 0.9rem;
+							}
+						}
+
+						&.m-mail__list-icon--no-padding {
+							padding: 0;
+
+							> i {
+								width: 2.14rem;
+								border-radius: 100%;							
+								height: 2.14rem;
+								text-align: center;
+								padding-top: 0.4rem;
+							}
+						}
+					}
+
+					&:first-child {
+						margin-top: 0;						 
+					}
+				}
+
+				&:first-child {
+					padding-top: 5rem;	
+					padding-bottom: 1.5rem;					 
+				}
+			}
+	    }
+
+	    //== Item	    	
+	    .m-mail__item {
+			background-color: array-get($m--apps-mail, item, self, bg-color);
+			padding: 4.6rem 3.3rem;
+
+			.m-mail__item-head {
+				> a {
+					display: table;
+					width: 100%;
+					text-decoration: none;
+
+					> div {
+						display: table-cell;
+					}
+
+					.m-mail__item-pic {
+						display: table-cell;
+						vertical-align: middle;
+						width: 5rem;
+
+						> img {
+							width: 3.8rem;
+						}
+					}
+
+					.m-mail__item-info {
+						display: table-cell;
+						vertical-align: middle;
+
+						.m-mail__item-username {
+							font-size: get-font-size(regular, '+');
+    						font-weight: get-font-weight(boldest);
+						}
+
+						.m-mail__item-date {
+							font-size: get-font-size(regular, '---');
+    						font-weight: get-font-weight(boldest);
+    						margin-top: 0.5rem;
+
+							.m-mail__item-dot {
+								width: 0.46rem;
+								height: 0.46rem;
+								@include border-radius( 100% );								
+								display: inline-block;
+								margin: 0 0.5rem 0.1rem 0;
+								vertical-align: middle;
+							}
+						}
+
+						> span {
+							display: block;
+						}
+					}
+
+					.m-mail__item-icon {
+						display: table-cell;
+						vertical-align: middle;
+						text-align: right;
+
+						> i {
+							margin-right: 0.6rem;
+
+							&:last-child {
+								margin-right: 0;
+							}
+						}
+
+						&.m-mail__item-icon--rounded {
+							> i {
+								width: 2.14rem;
+								height: 2.14rem;							 
+								@include border-radius( 100% );
+								text-align: center;
+								line-height: 2.1rem;								
+							}	
+						}													
+					}					
+				}
+			}
+
+			.m-mail__item-body {					 
+				text-decoration: none;
+
+				.m-mail__item-section {
+					display: table;
+					width: 100%;
+					margin: 1.4rem 0 0.8rem 0;
+
+					.m-mail__item-title {
+						font-size: 2rem !important;
+						font-weight: get-font-weight(bolder) !important;
+					}
+
+					> span {
+						display: table-cell;
+						vertical-align: middle;							 
+
+						> i {								 
+							vertical-align: middle;								 
+							padding-right: 0.4rem;
+    						font-weight: get-font-weight(boldest);
+						}
+
+						&:first-child {
+							font-size: 0.9rem;
+    						font-weight: get-font-weight(boldest); 
+						}
+
+						&:last-child {
+							text-align: right;
+							font-size: 0.9rem;
+    						font-weight: get-font-weight(boldest); 
+						}
+					}
+
+					> h3 {
+						font-size: 0.95rem;
+    					font-weight: get-font-weight(bolder); 
+					}
+
+					> p {
+						font-size: 0.95rem;
+    					font-weight: get-font-weight(bolder); 
+    					margin-top: 2rem;
+					}
+
+					> div {
+						display: table-cell;
+
+						> span {
+							display: block;	
+							font-size: 0.9rem;							
+						}
+
+						&:first-child span {
+							font-weight: get-font-weight(boldest);								 
+						}
+
+						&:last-child span {
+							font-weight: get-font-weight(bolder);								 
+						}
+					}
+				}				 
+			}
+	    }
+    }    
+
+    //== Desktop mode
+    @include desktop {
+		//== Mail
+		.m-mail {
+	    	//== Aside
+	    	.m-mail__aside {	    		
+	    		width: array-get($m--apps-mail, aside, self, width);
+	    	}
+
+	    	//== List
+	    	.m-mail__list {
+	    		width: array-get($m--apps-mail, list, self, width);	
+	    	}
+
+	    	//== Item	    	
+	    	.m-mail__item {
+
+	    	}
+	    }
+
+    	//== Mail aside toggle for mobile mode
+    	.m-mail-aside-toggle {
+			display: none;
+		}
+    }
+
+    //== Mobile mode
+    @include tablet-and-mobile {
+    	//== Mail
+		.m-mail {
+			//== Aside toggle for mobile mode
+			.m-mail-aside-toggle {
+				display: block;
+			}
+
+			//== Aside for mobile mode
+			.m-mail__aside {
+			}
+		}
+
+    	//== Mail aside toggle for mobile mode
+    	@include  m-build--toggler(m-mail-aside-toggle, array-get($m--apps-mail, aside, toggler));  
+
+		.m-mail-aside-toggle {
+			display: inline-block;
+			@include m-customize--toggler-color(m-mail-aside-toggle, array-get($m--apps-mail, aside, toggler, color));
+		}
+	}
+}
+
+//== Component Skin
+@mixin m-build-component--mail-skin() {    
+	$skin: get-default-skin();
+
+	//== General mode
+    .m-mail {
+
+    	//== Aside
+	    .m-mail__aside {
+			.m-mail__compose-button {				 
+				.m-mail__compose-btn {					 
+				}
+			}
+
+			//== Aside Menu
+	    	.m-mail__menu {
+	    		.m-menu__nav {
+	    			.m-menu__item {
+	    				.m-menu__link {
+	    					.m-menu__link-icon {
+	    						&.m-menu__link-icon--md {
+
+	    						}
+	    					}
+
+	    					.m-menu__link-title {
+	    						.m-menu__link-wrap {
+	    							.m-menu__link-badge1 {			 
+	    								color: get-color($skin, regular, '----');		      							
+	    							}	    							 
+	    						}
+	    					}
+	    				}
+	    			}
+
+	    			.m-mail_menu-space {
+	    				color: get-color($skin, regular, '----'); 
+	    			}
+	    		}	
+	    	}
+	    } 
+
+	    //== List
+	    .m-mail__list {	 		 
+
+			//== Content
+			.m-mail__list-content {
+				border: 1px solid get-color($skin, panel);			 
+				background-color: get-color($skin, panel, '---');
+
+				.m-mail__list-item {
+					.m-mail__list-sort {					 
+						color: #B6B6C2;
+					}
+
+					.m-mail__list-username {
+						color: #B6B6C2;
+					}	
+
+					.m-mail__list-datetime {
+						color: #B6B6C2;
+					}
+
+					.m-mail__list-text {
+						color: get-color($skin, regular, '-');	
+
+						&.m-mail__list-text--bolder {						 
+							color: #B6B6C2;
+						}
+
+						&.m-mail__list-text--size {
+							color: get-color($skin, regular, '---');
+						}	
+					}								
+				}	
+
+				&:nth-last-child(odd) {
+				    border-top: none;
+				    border-bottom: none;
+				}				 
+
+				&:nth-child(3) {
+				    border-right: none;
+				    background-color: #fff;
+				}
+
+				&:first-child {
+					border-top: 1px solid get-color($skin, panel, '---');	
+				}
+			}			 
+	    }
+
+	    //== Item
+	    .m-mail__item {
+		    .m-mail__item-head {
+				> a {		
+					.m-mail__item-info {
+						.m-mail__item-username {
+							color: get-color($skin, regular, '-');
+						}
+
+						.m-mail__item-date {
+							color: #B6B6C2;
+						}
+					}					 				
+				}
+			}
+
+			.m-mail__item-body {				 
+				.m-mail__item-section {	
+					.m-mail__item-title {
+						color: get-color($skin, regular, '-') !important;
+					}
+
+					> span {
+						&:first-child {
+							color: #B6B6C2;
+						}
+
+						&:last-child {
+							color: get-color($skin, regular, '---'); 
+						}							
+					}
+
+					> h3 {
+						color: get-color($skin, regular, '---')
+					}
+
+					> p {
+						color: get-color($skin, regular, '---')
+					}
+
+					> div {	
+						&:first-child span {
+							color: get-color($skin, regular, '---');								 
+						}
+
+						&:last-child span {
+							color: #B6B6C2; 								 
+						}
+					}
+				}			 
+			}
+		}			  
+    } 
+}
+
+//== Component States
+@mixin m-build-component--mail-states() {
+	.m-mail {		
+		@each $name, $color in $m--state-colors {
+
+			//== Aside
+		    .m-mail__aside {
+				.m-mail__compose-button {
+					.m-mail__compose-btn {
+						&.m-mail__compose-btn--#{$name} {
+						 	background-color: array-get($color, base);
+							color: array-get($color, inverse);
+						} 
+					}
+				}
+			}
+
+			//== Aside Menu
+	    	.m-mail__menu {
+	    		.m-menu__nav {
+	    			.m-menu__item {
+	    				.m-menu__link {	 
+	    					.m-menu__link-icon {
+	    						&.m-menu__link-icon--#{$name} {
+	    							color: array-get($color, base);	
+	    							&,
+	    							&:hover {
+	    								color: array-get($color, base) !important;	
+	    							}
+	    						}
+	    					}   					
+	    					.m-menu__link-title {
+	    						.m-menu__link-wrap { 
+	    							.m-menu__link-badge--#{$name} {
+	    								color: array-get($color, base) !important;	
+	    							}
+
+	    							.m-menu__link-text {
+	    								&.m-menu__link-text--#{$name} {
+	    									color: array-get($color, base);
+	    								}
+	    							}
+	    						}
+	    					}
+	    				}
+	    			}	    			 
+	    		}	
+	    	} 
+
+	    	//== List
+	    	.m-mail__list {
+
+	    		//== Content
+	    		.m-mail__list-content {
+	    			.m-mail__list-item {
+	    				.m-mail__list-no-pic {	    						 
+	    					.m-mail__list-no-pic--#{$name} {
+	    						background-color: lighten(array-get($color, base), 34%);	    							
+	    					}
+	    				}
+						.m-mail__list-checkbox {
+							.m-checkbox--#{$name} {
+								background-color: lighten(array-get($color, base), 13%);	
+							}
+						}
+
+						.m-mail__list-icon {
+							.m-mail__list-icon--#{$name} {
+								color: lighten(array-get($color, base), 12%); 
+							}
+						}
+					}				 		
+	    		}
+	    	}	
+
+	    	//== Item
+		    .m-mail__item {
+
+		    	//== Item Head
+			    .m-mail__item-head {
+					> a {	
+						.m-mail__item-icon {						
+							&.m-mail__item-icon--#{$name} {
+								> i {
+									background-color: lighten(array-get($color, base), 37%);
+								}
+							}
+
+							.m-mail-icon--#{$name} {
+								color: lighten(array-get($color, base), 27%); 
+							}							 
+						}
+					}
+				}
+
+				//== Item Body
+				.m-mail__item-body {
+					 	
+						.m-mail__item-icon {							
+							.m-mail-icon--#{$name} {
+								color: lighten(array-get($color, base), 27%); 
+							}							 
+						}
+					 
+				}
+			}			 							      
+		}
+	}
+}
+
+//==== Generate Components ====//
+
+//== Component Base
+@include m-build-component--mail-base();
+
+//== Component Skin
+@include m-build-component--mail-skin();
+
+//== Component States
+@include m-build-component--mail-states();
+
+//== Build Aside Offcanvas For Mobile
+@include m-generate-component--offcanvas(m-mail__aside, tablet-and-mobile, array-get($m--apps-mail, aside, offcanvas) );
+
+//== Build Aside Menu
+@include m-generate--menu-ver( array-get($m--apps-mail, aside, menu) );
+
+
+ 

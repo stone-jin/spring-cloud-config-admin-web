@@ -1,0 +1,76 @@
+//
+//** Scrollable Component Based On mCustomScrollbar Plugin
+//
+
+//==== Component Mixins ====//
+
+//== Component Base
+@mixin m-build-component--scrollable-base() {
+    .m-scrollable  {
+        .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+            @include rounded {
+                @include border-radius(array-get($m--border-radius, scrollbar));
+            }   
+        }
+
+        .mCSB_outside + .mCS-minimal.mCSB_scrollTools_vertical, 
+        .mCSB_outside + .mCS-minimal-dark.mCSB_scrollTools_vertical {
+            right: -17px;
+            margin: 5px 0;
+        }
+
+        .mCustomScrollBox.mCS-minimal + .mCSB_scrollTools.mCSB_scrollTools_horizontal, 
+        .mCustomScrollBox.mCS-minimal + .mCSB_scrollTools + .mCSB_scrollTools.mCSB_scrollTools_horizontal, 
+        .mCustomScrollBox.mCS-minimal-dark + .mCSB_scrollTools.mCSB_scrollTools_horizontal, 
+        .mCustomScrollBox.mCS-minimal-dark + .mCSB_scrollTools + .mCSB_scrollTools.mCSB_scrollTools_horizontal {
+            margin: 10px 0 0 0;
+        }
+    }
+
+    .mCustomScrollbar[data-scrollbar-shown=true] {
+        &.mCS-autoHide {
+            > .mCustomScrollBox ~ .mCSB_scrollTools {
+                @include opacity(0.6);
+            }
+        }
+    }
+}
+
+//== Component Skin
+@mixin m-build-component--scrollable-skin($skin) {
+    @include component-skin(m-scrollable, $skin) {
+        //== scrollbar
+        .mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+            background: get-color($skin, panel, '+');
+        }
+        
+        // on drag
+        .mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+            background: get-color($skin, panel, '+++');
+        }
+    }
+}
+
+//== Component Skin
+@mixin m-component--scrollable-skin($base, $onDrag) {
+    //== scrollbar
+    .mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+        background: $base;
+    }
+        
+    // on drag
+    .mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+        background: $onDrag;
+    }
+}
+
+//==== Generate Component ====//
+
+//== Component Base
+@include m-build-component--scrollable-base();
+
+//== Component Skin - Light
+@include m-build-component--scrollable-skin(light);
+
+//== Component Skin - Dark
+@include m-build-component--scrollable-skin(dark);

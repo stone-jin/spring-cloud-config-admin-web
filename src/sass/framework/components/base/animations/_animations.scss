@@ -1,0 +1,89 @@
+//
+//** Base Animations
+// 
+
+//== Classes
+
+.m-animate-fade-in-up {
+	@include animation(m-animate-fade-in-up .5s);
+}
+
+.m-animate-fade-out {
+	@include animation(m-animate-fade-out .5s);
+}
+
+.m-animate-fade-in {
+	@include animation(m-animate-fade-in .5s);
+}  
+
+.m-animate-blink {
+    @include animation(m-animate-blink 1s step-start 0s infinite);
+    animation-fill-mode: initial;
+}
+
+.m-animate-shake {
+    @include animation(m-animate-shake 0.1s ease-in 0.1s infinite alternate);
+    animation-fill-mode: initial;
+}
+
+.m-animate-pause {
+    -webkit-animation-play-state:paused;
+    -moz-animation-play-state:paused;
+    -o-animation-play-state:paused; 
+    animation-play-state:paused;
+}
+
+.m-notransition {
+    @include transition(none !important);
+}
+
+//== Animations
+
+@include keyframes(m-animate-fade-out) {
+    from   { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@include keyframes(m-animate-fade-in) {
+    from   { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@include keyframes(m-animate-fade-in-up) {
+    from   { 
+    	opacity: 0; 
+    	@include transform(translateY(15px));
+    }
+
+    to { opacity: 1; 
+    	@include transform(translateY(0px));	
+    }
+}
+
+@include keyframes(m-animate-fade-out-up) {
+    from   { 
+        opacity: 1; 
+        @include transform(translateY(15px));
+    }
+
+    to { opacity: 0; 
+        @include transform(translateY(0px));    
+    }
+}
+
+@include keyframes(m-animate-blink) {
+    50% {
+        opacity: 0.0;
+    }
+}
+
+@include keyframes(m-animate-shake) {
+    from {
+        @include transform(rotate(13deg));
+    }
+    
+    to {
+       -webkit-transform-origin:center center;
+       @include transform(rotate(-13deg));
+    }
+}
