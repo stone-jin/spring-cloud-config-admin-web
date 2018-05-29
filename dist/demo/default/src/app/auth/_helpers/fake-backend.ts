@@ -23,11 +23,11 @@ export function mockBackEndFactory(backend: MockBackend, options: BaseRequestOpt
                 });
 
                 // default account
-                if (params.email === 'demo@demo.com' && params.password === 'demo') {
+                if (params.email === 'spring@spring.com' && params.password === 'spring') {
                     filteredUsers[0] = {
                         fullName: 'Demo',
-                        email: 'demo@demo.com',
-                        password: 'demo',
+                        email: 'spring@spring.com',
+                        password: 'spring',
                     };
                 }
 
