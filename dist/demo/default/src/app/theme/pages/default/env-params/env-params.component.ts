@@ -18,35 +18,37 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
     constructor(private _script: ScriptLoaderService, private ajax: Ajax) {}
 
     ngAfterViewInit(): void {
-        this.initEnvList()
+        this.initData()
     }
     ngOnInit(): void {}
 
+    async initData() {
+        await this.initEnvList()
+        await this.initEnvParamList()
+    }
+
     async initEnvList() {
+        let result = await this.ajax.get('/xhr/env')
+        let selectData = result.map(item => {
+            return {
+                id: item.id,
+                text: item.name,
+            }
+        })
         $('#m_select2_5').select2({
             placeholder: '请选择一个环境',
-            data: [
-                {
-                    id: 0,
-                    text: '测试服',
-                },
-                {
-                    id: 1,
-                    text: '线上服',
-                },
-                {
-                    id: 2,
-                    text: '压测服',
-                },
-                {
-                    id: 3,
-                    text: '预发布服',
-                },
-                {
-                    id: 4,
-                    text: '开发服',
-                },
-            ],
+            data: selectData,
         })
+        $('#m_select2_5').change(() => {
+            this.initEnvParamList()
+        })
+    }
+
+    async initEnvParamList() {
+        let envParam = $('#m_select2_5').val()
+        let result = await this.ajax.get('/xhr/envParam', {
+            envId: envParam,
+        })
+        console.log(result)
     }
 }

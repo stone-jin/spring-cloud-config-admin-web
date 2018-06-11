@@ -1,9 +1,5 @@
 {
-    "/xhr/env": {
-        "target": "http://localhost:10030",
-        "secure": false
-    },
-    "/xhr/project": {
+    "/xhr": {
         "target": "http://localhost:10030",
         "secure": false
     }
