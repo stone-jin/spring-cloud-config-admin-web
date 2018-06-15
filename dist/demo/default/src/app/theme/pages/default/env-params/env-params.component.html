@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-                        <button type="button" class="btn btn-info m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                        <button type="button" class="btn btn-info m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" (click)="createEnvParam()">
                             <span>
                                 <i class="la la-plus">
                                 </i>
@@ -94,10 +94,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type != 'edit'">
-                            新增环境
+                            新增环境参数
                         </h5>
                         <h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type == 'edit'">
-                            编辑环境
+                            编辑环境参数
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
@@ -108,30 +108,24 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="env-name" class="form-control-label">
-                                    环境名称:
+                                <label for="pkey" class="form-control-label">
+                                    配置的key:
                                 </label>
-                                <input type="text" class="form-control" id="env-name" [(ngModel)]="formData.envName" [ngModelOptions]="{standalone: true}">
+                                <input type="text" class="form-control" id="pkey" [(ngModel)]="formData.pKey" [ngModelOptions]="{standalone: true}">
                             </div>
                             <div class="form-group">
-                                <label for="registryAddress" class="form-control-label">
-                                    注册中心地址:
+                                <label for="pValue" class="form-control-label">
+                                    配置的value值:
                                 </label>
-                                <input class="form-control" id="registryAddress" [(ngModel)]="formData.registryAddress" [ngModelOptions]="{standalone: true}">
-                            </div>
-                            <div class="form-group">
-                                <label for="configServerName" class="form-control-label">
-                                    配置中心的访问地址:
-                                </label>
-                                <input class="form-control" id="configServerName" [(ngModel)]="formData.configServerName" [ngModelOptions]="{standalone: true}">
+                                <input class="form-control" id="pValue" [(ngModel)]="formData.pValue" [ngModelOptions]="{standalone: true}">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal();">
                             关闭
                         </button>
-                        <button type="button" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" (click)="saveModal();">
                             保存
                         </button>
                     </div>

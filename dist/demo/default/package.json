@@ -41,6 +41,7 @@
         "@angular/compiler-cli": "^5.2.0",
         "@angular/language-service": "^5.2.0",
         "koa": "^2.5.1",
+        "ng-zorro-antd": "^1.0.0",
         "typescript": "~2.5.3"
     }
 }
