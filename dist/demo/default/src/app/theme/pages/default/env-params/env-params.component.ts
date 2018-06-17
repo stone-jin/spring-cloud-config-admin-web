@@ -5,6 +5,7 @@ import {Ajax} from '../../../../shared/ajax/ajax.service';
 
 declare let $: any;
 declare let toastr: any;
+declare let swal: any;
 @Component({
     templateUrl: './env-params.component.html',
 })
@@ -16,6 +17,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
     };
     dataList: any[] = [];
     datatable: any = null;
+    queryParams: any = {};
     constructor(private _script: ScriptLoaderService, private ajax: Ajax) {}
 
     ngAfterViewInit(): void {
@@ -41,8 +43,19 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
             data: selectData,
         });
         $('#m_select2_5').change(() => {
-            this.initEnvParamList();
+            this.reCreateTable();
         });
+    }
+
+    reCreateTable() {
+        this.datatable.destroy();
+        this.initEnvParamList();
+    }
+
+    reloadData() {
+        let envParam = $('#m_select2_5').val();
+        this.queryParams.envId = envParam;
+        this.datatable.reload();
     }
 
     async initEnvParamList() {
@@ -50,6 +63,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
         // let result = await this.ajax.get('/xhr/envParam', {
         //     envId: envParam,
         // });
+        this.queryParams.envId = envParam;
         var options = {
             data: {
                 type: 'remote',
@@ -57,9 +71,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                     read: {
                         url: '/xhr/envParam',
                         method: 'GET',
-                        params: {
-                            envId: envParam,
-                        },
+                        params: this.queryParams,
                         map: function(raw) {
                             // sample data mapping
                             var dataSet = raw;
@@ -161,7 +173,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                     title: '配置key',
                     width: 300,
                     overflow: 'visible',
-                    template: '{{registryAddress}}',
+                    template: '{{pvalue}}',
                 },
                 {
                     field: 'envParams',
@@ -241,9 +253,65 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
             },
         };
         this.datatable = (<any>$('#m_datatable')).mDatatable(options);
+        let self = this;
+        $('#m_datatable').on('click', '.deleteItem', event => {
+            let id = $(event.target)
+                .parents('.item-operate')
+                .attr('data-info');
+            self.deleteEnv(id);
+        });
+        $('#m_datatable').on('click', '.modifyItem', event => {
+            let id = $(event.target)
+                .parents('.item-operate')
+                .attr('data-info');
+            self.editEnv(id);
+        });
+    }
+
+    async deleteEnv(id) {
+        swal({
+            title: 'Are you sure?',
+            text: '你确定删除这个环境参数吗？',
+            type: 'warning',
+            showCancelButton: !0,
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+        }).then(async e => {
+            if (e.value) {
+                try {
+                    let result = await this.ajax.delete(
+                        '/xhr/envParam?envParamId=' + id,
+                        {}
+                    );
+                    toastr.success('删除环境参数成功!');
+                    this.reloadData();
+                } catch (e) {
+                    toastr.error('删除环境参数失败!');
+                }
+            }
+        });
+    }
+
+    async editEnv(id) {
+        let allData = this.datatable.getColumn(id).originalDataSet;
+        let result = allData.filter(item => {
+            if (item.id == id) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        this.formData.type = 'edit';
+        this.formData.pKey = result[0].pkey;
+        this.formData.pValue = result[0].pvalue;
+        this.formData.id = id;
+        $('#m_modal_1').modal('show');
     }
 
     createEnvParam() {
+        this.formData.pKey = '';
+        this.formData.pValue = '';
+        this.formData.type = 'add';
         $('#m_modal_1').modal('show');
     }
 
@@ -252,21 +320,36 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
     }
 
     async saveModal() {
-        try {
-            let params = {
-                id: -1,
-                pKey: this.formData.pKey,
-                pValue: this.formData.pValue,
-            };
-            let result = await this.ajax.post(
-                '/xhr/envParam?envId=' + $('#m_select2_5').val(),
-                params
-            );
-            toastr.success('新增环境成功!');
-            $('#m_modal_1').modal('hide');
-            this.datatable.reload();
-        } catch (e) {
-            toastr.error('新增环境失败!');
+        if (this.formData.type === 'add') {
+            try {
+                let params = {
+                    pkey: this.formData.pKey,
+                    pvalue: this.formData.pValue,
+                };
+                let result = await this.ajax.post(
+                    '/xhr/envParam?envId=' + $('#m_select2_5').val(),
+                    params
+                );
+                toastr.success('新增环境成功!');
+                $('#m_modal_1').modal('hide');
+                this.reloadData();
+            } catch (e) {
+                toastr.error('新增环境失败!');
+            }
+        } else {
+            try {
+                let params = {
+                    pkey: this.formData.pKey,
+                    pvalue: this.formData.pValue,
+                    id: this.formData.id,
+                };
+                let result = await this.ajax.put('/xhr/envParam', params);
+                toastr.success('编辑环境成功!');
+                $('#m_modal_1').modal('hide');
+                this.reloadData();
+            } catch (e) {
+                toastr.error('编辑环境失败!');
+            }
         }
     }
 }
