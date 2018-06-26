@@ -160,20 +160,20 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                     template: '{{id}}',
                 },
                 {
-                    field: 'pkey',
+                    field: 'pKey',
                     title: '配置key',
                     sortable: 'asc',
                     filterable: false,
                     width: 100,
                     responsive: {visible: 'lg'},
-                    template: '{{pkey}}',
+                    template: '{{pKey}}',
                 },
                 {
                     field: 'pValue',
                     title: '配置key',
                     width: 300,
                     overflow: 'visible',
-                    template: '{{pvalue}}',
+                    template: '{{pValue}}',
                 },
                 {
                     field: 'envParams',
@@ -280,7 +280,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
             if (e.value) {
                 try {
                     let result = await this.ajax.delete(
-                        '/xhr/envParam?envParamId=' + id,
+                        '/xhr/envParam?id=' + id,
                         {}
                     );
                     toastr.success('删除环境参数成功!');
@@ -302,8 +302,8 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
             }
         });
         this.formData.type = 'edit';
-        this.formData.pKey = result[0].pkey;
-        this.formData.pValue = result[0].pvalue;
+        this.formData.pKey = result[0].pKey;
+        this.formData.pValue = result[0].pValue;
         this.formData.id = id;
         $('#m_modal_1').modal('show');
     }
@@ -323,8 +323,8 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
         if (this.formData.type === 'add') {
             try {
                 let params = {
-                    pkey: this.formData.pKey,
-                    pvalue: this.formData.pValue,
+                    pKey: this.formData.pKey,
+                    pValue: this.formData.pValue,
                 };
                 let result = await this.ajax.post(
                     '/xhr/envParam?envId=' + $('#m_select2_5').val(),
@@ -339,8 +339,8 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
         } else {
             try {
                 let params = {
-                    pkey: this.formData.pKey,
-                    pvalue: this.formData.pValue,
+                    pKey: this.formData.pKey,
+                    pValue: this.formData.pValue,
                     id: this.formData.id,
                 };
                 let result = await this.ajax.put('/xhr/envParam', params);
