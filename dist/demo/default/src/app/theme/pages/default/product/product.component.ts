@@ -1,11 +1,11 @@
-import {OnInit} from '@angular/core'
-import {Component, AfterViewInit} from '@angular/core'
-import {ScriptLoaderService} from '../../../../_services/script-loader.service'
-import {Ajax} from '../../../../shared/ajax/ajax.service'
+import {OnInit} from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
+import {ScriptLoaderService} from '../../../../_services/script-loader.service';
+import {Ajax} from '../../../../shared/ajax/ajax.service';
 
-declare let toastr: any
-declare let $: any
-declare let swal: any
+declare let toastr: any;
+declare let $: any;
+declare let swal: any;
 @Component({
     selector: 'app-product',
     templateUrl: './product.component.html',
@@ -15,9 +15,9 @@ export class ProductCompponent implements AfterViewInit, OnInit {
         configServerName: '',
         registryAddress: '',
         name: '',
-    }
-    dataList: any[] = []
-    datatable: any = null
+    };
+    dataList: any[] = [];
+    datatable: any = null;
     constructor(private _script: ScriptLoaderService, private ajax: Ajax) {}
 
     ngOnInit(): void {}
@@ -33,11 +33,11 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                         params: {},
                         map: function(raw) {
                             // sample data mapping
-                            var dataSet = raw
+                            var dataSet = raw;
                             if (typeof raw.data !== 'undefined') {
-                                dataSet = raw.data
+                                dataSet = raw.data;
                             }
-                            return dataSet
+                            return dataSet;
                         },
                     },
                 },
@@ -128,6 +128,24 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                     template: '{{name}}',
                 },
                 {
+                    field: 'envs',
+                    title: '部署环境',
+                    sortable: 'asc',
+                    filterable: false,
+                    width: 100,
+                    responsive: {visible: 'lg'},
+                    template: '',
+                },
+                {
+                    field: 'labels',
+                    title: '配置版本',
+                    sortable: 'asc',
+                    filterable: false,
+                    width: 100,
+                    responsive: {visible: 'lg'},
+                    template: '',
+                },
+                {
                     field: 'envParams',
                     title: '操作',
                     sortable: false,
@@ -203,29 +221,29 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                     },
                 },
             },
-        }
-        let self = this
-        this.datatable = (<any>$('#m_datatable')).mDatatable(options)
+        };
+        let self = this;
+        this.datatable = (<any>$('#m_datatable')).mDatatable(options);
         $('#m_datatable').on('click', '.deleteItem', event => {
             let id = $(event.target)
                 .parents('.item-operate')
-                .attr('data-info')
-            self.deleteEnv(id)
-        })
+                .attr('data-info');
+            self.deleteEnv(id);
+        });
         $('#m_datatable').on('click', '.modifyItem', event => {
             let id = $(event.target)
                 .parents('.item-operate')
-                .attr('data-info')
-            self.editProduct(id)
-        })
+                .attr('data-info');
+            self.editProduct(id);
+        });
     }
 
     ngAfterViewInit(): void {
-        this.dataTableInit()
+        this.dataTableInit();
         this._script.loadScripts('app-env-config', [
             'assets/vendors/custom/datatables/datatables.bundle.js',
             // 'assets/demo/default/custom/crud/datatables/basic/basic.js',
-        ])
+        ]);
     }
 
     async save() {
@@ -233,26 +251,26 @@ export class ProductCompponent implements AfterViewInit, OnInit {
             try {
                 let params = {
                     name: this.formData.name,
-                }
-                let result = await this.ajax.post('/xhr/project', params)
-                toastr.success('新增项目成功!')
-                $('#m_modal_1').modal('hide')
-                this.datatable.reload()
+                };
+                let result = await this.ajax.post('/xhr/project', params);
+                toastr.success('新增项目成功!');
+                $('#m_modal_1').modal('hide');
+                this.datatable.reload();
             } catch (e) {
-                toastr.error('新增项目失败!')
+                toastr.error('新增项目失败!');
             }
         } else {
             try {
                 let params = {
                     id: this.formData.id,
                     name: this.formData.name,
-                }
-                let result = await this.ajax.put('/xhr/project', params)
-                toastr.success('更新项目成功!')
-                $('#m_modal_1').modal('hide')
-                this.datatable.reload()
+                };
+                let result = await this.ajax.put('/xhr/project', params);
+                toastr.success('更新项目成功!');
+                $('#m_modal_1').modal('hide');
+                this.datatable.reload();
             } catch (e) {
-                toastr.error('更新项目失败!')
+                toastr.error('更新项目失败!');
             }
         }
     }
@@ -260,25 +278,25 @@ export class ProductCompponent implements AfterViewInit, OnInit {
     async createProduct() {
         this.formData = {
             name: '',
-        }
-        $('#m_modal_1').modal('show')
+        };
+        $('#m_modal_1').modal('show');
     }
 
     async editProduct(id) {
-        let allData = this.datatable.getColumn(id).originalDataSet
+        let allData = this.datatable.getColumn(id).originalDataSet;
         let result = allData.filter(item => {
             if (item.id == id) {
-                return true
+                return true;
             } else {
-                return false
+                return false;
             }
-        })
+        });
         this.formData = {
             id: id,
             name: result[0].name,
             type: 'edit',
-        }
-        $('#m_modal_1').modal('show')
+        };
+        $('#m_modal_1').modal('show');
     }
 
     async deleteEnv(id) {
@@ -293,15 +311,15 @@ export class ProductCompponent implements AfterViewInit, OnInit {
             if (e.value) {
                 let params = {
                     id: id,
-                }
+                };
                 try {
-                    let result = await this.ajax.delete('/xhr/project', params)
-                    toastr.success('删除项目成功!')
-                    this.datatable.reload()
+                    let result = await this.ajax.delete('/xhr/project', params);
+                    toastr.success('删除项目成功!');
+                    this.datatable.reload();
                 } catch (e) {
-                    toastr.error('删除项目失败!')
+                    toastr.error('删除项目失败!');
                 }
             }
-        })
+        });
     }
 }
