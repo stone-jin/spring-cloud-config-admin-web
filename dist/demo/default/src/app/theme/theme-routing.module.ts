@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core'
-import {ThemeComponent} from './theme.component'
-import {Routes, RouterModule} from '@angular/router'
-import {AuthGuard} from '../auth/_guards/auth.guard'
+import {NgModule} from '@angular/core';
+import {ThemeComponent} from './theme.component';
+import {Routes, RouterModule} from '@angular/router';
+import {AuthGuard} from '../auth/_guards/auth.guard';
 
 const routes: Routes = [
     {
@@ -29,6 +29,11 @@ const routes: Routes = [
                     './pages/default/var-config/var-config.module#VarConfigModule',
             },
             {
+                path: 'env/encrpy-key',
+                loadChildren:
+                    './pages/default/encrpy-key/encrpy-key.module#EncrpyKeyModule',
+            },
+            {
                 path: 'product/product',
                 loadChildren:
                     './pages/default/product/product.module#ProductModule',
@@ -50,7 +55,7 @@ const routes: Routes = [
         redirectTo: '404',
         pathMatch: 'full',
     },
-]
+];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
