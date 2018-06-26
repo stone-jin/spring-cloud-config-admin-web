@@ -1,6 +1,6 @@
 {
     "/xhr": {
-        "target": "http://localhost:10030",
+        "target": "http://localhost:10032",
         "secure": false
     }
 }

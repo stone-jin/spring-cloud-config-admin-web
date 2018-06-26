@@ -1,11 +1,11 @@
-import {OnInit} from '@angular/core'
-import {Component, AfterViewInit} from '@angular/core'
-import {ScriptLoaderService} from '../../../../_services/script-loader.service'
-import {Ajax} from '../../../../shared/ajax/ajax.service'
+import {OnInit} from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
+import {ScriptLoaderService} from '../../../../_services/script-loader.service';
+import {Ajax} from '../../../../shared/ajax/ajax.service';
 
-declare let toastr: any
-declare let $: any
-declare let swal: any
+declare let toastr: any;
+declare let $: any;
+declare let swal: any;
 @Component({
     selector: 'app-env-config',
     templateUrl: './env-config.component.html',
@@ -15,9 +15,10 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
         configServerName: '',
         registryAddress: '',
         envName: '',
-    }
-    dataList: any[] = []
-    datatable: any = null
+        contextPath: '',
+    };
+    dataList: any[] = [];
+    datatable: any = null;
     constructor(private _script: ScriptLoaderService, private ajax: Ajax) {}
 
     ngOnInit(): void {}
@@ -33,11 +34,11 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                         params: {},
                         map: function(raw) {
                             // sample data mapping
-                            var dataSet = raw
+                            var dataSet = raw;
                             if (typeof raw.data !== 'undefined') {
-                                dataSet = raw.data
+                                dataSet = raw.data;
                             }
-                            return dataSet
+                            return dataSet;
                         },
                     },
                 },
@@ -120,7 +121,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                 },
                 {
                     field: 'name',
-                    title: '环境名称',
+                    title: '环境名',
                     sortable: 'asc',
                     filterable: false,
                     width: 100,
@@ -129,17 +130,24 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                 },
                 {
                     field: 'registryAddress',
-                    title: '注册中心地址',
+                    title: 'consul地址',
                     width: 300,
                     overflow: 'visible',
                     template: '{{registryAddress}}',
                 },
                 {
                     field: 'configServerName',
-                    title: '配置中心地址',
+                    title: '配置中心服务名',
                     width: 300,
                     overflow: 'visible',
                     template: '{{configServerName}}',
+                },
+                {
+                    field: 'contextPath',
+                    title: 'contextPath',
+                    width: 300,
+                    overflow: 'visible',
+                    template: '{{contextPath}}',
                 },
                 {
                     field: 'envParams',
@@ -217,29 +225,29 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                     },
                 },
             },
-        }
-        let self = this
-        this.datatable = (<any>$('#m_datatable')).mDatatable(options)
+        };
+        let self = this;
+        this.datatable = (<any>$('#m_datatable')).mDatatable(options);
         $('#m_datatable').on('click', '.deleteItem', event => {
             let id = $(event.target)
                 .parents('.item-operate')
-                .attr('data-info')
-            self.deleteEnv(id)
-        })
+                .attr('data-info');
+            self.deleteEnv(id);
+        });
         $('#m_datatable').on('click', '.modifyItem', event => {
             let id = $(event.target)
                 .parents('.item-operate')
-                .attr('data-info')
-            self.editEnv(id)
-        })
+                .attr('data-info');
+            self.editEnv(id);
+        });
     }
 
     ngAfterViewInit(): void {
-        this.dataTableInit()
+        this.dataTableInit();
         this._script.loadScripts('app-env-config', [
             'assets/vendors/custom/datatables/datatables.bundle.js',
             // 'assets/demo/default/custom/crud/datatables/basic/basic.js',
-        ])
+        ]);
     }
 
     async save() {
@@ -249,13 +257,14 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                     name: this.formData.envName,
                     configServerName: this.formData.configServerName,
                     registryAddress: this.formData.registryAddress,
-                }
-                let result = await this.ajax.post('/xhr/env', params)
-                toastr.success('新增环境成功!')
-                $('#m_modal_1').modal('hide')
-                this.datatable.reload()
+                    contextPath: this.formData.contextPath,
+                };
+                let result = await this.ajax.post('/xhr/env', params);
+                toastr.success('新增环境成功!');
+                $('#m_modal_1').modal('hide');
+                this.datatable.reload();
             } catch (e) {
-                toastr.error('新增环境失败!')
+                toastr.error('新增环境失败!');
             }
         } else {
             try {
@@ -264,13 +273,14 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                     name: this.formData.envName,
                     configServerName: this.formData.configServerName,
                     registryAddress: this.formData.registryAddress,
-                }
-                let result = await this.ajax.put('/xhr/env', params)
-                toastr.success('更新环境成功!')
-                $('#m_modal_1').modal('hide')
-                this.datatable.reload()
+                    contextPath: this.formData.contextPath,
+                };
+                let result = await this.ajax.put('/xhr/env', params);
+                toastr.success('更新环境成功!');
+                $('#m_modal_1').modal('hide');
+                this.datatable.reload();
             } catch (e) {
-                toastr.error('更新环境失败!')
+                toastr.error('更新环境失败!');
             }
         }
     }
@@ -280,27 +290,29 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
             configServerName: '',
             registryAddress: '',
             envName: '',
-        }
-        $('#m_modal_1').modal('show')
+            contextPath: '',
+        };
+        $('#m_modal_1').modal('show');
     }
 
     async editEnv(id) {
-        let allData = this.datatable.getColumn(id).originalDataSet
+        let allData = this.datatable.getColumn(id).originalDataSet;
         let result = allData.filter(item => {
             if (item.id == id) {
-                return true
+                return true;
             } else {
-                return false
+                return false;
             }
-        })
+        });
         this.formData = {
             id: id,
             configServerName: result[0].configServerName,
             registryAddress: result[0].registryAddress,
             envName: result[0].name,
+            contextPath: result[0].contextPath,
             type: 'edit',
-        }
-        $('#m_modal_1').modal('show')
+        };
+        $('#m_modal_1').modal('show');
     }
 
     async deleteEnv(id) {
@@ -315,20 +327,15 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
             if (e.value) {
                 let params = {
                     id: id,
-                }
+                };
                 try {
-                    let result = await this.ajax.delete('/xhr/env', params)
-                    toastr.success('删除环境成功!')
-                    this.datatable.reload()
+                    let result = await this.ajax.delete('/xhr/env', params);
+                    toastr.success('删除环境成功!');
+                    this.datatable.reload();
                 } catch (e) {
-                    toastr.error('删除环境失败!')
+                    toastr.error('删除环境失败!');
                 }
-                // swal('Deleted!', '删除环境成功!', 'success').then(isConfirm => {
-                //     if (isConfirm) {
-                //         this.datatable.reload()
-                //     }
-                // })
             }
-        })
+        });
     }
 }

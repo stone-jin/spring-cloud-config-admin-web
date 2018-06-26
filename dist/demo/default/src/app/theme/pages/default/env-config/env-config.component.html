@@ -89,21 +89,27 @@
                         <form>
                             <div class="form-group">
                                 <label for="env-name" class="form-control-label">
-                                    环境名称:
+                                    环境名:
                                 </label>
                                 <input type="text" class="form-control" id="env-name" [(ngModel)]="formData.envName" [ngModelOptions]="{standalone: true}">
                             </div>
                             <div class="form-group">
                                 <label for="registryAddress" class="form-control-label">
-                                    注册中心地址:
+                                    consul地址:
                                 </label>
                                 <input class="form-control" id="registryAddress" [(ngModel)]="formData.registryAddress" [ngModelOptions]="{standalone: true}">
                             </div>
                             <div class="form-group">
                                 <label for="configServerName" class="form-control-label">
-                                    配置中心的访问地址:
+                                    配置中心服务名或ip:
                                 </label>
                                 <input class="form-control" id="configServerName" [(ngModel)]="formData.configServerName" [ngModelOptions]="{standalone: true}">
+                            </div>
+                            <div class="form-group">
+                                <label for="contextPath" class="form-control-label">
+                                    contextPath:
+                                </label>
+                                <input class="form-control" id="contextPath" [(ngModel)]="formData.contextPath" [ngModelOptions]="{standalone: true}">
                             </div>
                         </form>
                     </div>
