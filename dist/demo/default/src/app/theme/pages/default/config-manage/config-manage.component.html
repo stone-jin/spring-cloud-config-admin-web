@@ -135,31 +135,13 @@
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
+                                            <tbody *ngIf="persistent.length > 0">
+                                                <tr *ngFor="let item of persistent; let i = index;">
                                                     <td>
-                                                        time
+                                                        {{item.key}}
                                                     </td>
                                                     <td>
-                                                        sss
-                                                    </td>
-                                                    <td>
-                                                        <div class="item-operate">
-                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem">
-                                                                <i class="la la-lock"></i>
-                                                            </a>
-                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill deleteItem">
-                                                                <i class="la la-trash"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        age
-                                                    </td>
-                                                    <td>
-                                                        11
+                                                        {{item.value}}
                                                     </td>
                                                     <td>
                                                         <div class="item-operate">
@@ -172,23 +154,10 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                            </tbody>
+                                            <tbody *ngIf="persistent.length == 0">
                                                 <tr>
-                                                    <td>
-                                                        name
-                                                    </td>
-                                                    <td>
-                                                        stone-jin
-                                                    </td>
-                                                    <td>
-                                                        <div class="item-operate">
-                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem">
-                                                                <i class="la la-lock"></i>
-                                                            </a>
-                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill deleteItem">
-                                                                <i class="la la-trash"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
+                                                    <td colspan="3">当前无配置信息</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -214,7 +183,7 @@
                                                     <thead class="thead-inverse">
                                                         <tr>
                                                             <th>
-                                                                加密Key清单
+                                                                stage环境参数
                                                             </th>
                                                         </tr>
                                                     </thead>
@@ -280,20 +249,17 @@
                                                             </th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
+                                                    <tbody *ngIf="encryptKeyList.length > 0">
+                                                        <tr *ngFor="let item of encryptKeyList; let i = index;">
                                                             <td>
-                                                                time
+                                                                {{item.eKey}}
                                                             </td>
                                                         </tr>
+                                                    </tbody>
+                                                    <tbody *ngIf="encryptKeyList.length === 0">
                                                         <tr>
                                                             <td>
-                                                                age
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                name
+                                                                无加密Key清单
                                                             </td>
                                                         </tr>
                                                     </tbody>
