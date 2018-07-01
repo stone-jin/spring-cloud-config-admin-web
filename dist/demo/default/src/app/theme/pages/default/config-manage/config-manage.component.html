@@ -1,0 +1,313 @@
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">
+                服务维度配置管理
+            </h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="#" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            配置中心
+                        </span>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            服务维度配置管理
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-3">
+        <div class="m-content">
+            <div class="m-portlet m-portlet--mobile m-portlet--full-height">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                项目列表
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <ng-container *ngFor="let item of productList; let i = index;">
+                        <ng-container *ngIf="item.id === this.selectProductId">
+                            <button type="button" class="btn btn-primary btn-block">
+                                {{item.name}}
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="item.id !== this.selectProductId">
+                            <button type="button" class="btn btn-secondary btn-block" (click)="selectProduct(item.id)">
+                                {{item.name}}
+                            </button>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9">
+        <div class="m-content">
+            <div class="m-portlet m-portlet--mobile m-portlet--full-height">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                项目信息
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="m-form__section m-form__section--first">
+                        <div class="form-group m-form__group">
+                            <label style="margin-right: 10px;">
+                                环境:
+                            </label>
+                            <div style="display: inline-block;">
+                                <ng-container *ngFor="let item of envs;let i = index;">
+                                    <ng-container *ngIf="selectEnvId == item.id">
+                                        <button type="button" class="btn btn-primary">
+                                            {{item.name}}
+                                        </button>
+                                    </ng-container>
+                                    <ng-container *ngIf="selectEnvId != item.id">
+                                        <button type="button" class="btn btn-outline-primary" (click)="selectEnv(item.id)">
+                                            {{item.name}}
+                                        </button>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group">
+                            <label style="margin-right: 10px;">
+                                版本:
+                            </label>
+                            <ng-container *ngFor="let item of labels;let i = index;">
+                                <ng-container *ngIf="selectLabelId == item.id">
+                                    <button type="button" class="btn btn-primary">
+                                        {{item.name}}
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="selectLabelId !== item.id">
+                                    <button type="button" class="btn btn-outline-primary" (click)="selectLabel(item.id)">
+                                        {{item.name}}
+                                    </button>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group m-form__group">
+                                    <label style="margin-right: 10px;">
+                                        当前存储配置详情:
+                                    </label>
+                                    <div>
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead class="thead-inverse">
+                                                <tr>
+                                                    <th>
+                                                        key
+                                                    </th>
+                                                    <th>
+                                                        value
+                                                    </th>
+                                                    <th>
+                                                        操作
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        time
+                                                    </td>
+                                                    <td>
+                                                        sss
+                                                    </td>
+                                                    <td>
+                                                        <div class="item-operate">
+                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem">
+                                                                <i class="la la-lock"></i>
+                                                            </a>
+                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill deleteItem">
+                                                                <i class="la la-trash"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        age
+                                                    </td>
+                                                    <td>
+                                                        11
+                                                    </td>
+                                                    <td>
+                                                        <div class="item-operate">
+                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem">
+                                                                <i class="la la-lock"></i>
+                                                            </a>
+                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill deleteItem">
+                                                                <i class="la la-trash"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        name
+                                                    </td>
+                                                    <td>
+                                                        stone-jin
+                                                    </td>
+                                                    <td>
+                                                        <div class="item-operate">
+                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem">
+                                                                <i class="la la-lock"></i>
+                                                            </a>
+                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill deleteItem">
+                                                                <i class="la la-trash"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row m-stack m-stack--ver m-stack--general" style="height: inherit;">
+                                    <div class="m-stack__item m-stack__item--center m-stack__item--middle col-4">
+                                        <a class="btn btn-accent m-btn m-btn--icon btn-block" href="#" ng-reflect-href="#">
+                                            <span>
+                                                <i class="la la-file-excel-o"></i>
+                                                <span>
+                                                    一键替换
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="m-stack__item m-stack__item--center m-stack__item--middle col-8">
+                                        <div class="form-group m-form__group">
+                                            <div>
+                                                <table class="table table-bordered table-striped table-hover m-table m-table--head-bg-info" style="margin-bottom: 0px;">
+                                                    <thead class="thead-inverse">
+                                                        <tr>
+                                                            <th>
+                                                                加密Key清单
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                                <table class="table table-bordered table-striped table-hover">
+                                                    <thead class="thead-inverse">
+                                                        <tr>
+                                                            <th>
+                                                                key
+                                                            </th>
+                                                            <th>
+                                                                value
+                                                            </th>
+                                                            <th>
+                                                                操作
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="envParamsTemList.length > 0">
+                                                        <tr *ngFor="let item of envParamsTemList; let i = index;">
+                                                            <td>
+                                                                {{item.pKey}}
+                                                            </td>
+                                                            <td>
+                                                                {{item.pValue}}
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-primary btn-sm">替换</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tbody *ngIf="envParamsTemList.length == 0">
+                                                        <tr>
+                                                            <td colspan="3">
+                                                                当前无stage环境参数
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-stack m-stack--ver m-stack--general" style="height: inherit; margin-top: 40px;">
+                                    <div class="m-stack__item m-stack__item--center m-stack__item--middle col-4">
+                                        <a class="btn btn-info m-btn m-btn--icon btn-block" href="#" ng-reflect-href="#">
+                                            <span>
+                                                <i class="la la-file-excel-o"></i>
+                                                <span>
+                                                    一键加密
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="m-stack__item m-stack__item--center m-stack__item--middle col-8">
+                                        <div class="form-group m-form__group">
+                                            <div>
+                                                <table class="table table-bordered table-striped table-hover m-table m-table--head-bg-success">
+                                                    <thead class="thead-inverse">
+                                                        <tr>
+                                                            <th>
+                                                                加密Key清单
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                time
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                age
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                name
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

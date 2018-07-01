@@ -10,3 +10,7 @@ html {
 .m-datatable.m-datatable--default>.m-datatable__table>.m-datatable__body .m-datatable__row.m-datatable__row--even>.m-datatable__cell {
     background: rgb(244, 245, 248);
 }
+
+.m-portlet .m-portlet__head {
+    border-bottom: 1px solid #ebedf2;
+}

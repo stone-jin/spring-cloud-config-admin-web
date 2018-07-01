@@ -39,6 +39,11 @@ const routes: Routes = [
                     './pages/default/product/product.module#ProductModule',
             },
             {
+                path: 'config/manage',
+                loadChildren:
+                    './pages/default/config-manage/config-manage.module#ConfigManageModule',
+            },
+            {
                 path: '404',
                 loadChildren:
                     './pages/default/not-found/not-found.module#NotFoundModule',

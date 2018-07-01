@@ -182,8 +182,8 @@ export class EncrpyKeyComponent implements AfterViewInit, OnInit {
 
             translate: {
                 records: {
-                    processing: '正在获取环境列表',
-                    noRecords: '当前还没有配置环境',
+                    processing: '正在获取加密key列表',
+                    noRecords: '当前还没有配置加密key',
                 },
                 toolbar: {
                     pagination: {
@@ -235,11 +235,11 @@ export class EncrpyKeyComponent implements AfterViewInit, OnInit {
                     eKey: this.formData.eKey,
                 };
                 let result = await this.ajax.post('/xhr/encryptKey', params);
-                toastr.success('新增环境成功!');
+                toastr.success('新增加密key成功!');
                 $('#m_modal_1').modal('hide');
                 this.datatable.reload();
             } catch (e) {
-                toastr.error('新增环境失败!');
+                toastr.error('新增加密key失败!');
             }
         } else {
             try {
@@ -248,11 +248,11 @@ export class EncrpyKeyComponent implements AfterViewInit, OnInit {
                     eKey: this.formData.eKey,
                 };
                 let result = await this.ajax.put('/xhr/encryptKey', params);
-                toastr.success('更新环境成功!');
+                toastr.success('更新加密key成功!');
                 $('#m_modal_1').modal('hide');
                 this.datatable.reload();
             } catch (e) {
-                toastr.error('更新环境失败!');
+                toastr.error('更新加密key失败!');
             }
         }
     }
@@ -285,7 +285,7 @@ export class EncrpyKeyComponent implements AfterViewInit, OnInit {
     async deleteEnv(id) {
         swal({
             title: 'Are you sure?',
-            text: '你确定删除这个环境吗？',
+            text: '你确定删除这个加密key吗？',
             type: 'warning',
             showCancelButton: !0,
             confirmButtonText: '确定',
@@ -300,10 +300,10 @@ export class EncrpyKeyComponent implements AfterViewInit, OnInit {
                         '/xhr/encryptKey',
                         params
                     );
-                    toastr.success('删除环境成功!');
+                    toastr.success('删除加密key成功!');
                     this.datatable.reload();
                 } catch (e) {
-                    toastr.error('删除环境失败!');
+                    toastr.error('删除加密key失败!');
                 }
             }
         });

@@ -9,18 +9,33 @@ declare let swal: any;
 @Component({
     selector: 'app-product',
     templateUrl: './product.component.html',
+    styleUrls: ['./product.component.scss']
 })
 export class ProductCompponent implements AfterViewInit, OnInit {
     formData: any = {
-        configServerName: '',
-        registryAddress: '',
         name: '',
+        labels: [],
+        envs: []
     };
+    bInAdd: Boolean = false;
     dataList: any[] = [];
     datatable: any = null;
+    label: String = '';
+    envList: any[] = []
+    master: Boolean = false;
     constructor(private _script: ScriptLoaderService, private ajax: Ajax) {}
 
     ngOnInit(): void {}
+
+    async initEnvList(){
+        let result = await this.ajax.get("/xhr/env");
+        result = result.map(item=>{
+            item.checked = false;
+            return item;
+        })
+        this.envList = result;
+        console.log(this.envList)
+    }
 
     dataTableInit() {
         var options = {
@@ -132,18 +147,40 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                     title: '部署环境',
                     sortable: 'asc',
                     filterable: false,
-                    width: 100,
+                    width: 400,
                     responsive: {visible: 'lg'},
-                    template: '',
+                    template: function(row) {
+                        let envs = '';
+                        envs = row.envs.reduce((total, item) => {
+                            return (
+                                total +
+                                `<span class="m-badge m-badge--warning m-badge--wide" style="margin-right: 15px;">
+                                    ${item.name}
+                                </span>`
+                            );
+                        }, envs);
+                        return envs;
+                    },
                 },
                 {
                     field: 'labels',
                     title: '配置版本',
                     sortable: 'asc',
                     filterable: false,
-                    width: 100,
+                    width: 400,
                     responsive: {visible: 'lg'},
-                    template: '',
+                    template: function(row) {
+                        let envs = '';
+                        envs = row.labels.reduce((total, item) => {
+                            return (
+                                total +
+                                `<span class="m-badge m-badge--brand m-badge--wide" style="margin-right: 15px;">
+                                    ${item.name}
+                                </span>`
+                            );
+                        }, envs);
+                        return envs;
+                    },
                 },
                 {
                     field: 'envParams',
@@ -251,6 +288,16 @@ export class ProductCompponent implements AfterViewInit, OnInit {
             try {
                 let params = {
                     name: this.formData.name,
+                    labels: this.formData.labels,
+                    envs: this.envList.filter(item=>{
+                        if(item.checked){
+                            return true;
+                        }
+                    }).map(item=>{
+                        return {
+                            id: item.id
+                        }
+                    })
                 };
                 let result = await this.ajax.post('/xhr/project', params);
                 toastr.success('新增项目成功!');
@@ -264,6 +311,16 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                 let params = {
                     id: this.formData.id,
                     name: this.formData.name,
+                    labels: this.formData.labels,
+                    envs: this.envList.filter(item=>{
+                        if(item.checked){
+                            return true;
+                        }
+                    }).map(item=>{
+                        return {
+                            id: item.id
+                        }
+                    })
                 };
                 let result = await this.ajax.put('/xhr/project', params);
                 toastr.success('更新项目成功!');
@@ -278,7 +335,11 @@ export class ProductCompponent implements AfterViewInit, OnInit {
     async createProduct() {
         this.formData = {
             name: '',
+            labels: [{
+                name: "master"
+            }],
         };
+        this.initEnvList();
         $('#m_modal_1').modal('show');
     }
 
@@ -291,11 +352,22 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                 return false;
             }
         });
+        let envIds = result[0].envs.map(item=>{
+            return item.id;
+        })
         this.formData = {
             id: id,
             name: result[0].name,
             type: 'edit',
+            labels: result[0].labels,
         };
+        await this.initEnvList();
+        this.envList.map(item=>{
+            if(envIds.indexOf(item.id)>=0){
+                item.checked = true;
+            }
+            return item;
+        })
         $('#m_modal_1').modal('show');
     }
 
@@ -321,5 +393,21 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                 }
             }
         });
+    }
+
+    addLabel() {
+        this.bInAdd = true;
+        this.label = '';
+    }
+
+    addLabel2Array() {
+        this.formData.labels.push({
+            name: this.label
+        });
+        this.bInAdd = false;
+    }
+
+    remove(index){
+        this.formData.labels.splice(index)
     }
 }

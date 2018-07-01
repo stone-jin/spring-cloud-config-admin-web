@@ -1,0 +1,21 @@
+.m-label{
+    position: relative;
+    margin-top: 5px;
+    padding-right: 22px !important;
+    cursor: default;
+    .m-label_deleteBtn{
+        background-color: #c4c5d6;
+        color: #fff;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 12px;
+        transform: scale(0.7);
+        cursor: pointer;
+    }
+}
+.m-env-item{
+    position: relative;
+    display: inline-block;
+    margin-right: 5px;
+}
