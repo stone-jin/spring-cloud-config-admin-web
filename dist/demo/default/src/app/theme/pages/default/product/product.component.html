@@ -114,20 +114,22 @@
                                     <ng-container *ngFor="let item of formData.labels;let i = index">
                                         <button type="button" class="btn btn-primary btn-sm m-btn m-btn--custom active m-label">
                                             {{item.name}}
-                                            <span class="m-badge m-badge--metal m-label_deleteBtn" (click)="remove(i)">X</span>
+                                            <span class="m-badge m-badge--metal m-label_deleteBtn" (click)="remove(i)" *ngIf="item.name != 'master'">X</span>
                                         </button>
                                     </ng-container>
-                                    <ng-container *ngIf="bInAdd">
-                                        <input class="form-control m-input" placeholder="请输入版本" type="text" [(ngModel)]="label" style="width: 120px;display: inline-block; vertical-align: bottom;"
-                                            [ngModelOptions]="{standalone: true}">
-                                        <button type="button" class="btn btn-danger btn-sm m-btn m-btn--custom" (click)="addLabel2Array()" style="margin-top: 5px;">
-                                            确定
-                                        </button>
-                                    </ng-container>
-                                    <ng-container *ngIf="!bInAdd">
-                                        <button type="button" class="btn btn-info btn-sm m-btn m-btn--custom" (click)="addLabel()" style="margin-top: 5px;">
-                                            新增
-                                        </button>
+                                    <ng-container *ngIf="formData.type == 'edit'">
+                                        <ng-container *ngIf="bInAdd">
+                                            <input class="form-control m-input" placeholder="请输入版本" type="text" [(ngModel)]="label" style="width: 120px;display: inline-block; vertical-align: bottom;"
+                                                [ngModelOptions]="{standalone: true}">
+                                            <button type="button" class="btn btn-danger btn-sm m-btn m-btn--custom" (click)="addLabel2Array()" style="margin-top: 5px;">
+                                                确定
+                                            </button>
+                                        </ng-container>
+                                        <ng-container *ngIf="!bInAdd">
+                                            <button type="button" class="btn btn-info btn-sm m-btn m-btn--custom" (click)="addLabel()" style="margin-top: 5px;">
+                                                新增
+                                            </button>
+                                        </ng-container>
                                     </ng-container>
                                 </div>
                             </div>

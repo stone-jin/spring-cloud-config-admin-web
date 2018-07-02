@@ -130,7 +130,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                 },
                 {
                     field: 'registryAddress',
-                    title: 'consul地址',
+                    title: '注册中心地址',
                     width: 300,
                     overflow: 'visible',
                     template: '{{registryAddress}}',

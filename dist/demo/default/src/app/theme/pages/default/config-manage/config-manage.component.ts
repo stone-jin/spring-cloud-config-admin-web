@@ -2,6 +2,8 @@ import {OnInit} from '@angular/core';
 import {Component} from '@angular/core';
 import {Ajax} from '../../../../shared/ajax/ajax.service';
 
+declare let toastr: any;
+declare let swal: any;
 @Component({
     templateUrl: './config-manage.component.html',
 })
@@ -100,6 +102,7 @@ export class ConfigManageComponent implements OnInit {
 
     /**
      * 根据当前项目名称，环境名称，版本名称获取当前的存储配置信息
+     * @author stone-jin, https://www.520stone.com
      */
     async getPersistentList() {
         let result = await this.ajax.get('/xhr/property/persistent', {
@@ -116,5 +119,109 @@ export class ConfigManageComponent implements OnInit {
                 value: this.persistentList[keys[i]],
             });
         }
+    }
+
+    /**
+     * 配置中心获取存储配置
+     * @author stone-jin, https://www.520stone.com
+     */
+    async getFromConfigServer() {
+        try {
+            let result = await this.ajax.get('/xhr/property/configServer', {
+                project: this.selectProductInfo.name,
+                profile: this.selectEnvInfo.name,
+                label: this.selectLabelInfo.name,
+            });
+            console.log(result);
+        } catch (e) {
+            toastr.error('配置中心获取存储配置失败');
+        }
+    }
+
+    /**
+     * 保存存储配置信息
+     */
+    async save() {
+        try {
+            let params = {};
+            for (let i = 0; i < this.persistent.length; i++) {
+                params[this.persistent[i].key] = this.persistent[i].value;
+            }
+            let url = `?project=this.selectProductInfo.name&profile=this.selectEnvInfo.name&label=this.selectLabelInfo.name`;
+            let result = await this.ajax.post(
+                '/xhr/property/persistent' + url,
+                params
+            );
+            toastr.success('保存存储配置信息成功!');
+        } catch (e) {
+            toastr.error('保存存储配置信息失败!');
+        }
+    }
+
+    getEncrpytStatus(item) {
+        if (item.value.indexOf('{cipher}') >= 0) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+
+    /**
+     * 加密
+     * @param item 配置项
+     */
+    async lock(item) {
+        try {
+            let result = await this.ajax.post(
+                '/xhr/property/encrypt?envId=' +
+                    this.selectEnvId +
+                    '&value=' +
+                    item.value,
+                {}
+            );
+            item.value = '{cipher}' + result.value;
+            toastr.success('加密成功!');
+        } catch (e) {
+            toastr.error('加密失败!');
+        }
+    }
+
+    /**
+     * 解密
+     * @param item 配置项
+     */
+    async unlock(item) {
+        try {
+            let result = await this.ajax.post(
+                '/xhr/property/decrypt?envId=' +
+                    this.selectEnvId +
+                    '&value=' +
+                    item.value,
+                {}
+            );
+            item.value = '{cipher}' + result.value;
+            toastr.success('解密成功!');
+        } catch (e) {
+            toastr.error('解密失败!');
+        }
+    }
+
+    /**
+     * 删除配置项
+     * @param index
+     */
+    deleteItem(index) {
+        swal({
+            title: 'Are you sure?',
+            text: '你确定删除这个配置参数吗？',
+            type: 'warning',
+            showCancelButton: !0,
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+        }).then(async e => {
+            if (e.value) {
+                this.persistent.slice(index);
+            }
+        });
     }
 }

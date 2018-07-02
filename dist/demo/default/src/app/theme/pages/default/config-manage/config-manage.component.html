@@ -115,6 +115,11 @@
                             </ng-container>
                         </div>
                         <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-primary" (click)="getFromConfigServer()">配置中心获取</button>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-6">
                                 <div class="form-group m-form__group">
                                     <label style="margin-right: 10px;">
@@ -145,10 +150,17 @@
                                                     </td>
                                                     <td>
                                                         <div class="item-operate">
-                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem">
-                                                                <i class="la la-lock"></i>
-                                                            </a>
-                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill deleteItem">
+                                                            <ng-container *ngIf="getEncrpytStatus(item)!=='0'">
+                                                                <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem" (click)="unlock(item)">
+                                                                    <i class="la la-unlock"></i>
+                                                                </a>
+                                                            </ng-container>
+                                                            <ng-container *ngIf="getEncrpytStatus(item)==='0'">
+                                                                <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem" (click)="lock(item)">
+                                                                    <i class="la la-lock"></i>
+                                                                </a>
+                                                            </ng-container>
+                                                            <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill deleteItem" (click)="deleteItem(i)">
                                                                 <i class="la la-trash"></i>
                                                             </a>
                                                         </div>
@@ -183,7 +195,7 @@
                                                     <thead class="thead-inverse">
                                                         <tr>
                                                             <th>
-                                                                stage环境参数
+                                                                {{selectEnvInfo.name}}环境参数
                                                             </th>
                                                         </tr>
                                                     </thead>
@@ -218,7 +230,7 @@
                                                     <tbody *ngIf="envParamsTemList.length == 0">
                                                         <tr>
                                                             <td colspan="3">
-                                                                当前无stage环境参数
+                                                                当前无环境参数
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -270,7 +282,11 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-primary" (click)="save();">保存</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
