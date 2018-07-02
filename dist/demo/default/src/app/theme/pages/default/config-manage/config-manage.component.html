@@ -179,7 +179,7 @@
                             <div class="col-6">
                                 <div class="row m-stack m-stack--ver m-stack--general" style="height: inherit;">
                                     <div class="m-stack__item m-stack__item--center m-stack__item--middle col-4">
-                                        <a class="btn btn-accent m-btn m-btn--icon btn-block" href="#" ng-reflect-href="#">
+                                        <a class="btn btn-accent m-btn m-btn--icon btn-block" (click)="allReplace();">
                                             <span>
                                                 <i class="la la-file-excel-o"></i>
                                                 <span>
@@ -223,7 +223,7 @@
                                                                 {{item.pValue}}
                                                             </td>
                                                             <td>
-                                                                <button class="btn btn-primary btn-sm">替换</button>
+                                                                <button class="btn btn-primary btn-sm" (click)="replaceItem(item);">替换</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -241,7 +241,7 @@
                                 </div>
                                 <div class="row m-stack m-stack--ver m-stack--general" style="height: inherit; margin-top: 40px;">
                                     <div class="m-stack__item m-stack__item--center m-stack__item--middle col-4">
-                                        <a class="btn btn-info m-btn m-btn--icon btn-block" href="#" ng-reflect-href="#">
+                                        <a class="btn btn-info m-btn m-btn--icon btn-block" (click)="allLock();">
                                             <span>
                                                 <i class="la la-file-excel-o"></i>
                                                 <span>

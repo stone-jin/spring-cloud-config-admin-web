@@ -224,4 +224,47 @@ export class ConfigManageComponent implements OnInit {
             }
         });
     }
+
+    /**
+     * 替换
+     * @param item
+     */
+    replaceItem(item) {
+        for (let i = 0; i < this.persistent.length; i++) {
+            if (this.persistent[i].key === item.key) {
+                this.persistent[i].value = item.value;
+                return;
+            }
+        }
+    }
+
+    /**
+     * 一键替换
+     */
+    allReplace() {
+        for (let i = 0; i < this.envParamsTemList.length; i++) {
+            for (let j = 0; j < this.persistent.length; j++) {
+                if (this.persistent[j].key === this.envParamsTemList[i].key) {
+                    this.persistent[j].value = this.envParamsTemList[i].value;
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * 一键加密
+     */
+    allLock() {
+        for (let j = 0; j < this.encryptKeyList.length; j++) {
+            for (let i = 0; i < this.persistent.length; i++) {
+                if (this.encryptKeyList[j].eKey === this.persistent[i].key) {
+                    if (this.persistent[i].value.indexOf('{cipher}') < 0) {
+                        this.lock(this.persistent[i]);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
