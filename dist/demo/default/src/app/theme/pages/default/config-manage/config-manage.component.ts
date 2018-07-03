@@ -231,11 +231,15 @@ export class ConfigManageComponent implements OnInit {
      */
     replaceItem(item) {
         for (let i = 0; i < this.persistent.length; i++) {
-            if (this.persistent[i].key === item.key) {
-                this.persistent[i].value = item.value;
+            if (this.persistent[i].key === item.pKey) {
+                this.persistent[i].value = item.pValue;
                 return;
             }
         }
+        this.persistent.push({
+            key: item.pKey,
+            value: item.pValue,
+        });
     }
 
     /**
@@ -243,11 +247,19 @@ export class ConfigManageComponent implements OnInit {
      */
     allReplace() {
         for (let i = 0; i < this.envParamsTemList.length; i++) {
+            let bFind = false;
             for (let j = 0; j < this.persistent.length; j++) {
-                if (this.persistent[j].key === this.envParamsTemList[i].key) {
-                    this.persistent[j].value = this.envParamsTemList[i].value;
+                if (this.persistent[j].key === this.envParamsTemList[i].pKey) {
+                    bFind = true;
+                    this.persistent[j].value = this.envParamsTemList[i].pValue;
                     break;
                 }
+            }
+            if (!bFind) {
+                this.persistent.push({
+                    key: this.envParamsTemList[i].pKey,
+                    value: this.envParamsTemList[i].pValue,
+                });
             }
         }
     }
