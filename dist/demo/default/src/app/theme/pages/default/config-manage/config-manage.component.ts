@@ -220,7 +220,7 @@ export class ConfigManageComponent implements OnInit {
             cancelButtonText: '取消',
         }).then(async e => {
             if (e.value) {
-                this.persistent.slice(index);
+                this.persistent.splice(index);
             }
         });
     }
