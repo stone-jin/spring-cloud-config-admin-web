@@ -170,7 +170,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                 },
                 {
                     field: 'pValue',
-                    title: '配置key',
+                    title: '配置value',
                     width: 300,
                     overflow: 'visible',
                     template: '{{pValue}}',
