@@ -179,7 +179,7 @@ export class ConfigManageComponent implements OnInit {
                     item.value,
                 {}
             );
-            item.value = '{cipher}' + result.value;
+            item.value = '{cipher}' + result;
             toastr.success('加密成功!');
         } catch (e) {
             toastr.error('加密失败!');
