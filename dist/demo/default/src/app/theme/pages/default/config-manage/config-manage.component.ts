@@ -105,11 +105,12 @@ export class ConfigManageComponent implements OnInit {
      * @author stone-jin, https://www.520stone.com
      */
     async getPersistentList() {
-        let result = await this.ajax.get('/xhr/property/persistent', {
+        let params = {
             project: this.selectProductInfo.name,
             profile: this.selectEnvInfo.name,
             label: this.selectLabelInfo.name,
-        });
+        };
+        let result = await this.ajax.get('/xhr/property/persistent', params);
         this.persistentList = result;
         this.persistent = [];
         let keys = Object.keys(this.persistentList);
@@ -147,7 +148,9 @@ export class ConfigManageComponent implements OnInit {
             for (let i = 0; i < this.persistent.length; i++) {
                 params[this.persistent[i].key] = this.persistent[i].value;
             }
-            let url = `?project=this.selectProductInfo.name&profile=this.selectEnvInfo.name&label=this.selectLabelInfo.name`;
+            let url = `?project=${this.selectProductInfo.name}&profile=${
+                this.selectEnvInfo.name
+            }&label=${this.selectLabelInfo.name}`;
             let result = await this.ajax.post(
                 '/xhr/property/persistent' + url,
                 params
