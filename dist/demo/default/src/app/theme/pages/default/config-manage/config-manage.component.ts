@@ -86,8 +86,14 @@ export class ConfigManageComponent implements OnInit {
      */
     async selectLabel(id) {
         this.selectLabelId = id;
+        this.selectLabelInfo = this.selectProductInfo.labels.filter(item => {
+            if (item.id === this.selectLabelId) {
+                return true;
+            }
+        })[0];
         await this.getEnvParamsTemplate();
         await this.getEncrptKeyList();
+        await this.getPersistentList();
     }
 
     /**
@@ -97,7 +103,14 @@ export class ConfigManageComponent implements OnInit {
      */
     async selectEnv(id) {
         this.selectEnvId = id;
+        this.selectEnvInfo = this.selectProductInfo.envs.filter(item => {
+            if (item.id === this.selectEnvId) {
+                return true;
+            }
+        })[0];
         await this.getEnvParamsTemplate();
+        await this.getEncrptKeyList();
+        await this.getPersistentList();
     }
 
     /**
