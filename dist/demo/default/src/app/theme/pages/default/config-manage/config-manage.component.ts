@@ -212,10 +212,10 @@ export class ConfigManageComponent implements OnInit {
                 '/xhr/property/decrypt?envId=' +
                     this.selectEnvId +
                     '&value=' +
-                    item.value,
+                    item.value.substring('{cipher}'.length),
                 {}
             );
-            item.value = '{cipher}' + result.value;
+            item.value = result;
             toastr.success('解密成功!');
         } catch (e) {
             toastr.error('解密失败!');
