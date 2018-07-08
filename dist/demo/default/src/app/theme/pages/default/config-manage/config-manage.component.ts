@@ -4,6 +4,7 @@ import {Ajax} from '../../../../shared/ajax/ajax.service';
 
 declare let toastr: any;
 declare let swal: any;
+declare let $: any;
 @Component({
     templateUrl: './config-manage.component.html',
 })
@@ -21,6 +22,7 @@ export class ConfigManageComponent implements OnInit {
     encryptKeyList: any[] = [];
     persistentList: any[] = [];
     persistent: any[] = [];
+    configFromConfigServerList: any[] = [];
     constructor(private ajax: Ajax) {}
 
     ngOnInit(): void {
@@ -146,8 +148,31 @@ export class ConfigManageComponent implements OnInit {
                 profile: this.selectEnvInfo.name,
                 label: this.selectLabelInfo.name,
             });
+
+            $('#m_modal_1').modal('show');
+            console.log(result);
+            console.log(this.selectEnvInfo);
+            let tmp = result.filter(item => {
+                if (
+                    item.name.substring(item.name.indexOf('-') + 1) ===
+                    this.selectEnvInfo.name
+                ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })[0].source;
+            let keys = Object.keys(tmp);
+            this.configFromConfigServerList = [];
+            keys.map(item => {
+                this.configFromConfigServerList.push({
+                    name: item,
+                    value: tmp[item],
+                });
+            });
             console.log(result);
         } catch (e) {
+            console.log(e);
             toastr.error('配置中心获取存储配置失败');
         }
     }

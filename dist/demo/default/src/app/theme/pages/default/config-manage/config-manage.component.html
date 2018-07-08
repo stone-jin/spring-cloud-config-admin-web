@@ -115,16 +115,14 @@
                             </ng-container>
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                                <button class="btn btn-primary" (click)="getFromConfigServer()">配置中心获取</button>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-6">
                                 <div class="form-group m-form__group">
                                     <label style="margin-right: 10px;">
                                         当前存储配置详情:
                                     </label>
+                                    <div style="float:right;">
+                                        <button class="btn btn-link" (click)="getFromConfigServer()">配置中心获取</button>
+                                    </div>
                                     <div>
                                         <table class="table table-bordered table-striped table-hover">
                                             <thead class="thead-inverse">
@@ -295,6 +293,60 @@
                                 <button class="btn btn-primary" (click)="save();">保存</button>
                             </div>
                         </div>
+                        <!--begin::Modal-->
+                        <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">
+                                            配置中心的配置
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">
+                                                &times;
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-bordered table-striped table-hover m-table">
+                                            <thead class="thead-inverse">
+                                                <tr>
+                                                    <th>
+                                                        键
+                                                    </th>
+                                                    <th>
+                                                        值
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="configFromConfigServerList.length > 0">
+                                                <tr *ngFor="let item of configFromConfigServerList; let i = index;">
+                                                    <td>
+                                                        {{item.name}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.value}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="configFromConfigServerList.length === 0">
+                                                <tr>
+                                                    <td colspan="2">
+                                                        当前配置中心无当前环境的配置信息
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Modal-->
                     </div>
                 </div>
             </div>
