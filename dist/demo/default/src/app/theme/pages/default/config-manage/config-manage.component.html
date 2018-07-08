@@ -141,10 +141,10 @@
                                             <tbody *ngIf="persistent.length > 0">
                                                 <tr *ngFor="let item of persistent; let i = index;">
                                                     <td>
-                                                        {{item.key}}
+                                                        <input class="form-control m-input m-input--solid" placeholder="请输入key..." type="text" [(ngModel)]="item.key">
                                                     </td>
                                                     <td>
-                                                        {{item.value}}
+                                                        <input class="form-control m-input m-input--solid" placeholder="请输入value..." type="text" [(ngModel)]="item.value">
                                                     </td>
                                                     <td>
                                                         <div class="item-operate">
