@@ -295,4 +295,19 @@ export class ConfigManageComponent implements OnInit {
             }
         }
     }
+
+    fCanReplace(item) {
+        let result = this.persistent.filter(item => {
+            if (item.key == item.key) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        if (result.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

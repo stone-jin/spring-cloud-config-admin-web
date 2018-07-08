@@ -223,7 +223,15 @@
                                                                 {{item.pValue}}
                                                             </td>
                                                             <td>
-                                                                <button class="btn btn-primary btn-sm" (click)="replaceItem(item);">替换</button>
+                                                                <ng-container [ngSwitch]="fCanReplace(item)">
+                                                                    <ng-container *ngSwitchCase="true">
+                                                                        <button class="btn btn-primary btn-sm" (click)="replaceItem(item);">替换</button>
+                                                                    </ng-container>
+                                                                    <ng-container *ngSwitchCase="false">
+                                                                        -
+                                                                    </ng-container>
+                                                                </ng-container>
+
                                                             </td>
                                                         </tr>
                                                     </tbody>
