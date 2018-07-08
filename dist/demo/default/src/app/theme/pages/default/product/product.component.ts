@@ -409,10 +409,11 @@ export class ProductCompponent implements AfterViewInit, OnInit {
 
     async addLabel2Array() {
         try {
-            let result = await this.ajax.post('/xhr/project/label', {
-                projectId: this.formData.id,
-                labelName: this.label,
-            });
+            let result = await this.ajax.post(
+                '/xhr/project/label?' +
+                    `projectId=${this.formData.id}&labelName=${this.label}`,
+                {}
+            );
             toastr.success('新增配置版本成功!');
             this.formData.labels.push({
                 name: this.label,
