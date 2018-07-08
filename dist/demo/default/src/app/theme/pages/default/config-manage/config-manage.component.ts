@@ -274,13 +274,10 @@ export class ConfigManageComponent implements OnInit {
         for (let i = 0; i < this.persistent.length; i++) {
             if (this.persistent[i].key === item.pKey) {
                 this.persistent[i].value = item.pValue;
+                this.save();
                 return;
             }
         }
-        this.persistent.push({
-            key: item.pKey,
-            value: item.pValue,
-        });
     }
 
     /**
@@ -294,6 +291,8 @@ export class ConfigManageComponent implements OnInit {
                 }
             }
         }
+
+        this.save();
     }
 
     /**
@@ -310,6 +309,7 @@ export class ConfigManageComponent implements OnInit {
                 }
             }
         }
+        this.save();
     }
 
     /**
