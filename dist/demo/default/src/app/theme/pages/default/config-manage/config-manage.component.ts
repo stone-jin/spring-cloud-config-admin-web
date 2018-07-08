@@ -288,19 +288,10 @@ export class ConfigManageComponent implements OnInit {
      */
     allReplace() {
         for (let i = 0; i < this.envParamsTemList.length; i++) {
-            let bFind = false;
             for (let j = 0; j < this.persistent.length; j++) {
                 if (this.persistent[j].key === this.envParamsTemList[i].pKey) {
-                    bFind = true;
                     this.persistent[j].value = this.envParamsTemList[i].pValue;
-                    break;
                 }
-            }
-            if (!bFind) {
-                this.persistent.push({
-                    key: this.envParamsTemList[i].pKey,
-                    value: this.envParamsTemList[i].pValue,
-                });
             }
         }
     }
@@ -321,6 +312,12 @@ export class ConfigManageComponent implements OnInit {
         }
     }
 
+    /**
+     *是否能被替换
+     * @param {*} item
+     * @returns
+     * @memberof ConfigManageComponent
+     */
     fCanReplace(item) {
         let result = this.persistent.filter(item => {
             if (item.key == item.key) {
