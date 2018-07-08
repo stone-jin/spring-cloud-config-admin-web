@@ -427,10 +427,11 @@ export class ProductCompponent implements AfterViewInit, OnInit {
 
     async remove(index) {
         try {
-            let label = this.formData.labels.splice(index);
-            let result = await this.ajax.delete('/xhr/project/label', {
-                id: label.id,
-            });
+            let label = this.formData.labels.splice(index)[0];
+            let result = await this.ajax.delete(
+                `/xhr/project/label?labelId=${label.id}`,
+                {}
+            );
             toastr.success('删除配置版本成功!');
         } catch (e) {
             toastr.error('删除配置版本失败!');
