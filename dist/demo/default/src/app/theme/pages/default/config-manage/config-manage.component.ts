@@ -332,4 +332,14 @@ export class ConfigManageComponent implements OnInit {
             return false;
         }
     }
+
+    /**
+     * 新增配置
+     */
+    addConfig() {
+        this.persistent.push({
+            key: '',
+            value: '',
+        });
+    }
 }
