@@ -151,14 +151,14 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
 
             // columns definition
             columns: [
-                {
-                    field: 'id',
-                    title: 'id',
-                    width: 80,
-                    textAlign: 'center',
-                    overflow: 'visible',
-                    template: '{{id}}',
-                },
+                // {
+                //     field: 'id',
+                //     title: 'id',
+                //     width: 80,
+                //     textAlign: 'center',
+                //     overflow: 'visible',
+                //     template: '{{id}}',
+                // },
                 {
                     field: 'pKey',
                     title: '配置key',
