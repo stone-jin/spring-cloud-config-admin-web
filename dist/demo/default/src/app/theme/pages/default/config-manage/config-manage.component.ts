@@ -150,11 +150,9 @@ export class ConfigManageComponent implements OnInit {
             });
 
             $('#m_modal_1').modal('show');
-            console.log(result);
-            console.log(this.selectEnvInfo);
             let tmp = result.filter(item => {
                 if (
-                    item.name.substring(item.name.indexOf('-') + 1) ===
+                    item.name.substring(item.name.lastIndexOf('-') + 1) ===
                     this.selectEnvInfo.name
                 ) {
                     return true;
