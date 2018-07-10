@@ -153,7 +153,9 @@ export class ConfigManageComponent implements OnInit {
             let tmp = result.filter(item => {
                 if (
                     item.name.substring(item.name.lastIndexOf('-') + 1) ===
-                    this.selectEnvInfo.name
+                        this.selectEnvInfo.name &&
+                    item.name.substring(0, item.name.lastIndexOf('-')) ===
+                        this.selectProductInfo.name
                 ) {
                     return true;
                 } else {
