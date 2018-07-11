@@ -5,6 +5,7 @@ import {Ajax} from '../../../../shared/ajax/ajax.service';
 declare let toastr: any;
 declare let swal: any;
 declare let $: any;
+declare let mApp: any;
 @Component({
     templateUrl: './config-manage.component.html',
 })
@@ -299,6 +300,7 @@ export class ConfigManageComponent implements OnInit {
      * 一键加密
      */
     allLock() {
+        mApp.block('#persistentList', {});
         for (let j = 0; j < this.encryptKeyList.length; j++) {
             for (let i = 0; i < this.persistent.length; i++) {
                 if (this.encryptKeyList[j].eKey === this.persistent[i].key) {
@@ -309,7 +311,7 @@ export class ConfigManageComponent implements OnInit {
                 }
             }
         }
-        this.save();
+        mApp.unblock('#persistentList');
     }
 
     /**
