@@ -213,6 +213,8 @@ export class ConfigManageComponent implements OnInit {
      * @param item 配置项
      */
     async lock(item) {
+        mApp.block('#persistentList', {});
+        mApp.block('#envParamsList', {});
         try {
             let result = await this.ajax.post(
                 '/xhr/property/encrypt?envId=' +
@@ -226,6 +228,8 @@ export class ConfigManageComponent implements OnInit {
         } catch (e) {
             toastr.error('加密失败!');
         }
+        mApp.unblock('#persistentList');
+        mApp.unblock('#envParamsList');
     }
 
     /**
@@ -233,6 +237,8 @@ export class ConfigManageComponent implements OnInit {
      * @param item 配置项
      */
     async unlock(item) {
+        mApp.block('#persistentList', {});
+        mApp.block('#envParamsList', {});
         try {
             let result = await this.ajax.post(
                 '/xhr/property/decrypt?envId=' +
@@ -246,6 +252,8 @@ export class ConfigManageComponent implements OnInit {
         } catch (e) {
             toastr.error('解密失败!');
         }
+        mApp.unblock('#persistentList');
+        mApp.unblock('#envParamsList');
     }
 
     /**
