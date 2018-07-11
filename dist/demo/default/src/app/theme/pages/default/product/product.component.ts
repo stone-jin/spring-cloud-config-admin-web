@@ -138,7 +138,7 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                     title: '项目名称',
                     sortable: 'asc',
                     filterable: false,
-                    width: 100,
+                    width: 400,
                     responsive: {visible: 'lg'},
                     template: '{{name}}',
                 },

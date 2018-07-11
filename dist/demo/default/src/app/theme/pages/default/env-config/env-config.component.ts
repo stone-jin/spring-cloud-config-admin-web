@@ -124,7 +124,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                     title: '环境名',
                     sortable: 'asc',
                     filterable: false,
-                    width: 100,
+                    width: 300,
                     responsive: {visible: 'lg'},
                     template: '{{name}}',
                 },

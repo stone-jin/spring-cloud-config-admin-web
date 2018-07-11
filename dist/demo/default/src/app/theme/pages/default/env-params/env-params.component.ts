@@ -164,7 +164,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                     title: '配置key',
                     sortable: 'asc',
                     filterable: false,
-                    width: 100,
+                    width: 300,
                     responsive: {visible: 'lg'},
                     template: '{{pKey}}',
                 },
