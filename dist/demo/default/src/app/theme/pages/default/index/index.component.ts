@@ -312,7 +312,6 @@ export class IndexComponent implements OnInit, AfterViewInit {
                 return false;
             }
         })[0];
-        console.log(this.modalData);
         $('#m_modal_1').modal('show');
     }
 }

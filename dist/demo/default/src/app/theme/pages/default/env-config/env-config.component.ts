@@ -244,10 +244,6 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
 
     ngAfterViewInit(): void {
         this.dataTableInit();
-        this._script.loadScripts('app-env-config', [
-            'assets/vendors/custom/datatables/datatables.bundle.js',
-            // 'assets/demo/default/custom/crud/datatables/basic/basic.js',
-        ]);
     }
 
     async save() {
