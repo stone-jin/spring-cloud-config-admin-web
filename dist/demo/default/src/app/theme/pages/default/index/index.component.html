@@ -96,3 +96,50 @@
 </div>
 <!--end:: Widgets/Audit Log-->
 <!--End::Section-->
+<div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog  modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">
+					配置中心信息
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="config-server-url" class="form-control-label">
+							Url:
+						</label>
+						<input type="text" class="form-control" id="config-server-url" [(ngModel)]="modalData.url" [ngModelOptions]="{standalone: true}"
+						    disabled>
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="form-control-label">
+							状态:
+						</label>
+						<div class="form-control">
+							<ng-container *ngIf="modalData.encryptStatus === 'OK'">
+								<span class="m-badge m-badge--success m-badge--wide" style="margin-right: 15px;">
+								</span>
+							</ng-container>
+							<ng-container *ngIf="modalData.encryptStatus !== 'OK'">
+								<span class="m-badge m-badge--danger m-badge--wide" style="margin-right: 15px;">
+								</span>
+							</ng-container>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					关闭
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

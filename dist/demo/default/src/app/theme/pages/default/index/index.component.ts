@@ -15,6 +15,11 @@ declare let $: any;
 })
 export class IndexComponent implements OnInit, AfterViewInit {
     services: any[] = [];
+    modalData: any = {
+        url: '',
+        encryptStatus: 'OK',
+    };
+    modalUrl: string = '';
     datatable: any;
     // services: any[] = [
     //     {
@@ -120,7 +125,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
             layout: {
                 theme: 'default',
                 class: 'm-datatable--brand',
-                scroll: true,
+                scroll: false,
                 height: null,
                 footer: false,
                 header: true,
@@ -192,9 +197,13 @@ export class IndexComponent implements OnInit, AfterViewInit {
                         let envs = '';
                         envs = row.configServers.reduce((total, item) => {
                             return total + item.encryptStatus === 'OK'
-                                ? `<span class="m-badge m-badge--success m-badge--wide" style="margin-right: 15px;">
+                                ? `<span class="m-badge m-badge--success m-badge--wide" style="margin-right: 15px;" data-url="${
+                                      item.url
+                                  }" data-id="${row.id}">
                                 </span>`
-                                : `<span class="m-badge m-badge--danger m-badge--wide" style="margin-right: 15px;">
+                                : `<span class="m-badge m-badge--danger m-badge--wide" style="margin-right: 15px;"  data-url="${
+                                      item.url
+                                  }" data-id="${row.id}">
                                     </span>`;
                         }, envs);
                         return envs;
@@ -280,5 +289,30 @@ export class IndexComponent implements OnInit, AfterViewInit {
         };
         let self = this;
         this.datatable = (<any>$('#m_datatable')).mDatatable(options);
+        $('#m_datatable').on('click', '.m-badge', event => {
+            let url = $(event.target).attr('data-url');
+            let id = $(event.target).attr('data-id');
+            self.showConfigServer(id, url);
+        });
+    }
+
+    showConfigServer(id, url) {
+        let allData = this.datatable.getColumn(0).originalDataSet;
+        let result = allData.filter(item => {
+            if (item.id == id) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        this.modalData = result[0].configServers.filter(item => {
+            if (item.url === url) {
+                return true;
+            } else {
+                return false;
+            }
+        })[0];
+        console.log(this.modalData);
+        $('#m_modal_1').modal('show');
     }
 }
