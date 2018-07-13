@@ -137,14 +137,14 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                 },
                 {
                     field: 'configServerName',
-                    title: '配置中心服务名',
+                    title: '配置中心服务名或绝对地址',
                     width: 300,
                     overflow: 'visible',
                     template: '{{configServerName}}',
                 },
                 {
                     field: 'contextPath',
-                    title: 'contextPath',
+                    title: '配置中心访问前缀',
                     width: 300,
                     overflow: 'visible',
                     template: '{{contextPath}}',
