@@ -5,6 +5,10 @@ Spring Cloud Config的综合管理后台（简称：SCCA）的前端。
 
 # 项目截图
 
+仪表盘:
+
+![](~/static/images/dashboard.png)
+
 # 前端框架
 1. Angular 5.x
 2. Bootstrap 4.x
