@@ -290,11 +290,10 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                 console.log(event);
             },
 
-            submitHandler: function(form) {
-                console.log(form);
+            submitHandler: form => {
+                this.save();
             },
         });
-        console.log($('#env-config-form'));
     }
 
     async save() {

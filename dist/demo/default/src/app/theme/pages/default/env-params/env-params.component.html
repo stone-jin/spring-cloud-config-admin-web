@@ -90,8 +90,8 @@
         </div>
         <!--begin::Modal-->
         <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
+            <div class="modal-dialog modal-lg modal-dialog-centered  m-form m-form--state" role="document">
+                <form class="modal-content" id="env-params-form">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type != 'edit'">
                             新增环境参数
@@ -106,30 +106,34 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="pKey" class="form-control-label">
-                                    key:
+                        <div class="m-form__content">
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="pKey" class="col-form-label col-sm-12">
+                                    * key:
                                 </label>
-                                <input type="text" class="form-control" id="pKey" [(ngModel)]="formData.pKey" [ngModelOptions]="{standalone: true}">
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="pKey" [(ngModel)]="formData.pKey" name="pKey">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="pValue" class="form-control-label">
-                                    value:
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="pValue" class="col-form-label col-sm-12">
+                                    * value:
                                 </label>
-                                <input class="form-control" id="pValue" [(ngModel)]="formData.pValue" [ngModelOptions]="{standalone: true}">
+                                <div class="col-sm-12">
+                                    <input class="form-control" id="pValue" [(ngModel)]="formData.pValue" name="pValue">
+                                </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal();">
                             关闭
                         </button>
-                        <button type="button" class="btn btn-primary" (click)="saveModal();">
+                        <button type="submit" class="btn btn-primary">
                             保存
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
