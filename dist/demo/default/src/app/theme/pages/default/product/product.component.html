@@ -70,8 +70,8 @@
         </div>
         <!--begin::Modal-->
         <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-                <div class="modal-content">
+            <div class="modal-dialog modal-md modal-dialog-centered  m-form m-form--state" role="document">
+                <form class="modal-content" id="id-product-form">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type != 'edit'">
                             新增项目
@@ -86,31 +86,35 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="product" class="form-control-label">
-                                    项目名称:
+                        <div class="m-form__content">
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="product" class="col-form-label col-sm-12">
+                                    * 项目名称:
                                 </label>
-                                <input type="text" class="form-control" id="product" [(ngModel)]="formData.name" [ngModelOptions]="{standalone: true}">
-                            </div>
-                            <div class="form-group">
-                                <label for="env" class="form-control-label">
-                                    部署环境:
-                                </label>
-                                <div class="m-checkbox-list">
-                                    <ng-container *ngFor="let item of envList; let i = index">
-                                        <label class="m-env-item m-checkbox">
-                                            <input type="checkbox" [(ngModel)]="item.checked" id="" [ngModelOptions]="{standalone: true}"> {{item.name}}
-                                            <span></span>
-                                        </label>
-                                    </ng-container>
+                                <div class="col-sm-12">
+                                    <input class="form-control" id="product" [(ngModel)]="formData.name" name="productName">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="labels" class="form-control-label">
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="productEnv" class="col-form-label col-sm-12">
+                                    * 部署环境:
+                                </label>
+                                <div class="col-sm-12">
+                                    <div class="m-checkbox-list">
+                                        <ng-container *ngFor="let item of envList; let i = index">
+                                            <label class="m-env-item m-checkbox">
+                                                <input type="checkbox" [(ngModel)]="item.checked" id="productEnv" name="productEnv"> {{item.name}}
+                                                <span></span>
+                                            </label>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="labels" class="col-form-label col-sm-12">
                                     配置版本:
                                 </label>
-                                <div class="form-control">
+                                <div class="col-sm-12">
                                     <ng-container *ngFor="let item of formData.labels;let i = index">
                                         <button type="button" class="btn btn-primary btn-sm m-btn m-btn--custom active m-label">
                                             {{item.name}}
@@ -133,17 +137,17 @@
                                     </ng-container>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             关闭
                         </button>
-                        <button type="button" class="btn btn-primary" (click)="save()">
+                        <button type="submit" class="btn btn-primary">
                             保存
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
