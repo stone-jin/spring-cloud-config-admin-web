@@ -70,8 +70,8 @@
         </div>
         <!--begin::Modal-->
         <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
+            <div class="modal-dialog modal-lg modal-dialog-centered m-form m-form--state" role="document">
+                <form class="modal-content" id="env-config-form">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type != 'edit'">
                             新增环境
@@ -86,44 +86,52 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="env-name" class="form-control-label">
-                                    环境名:
+                        <div class="m-form__content">
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="envName" class="col-form-label col-sm-12">
+                                    * 环境名:
                                 </label>
-                                <input type="text" class="form-control" id="env-name" [(ngModel)]="formData.envName" [ngModelOptions]="{standalone: true}">
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="envName" name="envName" [(ngModel)]="formData.envName">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="registryAddress" class="form-control-label">
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="registryAddress" class="col-form-label col-sm-12">
                                     注册中心地址:
                                     <i class="fa fa-question-circle" data-toggle="m-popover" data-placement="top" data-content="当配置中心没有纳入eureka、consul等注册中心管理的话，“注册中心地址 ”留空，“配置中心服务名或绝对地址 ”中填配置中心的具体访问地址，比如：http://config.xxx.com/"></i>
                                 </label>
-                                <input class="form-control" id="registryAddress" [(ngModel)]="formData.registryAddress" [ngModelOptions]="{standalone: true}">
+                                <div class="col-sm-12">
+                                    <input class="form-control" id="registryAddress" [(ngModel)]="formData.registryAddress" name="registryAddress">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="configServerName" class="form-control-label">
-                                    配置中心服务名或绝对地址:
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="configServerName" class="col-form-label col-sm-12">
+                                    * 配置中心服务名或绝对地址:
                                 </label>
-                                <input class="form-control" id="configServerName" [(ngModel)]="formData.configServerName" [ngModelOptions]="{standalone: true}">
+                                <div class="col-sm-12">
+                                    <input class="form-control" id="configServerName" [(ngModel)]="formData.configServerName" name="configServerName">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="contextPath" class="form-control-label">
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="contextPath" class="col-form-label col-sm-12">
                                     配置中心访问前缀:
                                     <i class="fa fa-question-circle" data-toggle="m-popover" data-placement="top" data-content="如果配置中心配置了访问前缀，即：spring.cloud.config.server.prefix参数值，那么在“配置中心访问前缀”中也做一样的配置，不然留空即可"></i>
                                 </label>
-                                <input class="form-control" id="contextPath" [(ngModel)]="formData.contextPath" [ngModelOptions]="{standalone: true}">
+                                <div class="col-sm-12">
+                                    <input class="form-control" id="contextPath" [(ngModel)]="formData.contextPath" name="contextPath">
+                                </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             关闭
                         </button>
-                        <button type="button" class="btn btn-primary" (click)="save()">
+                        <button type="submit" class="btn btn-primary">
                             保存
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
