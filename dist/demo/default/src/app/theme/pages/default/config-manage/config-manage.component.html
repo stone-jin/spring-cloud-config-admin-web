@@ -75,8 +75,8 @@
                     </div>
                 </div>
             </div>
-            <div class="m-portlet__body">
-                <div class="m-form__section m-form__section--first">
+            <div class="m-portlet__body m-form m-form--state">
+                <form class="m-form__section m-form__section--first" id="id-config-manage-form">
                     <div class="form-group m-form__group">
                         <label style="margin-right: 10px;">
                             环境:
@@ -138,10 +138,12 @@
                                 <tbody *ngIf="persistent.length > 0">
                                     <tr *ngFor="let item of persistent; let i = index;">
                                         <td>
-                                            <input class="form-control m-input m-input--solid" placeholder="请输入key..." type="text" [(ngModel)]="item.key">
+                                            <input class="form-control m-input m-input--solid" placeholder="请输入key..." type="text" [(ngModel)]="item.key" [ngModelOptions]="{standalone: true}"
+                                                required>
                                         </td>
                                         <td>
-                                            <input class="form-control m-input m-input--solid" placeholder="请输入value..." type="text" [(ngModel)]="item.value">
+                                            <input class="form-control m-input m-input--solid" placeholder="请输入value..." type="text" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}"
+                                                required>
                                         </td>
                                         <td>
                                             <div class="item-operate">
@@ -172,7 +174,7 @@
                         </div>
                     </div>
                     <div class="form-group m-form__group">
-                        <button class="btn btn-primary" (click)="save();">保存</button>
+                        <button class="btn btn-primary" type="submit">保存</button>
                     </div>
                     <!--begin::Modal-->
                     <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -228,7 +230,7 @@
                         </div>
                     </div>
                     <!--end::Modal-->
-                </div>
+                </form>
             </div>
         </div>
     </div>
