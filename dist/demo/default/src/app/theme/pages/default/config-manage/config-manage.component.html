@@ -114,63 +114,110 @@
                         </ng-container>
                     </div>
                     <div class="form-group m-form__group">
-                        <label style="margin-right: 10px;">
-                            当前存储配置详情:
-                        </label>
-                        <div style="float:right;">
-                            <button class="btn btn-link" (click)="getFromConfigServer()">配置中心获取</button>
+                        <div>
+                            <label style="margin-right: 10px;">
+                                当前存储配置详情:
+                            </label>
+                            <div style="float:right;">
+                                <button class="btn btn-link" (click)="getFromConfigServer()">配置中心获取</button>
+                            </div>
+                            <span class="clearfix"></span>
                         </div>
-                        <div id="persistentList">
-                            <table class="table table-bordered">
-                                <thead class="thead-inverse">
-                                    <tr>
-                                        <th>
-                                            key
-                                        </th>
-                                        <th>
-                                            value
-                                        </th>
-                                        <th>
-                                            操作
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngIf="persistent.length > 0">
-                                    <tr *ngFor="let item of persistent; let i = index;">
-                                        <td>
-                                            <input class="form-control m-input m-input--solid" placeholder="请输入key..." type="text" [(ngModel)]="item.key" [ngModelOptions]="{standalone: true}"
-                                                required>
-                                        </td>
-                                        <td>
-                                            <input class="form-control m-input m-input--solid" placeholder="请输入value..." type="text" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}"
-                                                required>
-                                        </td>
-                                        <td>
-                                            <div class="item-operate">
-                                                <ng-container *ngIf="getEncrpytStatus(item)!=='0'">
-                                                    <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem" (click)="unlock(item)">
-                                                        <i class="la la-unlock"></i>
+                        <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 0px;">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#m_tabs_2_1">
+                                    列表模式
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_2_3">
+                                    <i class="la la-cloud-download"></i>
+                                    yml模式
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_2_3">
+                                    <i class="la la-comment"></i>
+                                    property模式
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="persistentList" style="border-bottom: 1px solid #ebedf2; border-right: 1px solid #ebedf2;border-left: 1px solid #ebedf2">
+                            <div class="tab-pane active" id="m_tabs_2_1" role="tabpanel">
+                                <table class="table table-bordered">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <th>
+                                                key
+                                            </th>
+                                            <th>
+                                                value
+                                            </th>
+                                            <th>
+                                                操作
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="persistent.length > 0">
+                                        <tr *ngFor="let item of persistent; let i = index;">
+                                            <td>
+                                                <input class="form-control m-input m-input--solid" placeholder="请输入key..." type="text" [(ngModel)]="item.key" [ngModelOptions]="{standalone: true}"
+                                                    required>
+                                            </td>
+                                            <td>
+                                                <input class="form-control m-input m-input--solid" placeholder="请输入value..." type="text" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}"
+                                                    required>
+                                            </td>
+                                            <td>
+                                                <div class="item-operate">
+                                                    <ng-container *ngIf="getEncrpytStatus(item)!=='0'">
+                                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem" (click)="unlock(item)">
+                                                            <i class="la la-unlock"></i>
+                                                        </a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="getEncrpytStatus(item)==='0'">
+                                                        <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem" (click)="lock(item)">
+                                                            <i class="la la-lock"></i>
+                                                        </a>
+                                                    </ng-container>
+                                                    <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill deleteItem" (click)="deleteItem(i)">
+                                                        <i class="la la-trash"></i>
                                                     </a>
-                                                </ng-container>
-                                                <ng-container *ngIf="getEncrpytStatus(item)==='0'">
-                                                    <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill lockItem" (click)="lock(item)">
-                                                        <i class="la la-lock"></i>
-                                                    </a>
-                                                </ng-container>
-                                                <a class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill deleteItem" (click)="deleteItem(i)">
-                                                    <i class="la la-trash"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tbody *ngIf="persistent.length == 0">
-                                    <tr>
-                                        <td colspan="3">当前无配置信息</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button class="btn btn-link" (click)="addConfig()">新增配置</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="persistent.length == 0">
+                                        <tr>
+                                            <td colspan="3">当前无配置信息</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-link" (click)="addConfig()">新增配置</button>
+                            </div>
+                            <div class="tab-pane" id="m_tabs_2_2" role="tabpanel">
+                                It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                                passages, and more recently with desktop publishing software like Aldus PageMaker including
+                                versions of Lorem Ipsum.
+                            </div>
+                            <div class="tab-pane" id="m_tabs_2_3" role="tabpanel">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                                to make a type specimen book. It has survived not only five centuries, but also the leap
+                                into electronic typesetting, remaining essentially unchanged
+                            </div>
+                            <div class="tab-pane" id="m_tabs_2_4" role="tabpanel">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                                to make a type specimen book. It has survived not only five centuries, but also the leap
+                                into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy
+                                text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+                                dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                            </div>
+                        </div>
+                        <div>
+
                         </div>
                     </div>
                     <div class="form-group m-form__group">
