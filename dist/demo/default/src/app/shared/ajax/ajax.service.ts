@@ -1,13 +1,13 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Ajax {
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient) { }
 
     async get(url, params?: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpClient.get(url, {params: params}).subscribe(
+            this.httpClient.get(url, { params: params }).subscribe(
                 (result: any) => {
                     resolve(result.data);
                 },
@@ -49,7 +49,7 @@ export class Ajax {
 
     async delete(url, params?: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpClient.delete(url, {params: params}).subscribe(
+            this.httpClient.delete(url, { params: params }).subscribe(
                 (result: any) => {
                     resolve({});
                 },

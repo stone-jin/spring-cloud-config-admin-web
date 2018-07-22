@@ -1,7 +1,7 @@
-import {OnInit} from '@angular/core';
-import {Component, AfterViewInit} from '@angular/core';
-import {ScriptLoaderService} from '../../../../_services/script-loader.service';
-import {Ajax} from '../../../../shared/ajax/ajax.service';
+import { OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import { ScriptLoaderService } from '../../../../_services/script-loader.service';
+import { Ajax } from '../../../../shared/ajax/ajax.service';
 
 declare let toastr: any;
 declare let $: any;
@@ -23,9 +23,9 @@ export class ProductCompponent implements AfterViewInit, OnInit {
     label: String = '';
     envList: any[] = [];
     master: Boolean = false;
-    constructor(private _script: ScriptLoaderService, private ajax: Ajax) {}
+    constructor(private _script: ScriptLoaderService, private ajax: Ajax) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     async initEnvList() {
         let result = await this.ajax.get('/xhr/env');
@@ -89,7 +89,7 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                 },
 
                 icons: {
-                    sort: {asc: 'la la-arrow-up', desc: 'la la-arrow-down'},
+                    sort: { asc: 'la la-arrow-up', desc: 'la la-arrow-down' },
                     pagination: {
                         next: 'la la-angle-right',
                         prev: 'la la-angle-left',
@@ -118,7 +118,7 @@ export class ProductCompponent implements AfterViewInit, OnInit {
             },
 
             rows: {
-                callback: function() {},
+                callback: function() { },
                 // auto hide columns, if rows overflow. work on non locked columns
                 autoHide: false,
             },
@@ -139,7 +139,7 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                     sortable: 'asc',
                     filterable: false,
                     width: 400,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: '{{name}}',
                 },
                 {
@@ -148,7 +148,7 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                     sortable: 'asc',
                     filterable: false,
                     width: 400,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: function(row) {
                         let envs = '';
                         envs = row.envs.reduce((total, item) => {
@@ -168,7 +168,7 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                     sortable: 'asc',
                     filterable: false,
                     width: 400,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: function(row) {
                         let envs = '';
                         envs = row.labels.reduce((total, item) => {
@@ -253,7 +253,7 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                                 select: '请选择每页显示数量',
                             },
                             info:
-                                '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
+                            '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
                         },
                     },
                 },
@@ -457,7 +457,7 @@ export class ProductCompponent implements AfterViewInit, OnInit {
         try {
             let result = await this.ajax.post(
                 '/xhr/project/label?' +
-                    `projectId=${this.formData.id}&labelName=${this.label}`,
+                `projectId=${this.formData.id}&labelName=${this.label}`,
                 {}
             );
             toastr.success('新增配置版本成功!');

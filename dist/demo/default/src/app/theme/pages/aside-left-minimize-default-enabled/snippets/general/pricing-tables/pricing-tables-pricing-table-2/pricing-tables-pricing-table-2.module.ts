@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core'
-import {CommonModule} from '@angular/common'
-import {Routes, RouterModule} from '@angular/router'
-import {PricingTablesPricingTable2Component} from './pricing-tables-pricing-table-2.component'
-import {AsideLeftMinimizeDefaultEnabledComponent} from '../../../../aside-left-minimize-default-enabled.component'
-import {SharedModule} from '../../../../../../../shared/shared.module'
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { Routes, RouterModule } from '@angular/router'
+import { PricingTablesPricingTable2Component } from './pricing-tables-pricing-table-2.component'
+import { AsideLeftMinimizeDefaultEnabledComponent } from '../../../../aside-left-minimize-default-enabled.component'
+import { SharedModule } from '../../../../../../../shared/shared.module'
 
 const routes: Routes = [
     {
@@ -22,4 +22,4 @@ const routes: Routes = [
     exports: [RouterModule],
     declarations: [PricingTablesPricingTable2Component],
 })
-export class PricingTablesPricingTable2Module {}
+export class PricingTablesPricingTable2Module { }

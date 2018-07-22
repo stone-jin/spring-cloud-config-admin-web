@@ -1,9 +1,9 @@
 import { SharedModule } from './../../../../shared/shared.module';
-import {NgModule} from '@angular/core'
-import {CommonModule} from '@angular/common'
-import {Routes, RouterModule} from '@angular/router'
-import {NotFoundComponent} from './not-found.component'
-import {DefaultComponent} from '../../../../shared/defalt/default.component'
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { Routes, RouterModule } from '@angular/router'
+import { NotFoundComponent } from './not-found.component'
+import { DefaultComponent } from '../../../../shared/defalt/default.component'
 
 const routes: Routes = [
     {
@@ -23,4 +23,4 @@ const routes: Routes = [
     exports: [RouterModule],
     declarations: [NotFoundComponent],
 })
-export class NotFoundModule {}
+export class NotFoundModule { }

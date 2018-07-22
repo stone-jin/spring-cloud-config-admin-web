@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core'
-import {CommonModule} from '@angular/common'
-import {Routes, RouterModule} from '@angular/router'
-import {IndexComponent} from './index.component'
-import {SharedModule} from '../../../../shared/shared.module'
-import {DefaultComponent} from '../../../../shared/defalt/default.component'
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { Routes, RouterModule } from '@angular/router'
+import { IndexComponent } from './index.component'
+import { SharedModule } from '../../../../shared/shared.module'
+import { DefaultComponent } from '../../../../shared/defalt/default.component'
 
 const routes: Routes = [
     {
@@ -22,4 +22,4 @@ const routes: Routes = [
     exports: [RouterModule],
     declarations: [IndexComponent],
 })
-export class IndexModule {}
+export class IndexModule { }

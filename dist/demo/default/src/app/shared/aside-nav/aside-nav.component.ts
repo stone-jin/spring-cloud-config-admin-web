@@ -4,7 +4,7 @@ import {
     ViewEncapsulation,
     AfterViewInit,
 } from '@angular/core'
-import {Helpers} from '../../helpers'
+import { Helpers } from '../../helpers'
 
 declare let mLayout: any
 
@@ -13,8 +13,8 @@ declare let mLayout: any
     templateUrl: './aside-nav.component.html',
 })
 export class AsideNavComponent implements OnInit, AfterViewInit {
-    constructor() {}
-    ngOnInit() {}
+    constructor() { }
+    ngOnInit() { }
     ngAfterViewInit() {
         mLayout.initAside()
     }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core'
+import { Component, OnInit, ViewEncapsulation } from '@angular/core'
 
 @Component({
     selector: 'app-footer',
@@ -6,6 +6,6 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core'
     encapsulation: ViewEncapsulation.None,
 })
 export class FooterComponent implements OnInit {
-    constructor() {}
-    ngOnInit() {}
+    constructor() { }
+    ngOnInit() { }
 }

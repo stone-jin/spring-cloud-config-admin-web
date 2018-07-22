@@ -12,8 +12,8 @@ declare let mLayout: any
     styleUrls: ['./header-nav.component.scss'],
 })
 export class HeaderNavComponent implements OnInit, AfterViewInit {
-    constructor() {}
-    ngOnInit() {}
+    constructor() { }
+    ngOnInit() { }
     ngAfterViewInit() {
         mLayout.initHeader()
     }

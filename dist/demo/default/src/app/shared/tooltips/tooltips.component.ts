@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core'
+import { Component, OnInit, ViewEncapsulation } from '@angular/core'
 
 @Component({
     selector: 'app-tooltips',
@@ -6,6 +6,6 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core'
     encapsulation: ViewEncapsulation.None,
 })
 export class TooltipsComponent implements OnInit {
-    constructor() {}
-    ngOnInit() {}
+    constructor() { }
+    ngOnInit() { }
 }

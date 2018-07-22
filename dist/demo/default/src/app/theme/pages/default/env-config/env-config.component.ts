@@ -1,7 +1,7 @@
-import {OnInit} from '@angular/core';
-import {Component, AfterViewInit} from '@angular/core';
-import {ScriptLoaderService} from '../../../../_services/script-loader.service';
-import {Ajax} from '../../../../shared/ajax/ajax.service';
+import { OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import { ScriptLoaderService } from '../../../../_services/script-loader.service';
+import { Ajax } from '../../../../shared/ajax/ajax.service';
 
 declare let toastr: any;
 declare let $: any;
@@ -19,9 +19,9 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
     };
     dataList: any[] = [];
     datatable: any = null;
-    constructor(private _script: ScriptLoaderService, private ajax: Ajax) {}
+    constructor(private _script: ScriptLoaderService, private ajax: Ajax) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     dataTableInit() {
         var options = {
@@ -75,7 +75,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                 },
 
                 icons: {
-                    sort: {asc: 'la la-arrow-up', desc: 'la la-arrow-down'},
+                    sort: { asc: 'la la-arrow-up', desc: 'la la-arrow-down' },
                     pagination: {
                         next: 'la la-angle-right',
                         prev: 'la la-angle-left',
@@ -104,7 +104,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
             },
 
             rows: {
-                callback: function() {},
+                callback: function() { },
                 // auto hide columns, if rows overflow. work on non locked columns
                 autoHide: false,
             },
@@ -125,7 +125,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                     sortable: 'asc',
                     filterable: false,
                     width: 300,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: '{{name}}',
                 },
                 {
@@ -220,7 +220,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                                 select: '请选择每页显示数量',
                             },
                             info:
-                                '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
+                            '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
                         },
                     },
                 },

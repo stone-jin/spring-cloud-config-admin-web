@@ -6,7 +6,7 @@ import {
 
 @Injectable()
 export class ModelService {
-    constructor(private resolver: ComponentFactoryResolver) {}
+    constructor(private resolver: ComponentFactoryResolver) { }
 
-    openDialog(options: any) {}
+    openDialog(options: any) { }
 }

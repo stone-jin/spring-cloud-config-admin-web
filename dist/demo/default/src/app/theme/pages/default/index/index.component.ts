@@ -4,8 +4,8 @@ import {
     ViewEncapsulation,
     AfterViewInit,
 } from '@angular/core';
-import {Helpers} from '../../../../helpers';
-import {ScriptLoaderService} from '../../../../_services/script-loader.service';
+import { Helpers } from '../../../../helpers';
+import { ScriptLoaderService } from '../../../../_services/script-loader.service';
 
 declare let $: any;
 
@@ -84,8 +84,8 @@ export class IndexComponent implements OnInit, AfterViewInit {
     //     },
     // ]
 
-    constructor(private _script: ScriptLoaderService) {}
-    ngOnInit() {}
+    constructor(private _script: ScriptLoaderService) { }
+    ngOnInit() { }
     ngAfterViewInit() {
         this._script.loadScripts('app-index', ['assets/app/js/dashboard.js']);
         this.dataTableInit();
@@ -143,7 +143,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
                 },
 
                 icons: {
-                    sort: {asc: 'la la-arrow-up', desc: 'la la-arrow-down'},
+                    sort: { asc: 'la la-arrow-up', desc: 'la la-arrow-down' },
                     pagination: {
                         next: 'la la-angle-right',
                         prev: 'la la-angle-left',
@@ -172,7 +172,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
             },
 
             rows: {
-                callback: function() {},
+                callback: function() { },
                 // auto hide columns, if rows overflow. work on non locked columns
                 autoHide: false,
             },
@@ -184,7 +184,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
                     title: '环境名称',
                     sortable: 'asc',
                     filterable: false,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: '{{name}}',
                 },
                 {
@@ -192,18 +192,18 @@ export class IndexComponent implements OnInit, AfterViewInit {
                     title: '配置中心状态',
                     sortable: 'asc',
                     filterable: false,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: function(row) {
                         let envs = '';
                         envs = row.configServers.reduce((total, item) => {
                             return total + item.encryptStatus === 'OK'
                                 ? `<span class="m-badge m-badge--success m-badge--wide" style="margin-right: 15px;" data-url="${
-                                      item.url
-                                  }" data-id="${row.id}">
+                                item.url
+                                }" data-id="${row.id}">
                                 </span>`
                                 : `<span class="m-badge m-badge--danger m-badge--wide" style="margin-right: 15px;"  data-url="${
-                                      item.url
-                                  }" data-id="${row.id}">
+                                item.url
+                                }" data-id="${row.id}">
                                     </span>`;
                         }, envs);
                         return envs;
@@ -214,7 +214,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
                     title: '环境参数项',
                     sortable: 'asc',
                     filterable: false,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: '{{params}}',
                 },
                 {
@@ -281,7 +281,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
                                 select: '请选择每页显示数量',
                             },
                             info:
-                                '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
+                            '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
                         },
                     },
                 },

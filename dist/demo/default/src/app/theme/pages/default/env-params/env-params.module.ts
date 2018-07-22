@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core'
-import {Routes, RouterModule} from '@angular/router'
-import {CommonModule} from '@angular/common'
-import {DefaultComponent} from '../../../../shared/defalt/default.component'
-import {SharedModule} from '../../../../shared/shared.module'
-import {EnvParamsComponent} from './env-params.component'
+import { NgModule } from '@angular/core'
+import { Routes, RouterModule } from '@angular/router'
+import { CommonModule } from '@angular/common'
+import { DefaultComponent } from '../../../../shared/defalt/default.component'
+import { SharedModule } from '../../../../shared/shared.module'
+import { EnvParamsComponent } from './env-params.component'
 
 const routes: Routes = [
     {
@@ -25,4 +25,4 @@ const components: any[] = []
     declarations: [EnvParamsComponent],
     exports: [RouterModule],
 })
-export class EnvParamsModule {}
+export class EnvParamsModule { }

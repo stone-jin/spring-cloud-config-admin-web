@@ -1,7 +1,7 @@
-import {OnInit, AfterViewInit} from '@angular/core';
-import {Component} from '@angular/core';
-import {ScriptLoaderService} from '../../../../_services/script-loader.service';
-import {Ajax} from '../../../../shared/ajax/ajax.service';
+import { OnInit, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ScriptLoaderService } from '../../../../_services/script-loader.service';
+import { Ajax } from '../../../../shared/ajax/ajax.service';
 
 declare let $: any;
 declare let toastr: any;
@@ -18,12 +18,12 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
     dataList: any[] = [];
     datatable: any = null;
     queryParams: any = {};
-    constructor(private _script: ScriptLoaderService, private ajax: Ajax) {}
+    constructor(private _script: ScriptLoaderService, private ajax: Ajax) { }
 
     ngAfterViewInit(): void {
         this.initData();
     }
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     async initData() {
         await this.initEnvList();
@@ -116,7 +116,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                 },
 
                 icons: {
-                    sort: {asc: 'la la-arrow-up', desc: 'la la-arrow-down'},
+                    sort: { asc: 'la la-arrow-up', desc: 'la la-arrow-down' },
                     pagination: {
                         next: 'la la-angle-right',
                         prev: 'la la-angle-left',
@@ -145,7 +145,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
             },
 
             rows: {
-                callback: function() {},
+                callback: function() { },
                 // auto hide columns, if rows overflow. work on non locked columns
                 autoHide: false,
             },
@@ -166,7 +166,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                     sortable: 'asc',
                     filterable: false,
                     width: 300,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: '{{pKey}}',
                 },
                 {
@@ -247,7 +247,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                                 select: '请选择每页显示数量',
                             },
                             info:
-                                '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
+                            '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
                         },
                     },
                 },

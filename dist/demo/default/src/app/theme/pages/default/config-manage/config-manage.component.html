@@ -125,18 +125,18 @@
                         </div>
                         <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 0px;">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#m_tabs_2_1">
+                                <a class="nav-link active" data-toggle="tab" href="#m_tabs_2_1" (click)="configTypeChange(1);">
                                     列表模式
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_2_3">
+                                <a class="nav-link" data-toggle="tab" href="#m_tabs_2_2" (click)="configTypeChange(2);">
                                     <i class="la la-cloud-download"></i>
                                     yml模式
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_2_3">
+                                <a class="nav-link disabled" data-toggle="tab" href="#m_tabs_2_3" (click)="configTypeChange(3);">
                                     <i class="la la-comment"></i>
                                     property模式
                                 </a>
@@ -196,24 +196,14 @@
                                 <button class="btn btn-link" (click)="addConfig()">新增配置</button>
                             </div>
                             <div class="tab-pane" id="m_tabs_2_2" role="tabpanel">
-                                It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                                passages, and more recently with desktop publishing software like Aldus PageMaker including
-                                versions of Lorem Ipsum.
+                                <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code" [ngModelOptions]="{standalone: true}" class="my-code-editor">
+                                </ngx-monaco-editor>
                             </div>
                             <div class="tab-pane" id="m_tabs_2_3" role="tabpanel">
                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
                                 text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
                                 to make a type specimen book. It has survived not only five centuries, but also the leap
                                 into electronic typesetting, remaining essentially unchanged
-                            </div>
-                            <div class="tab-pane" id="m_tabs_2_4" role="tabpanel">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
-                                to make a type specimen book. It has survived not only five centuries, but also the leap
-                                into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy
-                                text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                                dummy text ever since the 1500s, when an unknown printer took a galley of type and
                             </div>
                         </div>
                         <div>

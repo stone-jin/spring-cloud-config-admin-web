@@ -6,13 +6,13 @@ import {
     ViewContainerRef,
     ViewEncapsulation,
 } from '@angular/core'
-import {ActivatedRoute, Router} from '@angular/router'
-import {ScriptLoaderService} from '../_services/script-loader.service'
-import {AuthenticationService} from './_services/authentication.service'
-import {AlertService} from './_services/alert.service'
-import {UserService} from './_services/user.service'
-import {AlertComponent} from './_directives/alert.component'
-import {Helpers} from '../helpers'
+import { ActivatedRoute, Router } from '@angular/router'
+import { ScriptLoaderService } from '../_services/script-loader.service'
+import { AuthenticationService } from './_services/authentication.service'
+import { AlertService } from './_services/alert.service'
+import { UserService } from './_services/user.service'
+import { AlertComponent } from './_directives/alert.component'
+import { Helpers } from '../helpers'
 
 declare let $: any
 declare let mUtil: any
@@ -28,11 +28,11 @@ export class AuthComponent implements OnInit {
     loading = false
     returnUrl: string
 
-    @ViewChild('alertSignin', {read: ViewContainerRef})
+    @ViewChild('alertSignin', { read: ViewContainerRef })
     alertSignin: ViewContainerRef
-    @ViewChild('alertSignup', {read: ViewContainerRef})
+    @ViewChild('alertSignup', { read: ViewContainerRef })
     alertSignup: ViewContainerRef
-    @ViewChild('alertForgotPass', {read: ViewContainerRef})
+    @ViewChild('alertForgotPass', { read: ViewContainerRef })
     alertForgotPass: ViewContainerRef
 
     constructor(
@@ -43,7 +43,7 @@ export class AuthComponent implements OnInit {
         private _authService: AuthenticationService,
         private _alertService: AlertService,
         private cfr: ComponentFactoryResolver
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.model.remember = true
@@ -53,12 +53,12 @@ export class AuthComponent implements OnInit {
 
         this._script
             .loadScripts(
-                'body',
-                [
-                    'assets/vendors/base/vendors.bundle.js',
-                    'assets/demo/default/base/scripts.bundle.js',
-                ],
-                true
+            'body',
+            [
+                'assets/vendors/base/vendors.bundle.js',
+                'assets/demo/default/base/scripts.bundle.js',
+            ],
+            true
             )
             .then(() => {
                 Helpers.setLoading(false)
@@ -74,14 +74,14 @@ export class AuthComponent implements OnInit {
         this._authService
             .login(this.model.email, this.model.password)
             .subscribe(
-                data => {
-                    this._router.navigate([this.returnUrl])
-                },
-                error => {
-                    this.showAlert('alertSignin')
-                    this._alertService.error(error)
-                    this.loading = false
-                }
+            data => {
+                this._router.navigate([this.returnUrl])
+            },
+            error => {
+                this.showAlert('alertSignin')
+                this._alertService.error(error)
+                this.loading = false
+            }
             )
     }
 
@@ -175,7 +175,7 @@ export class AuthComponent implements OnInit {
             $('form')
                 .data('validator')
                 .resetForm()
-        } catch (e) {}
+        } catch (e) { }
 
         mUtil.addClass(login, 'm-login--signin')
         mUtil.animateClass(

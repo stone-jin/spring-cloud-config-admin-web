@@ -1,6 +1,7 @@
-import {OnInit} from '@angular/core';
-import {Component} from '@angular/core';
-import {Ajax} from '../../../../shared/ajax/ajax.service';
+import { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Ajax } from '../../../../shared/ajax/ajax.service';
+import * as yaml from 'js-yaml';
 
 declare let toastr: any;
 declare let swal: any;
@@ -24,7 +25,10 @@ export class ConfigManageComponent implements OnInit {
     persistentList: any[] = [];
     persistent: any[] = [];
     configFromConfigServerList: any[] = [];
-    constructor(private ajax: Ajax) {}
+    editorOptions = { theme: 'vs-dark', language: 'yaml', automaticLayout: true };
+    code: string = ``;
+    configType: number = 1;
+    constructor(private ajax: Ajax) { }
 
     ngOnInit(): void {
         this.initProductList();
@@ -32,6 +36,7 @@ export class ConfigManageComponent implements OnInit {
 
     ngAfterViewInit(): void {
         this.initFormValidation();
+        this.initYmlEditor();
     }
 
     initFormValidation() {
@@ -71,6 +76,18 @@ export class ConfigManageComponent implements OnInit {
                 this.save();
             },
         });
+    }
+
+    initYmlEditor() {
+        // monaco.editor.create(document.getElementById('id-yml-editor'), {
+        //     value: '',
+        //     language: 'yaml',
+        // });
+    }
+
+    async configTypeChange(configType) {
+        this.configType = configType;
+        await this.getPersistentList();
     }
 
     async initProductList() {
@@ -179,6 +196,7 @@ export class ConfigManageComponent implements OnInit {
                 value: this.persistentList[keys[i]],
             });
         }
+        this.code = yaml.safeDump(result);
     }
 
     /**
@@ -197,9 +215,9 @@ export class ConfigManageComponent implements OnInit {
             let tmp = result.filter(item => {
                 if (
                     item.name.substring(item.name.lastIndexOf('-') + 1) ===
-                        this.selectEnvInfo.name &&
+                    this.selectEnvInfo.name &&
                     item.name.substring(0, item.name.lastIndexOf('-')) ===
-                        this.selectProductInfo.name
+                    this.selectProductInfo.name
                 ) {
                     return true;
                 } else {
@@ -227,19 +245,23 @@ export class ConfigManageComponent implements OnInit {
     async save() {
         try {
             let params = {};
-            for (let i = 0; i < this.persistent.length; i++) {
-                params[this.persistent[i].key] = this.persistent[i].value;
-                if (
-                    this.persistent[i].key === '' ||
-                    this.persistent[i].value === ''
-                ) {
-                    toastr.error('当前存储配置不能为空，请进行补全!');
-                    return;
+            if (this.configType == 1) {
+                for (let i = 0; i < this.persistent.length; i++) {
+                    params[this.persistent[i].key] = this.persistent[i].value;
+                    if (
+                        this.persistent[i].key === '' ||
+                        this.persistent[i].value === ''
+                    ) {
+                        toastr.error('当前存储配置不能为空，请进行补全!');
+                        return;
+                    }
                 }
+            } else if (this.configType == 2) {
+                params = yaml.safeLoad(this.code);
             }
             let url = `?project=${this.selectProductInfo.name}&profile=${
                 this.selectEnvInfo.name
-            }&label=${this.selectLabelInfo.name}`;
+                }&label=${this.selectLabelInfo.name}`;
             let result = await this.ajax.post(
                 '/xhr/property/persistent' + url,
                 params
@@ -268,9 +290,9 @@ export class ConfigManageComponent implements OnInit {
         try {
             let result = await this.ajax.post(
                 '/xhr/property/encrypt?envId=' +
-                    this.selectEnvId +
-                    '&value=' +
-                    item.value,
+                this.selectEnvId +
+                '&value=' +
+                item.value,
                 {}
             );
             item.value = '{cipher}' + result;
@@ -292,9 +314,9 @@ export class ConfigManageComponent implements OnInit {
         try {
             let result = await this.ajax.post(
                 '/xhr/property/decrypt?envId=' +
-                    this.selectEnvId +
-                    '&value=' +
-                    item.value.substring('{cipher}'.length),
+                this.selectEnvId +
+                '&value=' +
+                item.value.substring('{cipher}'.length),
                 {}
             );
             item.value = result;
