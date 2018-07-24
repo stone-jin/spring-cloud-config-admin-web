@@ -1,7 +1,8 @@
-import { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import { Ajax } from '../../../../shared/ajax/ajax.service';
+import {OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Ajax} from '../../../../shared/ajax/ajax.service';
 import * as yaml from 'js-yaml';
+import {toArray} from 'rxjs/operator/toArray';
 
 declare let toastr: any;
 declare let swal: any;
@@ -25,10 +26,16 @@ export class ConfigManageComponent implements OnInit {
     persistentList: any[] = [];
     persistent: any[] = [];
     configFromConfigServerList: any[] = [];
-    editorOptions = { theme: 'vs-dark', language: 'yaml', automaticLayout: true };
+    editorOptions = {theme: 'vs-dark', language: 'yaml', automaticLayout: true};
+    editorOptionsProperties = {
+        theme: 'vs-dark',
+        language: 'ini',
+        automaticLayout: true,
+    };
+    code_properties: String = ``;
     code: string = ``;
     configType: number = 1;
-    constructor(private ajax: Ajax) { }
+    constructor(private ajax: Ajax) {}
 
     ngOnInit(): void {
         this.initProductList();
@@ -196,7 +203,72 @@ export class ConfigManageComponent implements OnInit {
                 value: this.persistentList[keys[i]],
             });
         }
-        this.code = yaml.safeDump(result);
+        this.code = yaml.safeDump(this.translateToYaml(result));
+        this.code_properties = ``;
+        keys.map(item => {
+            this.code_properties +=
+                item + '=' + this.persistentList[item] + '\n';
+        });
+    }
+
+    /**
+     * 由于后端存储是key value的格式，并不是yaml转成json即可，或者json转成yaml，需要把key通过.进行split分割
+     * @param json
+     */
+    translateToYaml(json) {
+        let yamlJson = {};
+        let keys = Object.keys(json);
+        for (let i = 0; i < keys.length; i++) {
+            let tmps = keys[i].split('.');
+            let result = {};
+            for (let j = tmps.length - 1; j >= 0; j--) {
+                if (j === tmps.length - 1) {
+                    if (parseInt(json[keys[i]]) + '' == json[keys[i]]) {
+                        result[tmps[j]] = parseInt(json[keys[i]]);
+                    } else {
+                        result[tmps[j]] = json[keys[i]];
+                    }
+                } else {
+                    let tmp = {};
+                    tmp[tmps[j]] = result;
+                    result = tmp;
+                }
+            }
+            yamlJson = Object.assign({}, yamlJson, result);
+        }
+        return yamlJson;
+    }
+
+    /**
+     * 判断是否是JSON对象
+     * @param obj
+     */
+    isJson(obj) {
+        var isjson =
+            typeof obj == 'object' &&
+            Object.prototype.toString.call(obj).toLowerCase() ==
+                '[object object]' &&
+            !obj.length;
+        return isjson;
+    }
+
+    /**
+     * 从yaml格式的json转成后端需要的json
+     * @param ymlJson
+     */
+    YamlToJSON(ymlJson) {
+        console.log(ymlJson);
+        let keys = Object.keys(ymlJson);
+        let result = {};
+        for (let i = 0; i < keys.length; i++) {
+            if (ymlJson[keys[i]] instanceof Array) {
+                result[keys[i]] = JSON.stringify(ymlJson[keys[i]]);
+            } else if (!this.isJson(ymlJson[keys[i]])) {
+                result[keys[i]] = ymlJson[keys[i]];
+            } else {
+            }
+        }
+        return ymlJson;
     }
 
     /**
@@ -215,9 +287,9 @@ export class ConfigManageComponent implements OnInit {
             let tmp = result.filter(item => {
                 if (
                     item.name.substring(item.name.lastIndexOf('-') + 1) ===
-                    this.selectEnvInfo.name &&
+                        this.selectEnvInfo.name &&
                     item.name.substring(0, item.name.lastIndexOf('-')) ===
-                    this.selectProductInfo.name
+                        this.selectProductInfo.name
                 ) {
                     return true;
                 } else {
@@ -232,7 +304,6 @@ export class ConfigManageComponent implements OnInit {
                     value: tmp[item],
                 });
             });
-            console.log(result);
         } catch (e) {
             console.log(e);
             toastr.error('配置中心获取存储配置失败');
@@ -257,11 +328,29 @@ export class ConfigManageComponent implements OnInit {
                     }
                 }
             } else if (this.configType == 2) {
-                params = yaml.safeLoad(this.code);
+                params = this.YamlToJSON(yaml.safeLoad(this.code));
+                return;
+            } else if (this.configType == 3) {
+                let result = this.code_properties.split('\n');
+                for (let i = 0; i < result.length; i++) {
+                    let item = result[i].replace(/\s+/g, '');
+                    if (item.length === 0) {
+                        continue;
+                    }
+                    let tmps = item.split('=');
+                    if (tmps.length !== 2) {
+                        toastr.error('properties请都按照对应的键值对配置!');
+                        return;
+                    }
+                    if (tmps[0].indexOf('#') == 0) {
+                        continue;
+                    }
+                    params[tmps[0]] = tmps[1];
+                }
             }
             let url = `?project=${this.selectProductInfo.name}&profile=${
                 this.selectEnvInfo.name
-                }&label=${this.selectLabelInfo.name}`;
+            }&label=${this.selectLabelInfo.name}`;
             let result = await this.ajax.post(
                 '/xhr/property/persistent' + url,
                 params
@@ -290,9 +379,9 @@ export class ConfigManageComponent implements OnInit {
         try {
             let result = await this.ajax.post(
                 '/xhr/property/encrypt?envId=' +
-                this.selectEnvId +
-                '&value=' +
-                item.value,
+                    this.selectEnvId +
+                    '&value=' +
+                    item.value,
                 {}
             );
             item.value = '{cipher}' + result;
@@ -314,9 +403,9 @@ export class ConfigManageComponent implements OnInit {
         try {
             let result = await this.ajax.post(
                 '/xhr/property/decrypt?envId=' +
-                this.selectEnvId +
-                '&value=' +
-                item.value.substring('{cipher}'.length),
+                    this.selectEnvId +
+                    '&value=' +
+                    item.value.substring('{cipher}'.length),
                 {}
             );
             item.value = result;
