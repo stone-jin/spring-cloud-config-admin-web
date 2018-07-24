@@ -211,6 +211,33 @@ export class ConfigManageComponent implements OnInit {
         });
     }
 
+    mergeJSON(minor, main) {
+        for (var key in minor) {
+            if (main[key] === undefined) {
+                // 不冲突的，直接赋值
+                main[key] = minor[key];
+                continue;
+            }
+            // 冲突了，如果是Object，看看有么有不冲突的属性
+            // 不是Object 则以（minor）为准为主，
+            if (this.isJSON(minor[key]) || this.isArray(minor[key])) {
+                // arguments.callee 递归调用，并且与函数名解耦
+                //arguments.callee(minor[key], main[key]);
+                this.mergeJSON(minor[key], main[key]);
+            } else {
+                main[key] = minor[key];
+            }
+        }
+    }
+
+    isJSON(target) {
+        return typeof target == 'object' && target.constructor == Object;
+    }
+
+    isArray(o) {
+        return Object.prototype.toString.call(o) == '[object Array]';
+    }
+
     /**
      * 由于后端存储是key value的格式，并不是yaml转成json即可，或者json转成yaml，需要把key通过.进行split分割
      * @param json
@@ -225,6 +252,12 @@ export class ConfigManageComponent implements OnInit {
                 if (j === tmps.length - 1) {
                     if (parseInt(json[keys[i]]) + '' == json[keys[i]]) {
                         result[tmps[j]] = parseInt(json[keys[i]]);
+                    } else if (
+                        json[keys[i]].indexOf('[') == 0 &&
+                        json[keys[i]].lastIndexOf(']') ==
+                            json[keys[i]].length - 1
+                    ) {
+                        result[tmps[j]] = JSON.parse(json[keys[i]]);
                     } else {
                         result[tmps[j]] = json[keys[i]];
                     }
@@ -234,7 +267,8 @@ export class ConfigManageComponent implements OnInit {
                     result = tmp;
                 }
             }
-            yamlJson = Object.assign({}, yamlJson, result);
+            let resultTmp = JSON.parse(JSON.stringify(result));
+            this.mergeJSON(resultTmp, yamlJson);
         }
         return yamlJson;
     }
@@ -257,18 +291,25 @@ export class ConfigManageComponent implements OnInit {
      * @param ymlJson
      */
     YamlToJSON(ymlJson) {
-        console.log(ymlJson);
         let keys = Object.keys(ymlJson);
         let result = {};
+        let bEnd = true;
         for (let i = 0; i < keys.length; i++) {
             if (ymlJson[keys[i]] instanceof Array) {
                 result[keys[i]] = JSON.stringify(ymlJson[keys[i]]);
             } else if (!this.isJson(ymlJson[keys[i]])) {
                 result[keys[i]] = ymlJson[keys[i]];
             } else {
+                console.log(ymlJson[keys[i]]);
+                let tmp_keys = Object.keys(ymlJson[keys[i]]);
+                for (let j = 0; j < tmp_keys.length; j++) {
+                    result[keys[i] + '.' + tmp_keys[j]] =
+                        ymlJson[keys[i]][tmp_keys[j]];
+                }
+                bEnd = false;
             }
         }
-        return ymlJson;
+        return {bEnd, result};
     }
 
     /**
@@ -328,8 +369,14 @@ export class ConfigManageComponent implements OnInit {
                     }
                 }
             } else if (this.configType == 2) {
-                params = this.YamlToJSON(yaml.safeLoad(this.code));
-                return;
+                let tmp = yaml.safeLoad(this.code);
+                let result = false;
+                while (!result) {
+                    let tmpResult = this.YamlToJSON(tmp);
+                    result = tmpResult.bEnd;
+                    tmp = tmpResult.result;
+                }
+                params = tmp;
             } else if (this.configType == 3) {
                 let result = this.code_properties.split('\n');
                 for (let i = 0; i < result.length; i++) {
