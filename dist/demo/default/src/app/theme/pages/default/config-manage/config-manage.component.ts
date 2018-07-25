@@ -2,7 +2,6 @@ import {OnInit} from '@angular/core';
 import {Component} from '@angular/core';
 import {Ajax} from '../../../../shared/ajax/ajax.service';
 import * as yaml from 'js-yaml';
-import {toArray} from 'rxjs/operator/toArray';
 
 declare let toastr: any;
 declare let swal: any;
@@ -425,11 +424,8 @@ export class ConfigManageComponent implements OnInit {
         mApp.block('#envParamsList', {});
         try {
             let result = await this.ajax.post(
-                '/xhr/property/encrypt?envId=' +
-                    this.selectEnvId +
-                    '&value=' +
-                    item.value,
-                {}
+                '/xhr/property/encrypt?envId=' + this.selectEnvId,
+                item.value
             );
             item.value = '{cipher}' + result;
             toastr.success('加密成功!');
@@ -450,10 +446,9 @@ export class ConfigManageComponent implements OnInit {
         try {
             let result = await this.ajax.post(
                 '/xhr/property/decrypt?envId=' +
-                    this.selectEnvId +
-                    '&value=' +
-                    item.value.substring('{cipher}'.length),
-                {}
+                    this.selectEnvId
+                    ,
+                item.value.substring('{cipher}'.length)
             );
             item.value = result;
             toastr.success('解密成功!');
