@@ -445,9 +445,7 @@ export class ConfigManageComponent implements OnInit {
         mApp.block('#envParamsList', {});
         try {
             let result = await this.ajax.post(
-                '/xhr/property/decrypt?envId=' +
-                    this.selectEnvId
-                    ,
+                '/xhr/property/decrypt?envId=' + this.selectEnvId,
                 item.value.substring('{cipher}'.length)
             );
             item.value = result;
