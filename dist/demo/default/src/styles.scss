@@ -14,3 +14,10 @@ html {
 .m-portlet .m-portlet__head {
     border-bottom: 1px solid #ebedf2;
 }
+
+.my-code-editor {
+    height: 100% !important;
+    .editor-container {
+        height: 500px !important;
+    }
+}
