@@ -1,27 +1,39 @@
-import { Injectable } from "@angular/core";
-import { Http, Response } from "@angular/http";
-import "rxjs/add/operator/map";
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import 'rxjs/add/operator/map';
+import {Ajax} from '../../shared/ajax/ajax.service';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
+    constructor(
+        private http: Http,
+        private ajax: Ajax,
+        private _router: Router
+    ) {}
 
-    constructor(private http: Http) {
+    async login(email: string, password: string) {
+        let result = await this.ajax.postForm('/login', {
+            username: email,
+            password: password,
+        });
+        console.log(result);
+
+        let userInfo = await this.ajax.get('/xhr/user', {});
+        localStorage.setItem('currentUser', JSON.stringify(userInfo));
     }
 
-    login(email: string, password: string) {
-        return this.http.post('/api/authenticate', JSON.stringify({ email: email, password: password }))
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let user = response.json();
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
-            });
-    }
-
-    logout() {
+    async logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        try {
+            let result = await this.ajax.get('/logout', {});
+            console.log(result);
+        } catch (e) {
+            console.log(e);
+            this._router.navigate(['/login'], {
+                queryParams: {returnUrl: '/index'},
+            });
+        }
     }
 }

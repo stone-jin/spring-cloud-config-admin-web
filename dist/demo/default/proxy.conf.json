@@ -2,5 +2,13 @@
     "/xhr": {
         "target": "http://localhost:10032",
         "secure": false
+    },
+    "/login": {
+        "target": "http://localhost:10032",
+        "secure": false
+    },
+    "/logout": {
+        "target": "http://localhost:10032",
+        "secure": false
     }
 }
