@@ -1,15 +1,17 @@
 import {Http} from '@angular/http';
 import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class Ajax {
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient, private _router: Router) {}
 
     async get(url, params?: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpClient.get(url, {params: params}).subscribe(
-                (result: any) => {
+                async (result: any) => {
+                    await this.logout(result)
                     resolve(result.data);
                 },
                 (error: any) => {
@@ -23,7 +25,8 @@ export class Ajax {
     async post(url, params?: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpClient.post(url, params).subscribe(
-                (result: any) => {
+                async (result: any) => {
+                    await this.logout(result)
                     resolve(result.data);
                 },
                 (error: any) => {
@@ -32,6 +35,19 @@ export class Ajax {
                 }
             );
         });
+    }
+
+    async logout(result){
+        if (result.code == 401) {
+            localStorage.removeItem('currentUser');
+            try {
+                let result = await this.get('/logout', {});
+            } catch (e) {
+                this._router.navigate(['/login'], {
+                    queryParams: {returnUrl: '/index'},
+                });
+            }
+        }
     }
 
     async postForm(url, params?: any): Promise<any> {
@@ -48,7 +64,8 @@ export class Ajax {
                     }),
                 })
                 .subscribe(
-                    (result: any) => {
+                    async (result: any) => {
+                        await this.logout(result)
                         resolve(result.data);
                     },
                     (error: any) => {
@@ -67,7 +84,8 @@ export class Ajax {
     async put(url, params?: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpClient.put(url, params).subscribe(
-                (result: any) => {
+                async (result: any) => {
+                    await this.logout(result)
                     resolve(result.data);
                 },
                 (error: any) => {
@@ -81,7 +99,8 @@ export class Ajax {
     async delete(url, params?: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpClient.delete(url, {params: params}).subscribe(
-                (result: any) => {
+                async (result: any) => {
+                    await this.logout(result)
                     resolve({});
                 },
                 (error: any) => {
