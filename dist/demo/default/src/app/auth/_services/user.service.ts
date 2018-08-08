@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 
-import {User} from '../_models/index';
-import {Ajax} from '../../shared/ajax/ajax.service';
+import { User } from '../_models/index';
+import { Ajax } from '../../shared/ajax/ajax.service';
 
 @Injectable()
 export class UserService {
-    constructor(private http: Http, private ajax: Ajax) {}
+    constructor(private http: Http, private ajax: Ajax) { }
 
     async verify() {
         return await this.ajax.get('/xhr/user', {});
@@ -14,7 +14,7 @@ export class UserService {
 
     forgotPassword(email: string) {
         return this.http
-            .post('/api/forgot-password', JSON.stringify({email}), this.jwt())
+            .post('/api/forgot-password', JSON.stringify({ email }), this.jwt())
             .map((response: Response) => response.json());
     }
 
@@ -51,7 +51,7 @@ export class UserService {
             let headers = new Headers({
                 Authorization: 'Bearer ' + currentUser.token,
             });
-            return new RequestOptions({headers: headers});
+            return new RequestOptions({ headers: headers });
         }
     }
 }

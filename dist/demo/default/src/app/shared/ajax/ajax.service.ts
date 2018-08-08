@@ -1,18 +1,28 @@
 import {Http} from '@angular/http';
 import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
+
+declare let location: any;
 
 @Injectable()
 export class Ajax {
-    constructor(private httpClient: HttpClient, private _router: Router) {}
+    constructor(
+        private httpClient: HttpClient,
+        private _router: Router,
+        private router: ActivatedRoute
+    ) {}
 
     async get(url, params?: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.httpClient.get(url, {params: params}).subscribe(
                 async (result: any) => {
-                    await this.logout(result)
-                    resolve(result.data);
+                    try {
+                        await this.checkResult(result);
+                        resolve(result.data);
+                    } catch (e) {
+                        reject(result);
+                    }
                 },
                 (error: any) => {
                     console.log('====>', error);
@@ -26,8 +36,12 @@ export class Ajax {
         return new Promise((resolve, reject) => {
             this.httpClient.post(url, params).subscribe(
                 async (result: any) => {
-                    await this.logout(result)
-                    resolve(result.data);
+                    try {
+                        await this.checkResult(result);
+                        resolve(result.data);
+                    } catch (e) {
+                        reject(result);
+                    }
                 },
                 (error: any) => {
                     console.log('====>', error);
@@ -37,16 +51,20 @@ export class Ajax {
         });
     }
 
-    async logout(result){
+    async checkResult(result) {
         if (result.code == 401) {
             localStorage.removeItem('currentUser');
-            try {
-                let result = await this.get('/logout', {});
-            } catch (e) {
+            let hash = location.hash.substring(0, location.hash.indexOf('?'));
+            if (hash != '#/login') {
                 this._router.navigate(['/login'], {
-                    queryParams: {returnUrl: '/index'},
+                    queryParams: {returnUrl: location.hash},
                 });
             }
+            throw new Error(result);
+        } else if (result.code == 200) {
+            return;
+        } else {
+            throw new Error(result);
         }
     }
 
@@ -65,8 +83,12 @@ export class Ajax {
                 })
                 .subscribe(
                     async (result: any) => {
-                        await this.logout(result)
-                        resolve(result.data);
+                        try {
+                            await this.checkResult(result);
+                            resolve(result.data);
+                        } catch (e) {
+                            reject(result);
+                        }
                     },
                     (error: any) => {
                         console.log('====>', error);
@@ -85,8 +107,12 @@ export class Ajax {
         return new Promise((resolve, reject) => {
             this.httpClient.put(url, params).subscribe(
                 async (result: any) => {
-                    await this.logout(result)
-                    resolve(result.data);
+                    try {
+                        await this.checkResult(result);
+                        resolve(result.data);
+                    } catch (e) {
+                        reject(result);
+                    }
                 },
                 (error: any) => {
                     console.log('====>', error);
@@ -100,8 +126,12 @@ export class Ajax {
         return new Promise((resolve, reject) => {
             this.httpClient.delete(url, {params: params}).subscribe(
                 async (result: any) => {
-                    await this.logout(result)
-                    resolve({});
+                    try {
+                        await this.checkResult(result);
+                        resolve(result.data);
+                    } catch (e) {
+                        reject(result);
+                    }
                 },
                 (error: any) => {
                     console.log('====>', error);

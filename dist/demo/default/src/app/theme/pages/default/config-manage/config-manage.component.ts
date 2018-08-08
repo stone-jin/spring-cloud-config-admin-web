@@ -1,6 +1,6 @@
-import {OnInit} from '@angular/core';
-import {Component} from '@angular/core';
-import {Ajax} from '../../../../shared/ajax/ajax.service';
+import { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Ajax } from '../../../../shared/ajax/ajax.service';
 import * as yaml from 'js-yaml';
 
 declare let toastr: any;
@@ -25,7 +25,7 @@ export class ConfigManageComponent implements OnInit {
     persistentList: any[] = [];
     persistent: any[] = [];
     configFromConfigServerList: any[] = [];
-    editorOptions = {theme: 'vs-dark', language: 'yaml', automaticLayout: true};
+    editorOptions = { theme: 'vs-dark', language: 'yaml', automaticLayout: true };
     editorOptionsProperties = {
         theme: 'vs-dark',
         language: 'ini',
@@ -34,7 +34,7 @@ export class ConfigManageComponent implements OnInit {
     code_properties: String = ``;
     code: string = ``;
     configType: number = 1;
-    constructor(private ajax: Ajax) {}
+    constructor(private ajax: Ajax) { }
 
     ngOnInit(): void {
         this.initProductList();
@@ -254,7 +254,7 @@ export class ConfigManageComponent implements OnInit {
                     } else if (
                         json[keys[i]].indexOf('[') == 0 &&
                         json[keys[i]].lastIndexOf(']') ==
-                            json[keys[i]].length - 1
+                        json[keys[i]].length - 1
                     ) {
                         result[tmps[j]] = JSON.parse(json[keys[i]]);
                     } else {
@@ -280,7 +280,7 @@ export class ConfigManageComponent implements OnInit {
         var isjson =
             typeof obj == 'object' &&
             Object.prototype.toString.call(obj).toLowerCase() ==
-                '[object object]' &&
+            '[object object]' &&
             !obj.length;
         return isjson;
     }
@@ -308,7 +308,7 @@ export class ConfigManageComponent implements OnInit {
                 bEnd = false;
             }
         }
-        return {bEnd, result};
+        return { bEnd, result };
     }
 
     /**
@@ -327,9 +327,9 @@ export class ConfigManageComponent implements OnInit {
             let tmp = result.filter(item => {
                 if (
                     item.name.substring(item.name.lastIndexOf('-') + 1) ===
-                        this.selectEnvInfo.name &&
+                    this.selectEnvInfo.name &&
                     item.name.substring(0, item.name.lastIndexOf('-')) ===
-                        this.selectProductInfo.name
+                    this.selectProductInfo.name
                 ) {
                     return true;
                 } else {
@@ -396,7 +396,7 @@ export class ConfigManageComponent implements OnInit {
             }
             let url = `?project=${this.selectProductInfo.name}&profile=${
                 this.selectEnvInfo.name
-            }&label=${this.selectLabelInfo.name}`;
+                }&label=${this.selectLabelInfo.name}`;
             let result = await this.ajax.post(
                 '/xhr/property/persistent' + url,
                 params

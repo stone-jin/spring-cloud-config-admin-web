@@ -71,6 +71,22 @@
 					</span>
 				</a>
 			</li>
+			<ng-container *ngIf="userInfo?.role == 1">
+				<li class="m-menu__section">
+					<h4 class="m-menu__section-text">
+						权限模块
+					</h4>
+					<i class="m-menu__section-icon flaticon-more-v3"></i>
+				</li>
+				<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+					<a routerLink="/permControl/userManage" class="m-menu__link">
+						<i class="m-menu__link-icon flaticon-settings"></i>
+						<span class="m-menu__link-text">
+							用户管理
+						</span>
+					</a>
+				</li>
+			</ng-container>
 		</ul>
 	</div>
 	<!-- END: Aside Menu -->

@@ -13,6 +13,7 @@ import {AlertService} from './_services/alert.service';
 import {UserService} from './_services/user.service';
 import {AlertComponent} from './_directives/alert.component';
 import {Helpers} from '../helpers';
+import {Ajax} from '../shared/ajax/ajax.service';
 
 declare let $: any;
 declare let mUtil: any;
@@ -42,14 +43,24 @@ export class AuthComponent implements OnInit {
         private _route: ActivatedRoute,
         private _authService: AuthenticationService,
         private _alertService: AlertService,
-        private cfr: ComponentFactoryResolver
+        private cfr: ComponentFactoryResolver,
+        private ajax: Ajax
     ) {}
 
-    ngOnInit() {
-        this.model.remember = true;
+    async checkUserStatus() {
+        try {
+            let userInfo = await this.ajax.get('/xhr/user', {});
+            this._router.navigate([this.returnUrl]);
+        } catch (e) {
+            console.log('====>not login status.');
+        }
+    }
+
+    async ngOnInit() {
         // get return url from route parameters or default to '/'
-        this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
-        this._router.navigate([this.returnUrl]);
+        this.returnUrl =
+            this._route.snapshot.queryParams['returnUrl'] || '/index';
+        await this.checkUserStatus();
 
         this._script
             .loadScripts(
@@ -78,7 +89,7 @@ export class AuthComponent implements OnInit {
             this._router.navigate([this.returnUrl]);
         } catch (e) {
             this.showAlert('alertSignin');
-            this._alertService.error(e);
+            this._alertService.error(e.message);
             this.loading = false;
         }
     }
@@ -116,9 +127,8 @@ export class AuthComponent implements OnInit {
             let form = $(e.target).closest('form');
             form.validate({
                 rules: {
-                    email: {
+                    account: {
                         required: true,
-                        email: true,
                     },
                     password: {
                         required: true,
