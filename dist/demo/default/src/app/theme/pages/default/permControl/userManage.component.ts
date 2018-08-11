@@ -370,12 +370,12 @@ export class UserManageComponent implements OnInit {
                     password: this.formData.password,
                     role: 2,
                 };
-                let result = await this.ajax.post('/xhr/admin', params);
-                toastr.success('新增用户成功!');
+                let result = await this.ajax.put('/xhr/admin', params);
+                toastr.success('编辑用户成功!');
                 $('#m_modal_1').modal('hide');
                 this.reloadData();
             } catch (e) {
-                toastr.error('新增用户失败!');
+                toastr.error('编辑用户失败!');
             }
         }
     }

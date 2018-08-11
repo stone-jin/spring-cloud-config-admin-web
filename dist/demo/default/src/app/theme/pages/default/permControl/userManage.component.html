@@ -109,16 +109,14 @@
                                     <input type="text" class="form-control" id="nickname" name="nickname" [(ngModel)]="formData.nickname">
                                 </div>
                             </div>
-                            <ng-container *ngIf="formData.type != 'edit'">
-                                <div class="form-group m-form__group" style="padding-top: 0;">
-                                    <label for="password" class="col-form-label col-sm-12">
-                                        * 密码:
-                                    </label>
-                                    <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="password" name="password" [(ngModel)]="formData.password">
-                                    </div>
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="password" class="col-form-label col-sm-12">
+                                    * 密码:
+                                </label>
+                                <div class="col-sm-12">
+                                    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="formData.password">
                                 </div>
-                            </ng-container>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">

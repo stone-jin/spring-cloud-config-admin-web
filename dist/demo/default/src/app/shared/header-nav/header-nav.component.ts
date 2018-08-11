@@ -8,6 +8,7 @@ import {Ajax} from '../ajax/ajax.service';
 
 declare let mLayout: any;
 declare let toastr: any;
+declare let $: any;
 @Component({
     selector: 'app-header-nav',
     templateUrl: './header-nav.component.html',
@@ -15,7 +16,9 @@ declare let toastr: any;
 })
 export class HeaderNavComponent implements OnInit, AfterViewInit {
     public userInfo: any;
-    public formData: any;
+    public formData: any = {
+        nickname: ''
+    };
     constructor(private ajax: Ajax) {}
     ngOnInit() {}
     ngAfterViewInit() {
@@ -32,5 +35,25 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
         }
     }
 
-    saveModal() {}
+    async saveModal() {
+        try{
+            let result = await this.ajax.put("/xhr/user/nickname", {
+                nickname: this.formData.nickname
+            })
+            toastr.success('更新用户信息失败!');
+        }catch(e){
+            toastr.error('更新用户信息失败!');
+        }
+    }
+
+    closeModal() {
+        $("#edit_user_form").modal('hide')
+    }
+
+    editUserInfo(){
+        this.formData = {
+            nickname: this.userInfo.nickname
+        }
+        $("#edit_user_form").modal('show')
+    }
 }
