@@ -588,3 +588,62 @@
 	</div>
 </header>
 <!-- END: Header -->
+<div class="modal fade" id="edit_user_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered m-form m-form--state" role="document">
+		<form class="modal-content" id="edit-user-form">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type == 'edit'">
+					编辑个人信息
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form class="m-form__content">
+					<div class="form-group m-form__group" style="padding-top: 0;">
+						<label for="username" class="col-form-label col-sm-12">
+							* 账号:
+						</label>
+						<div class="col-sm-12">
+							<ng-container *ngIf="formData.type != 'edit'">
+								<input type="text" class="form-control" id="username" name="username" [(ngModel)]="formData.username">
+							</ng-container>
+							<ng-container *ngIf="formData.type == 'edit'">
+								<input type="text" class="form-control" id="username" name="username" [(ngModel)]="formData.username" disabled="true">
+							</ng-container>
+						</div>
+					</div>
+					<div class="form-group m-form__group" style="padding-top: 0;">
+						<label for="nickname" class="col-form-label col-sm-12">
+							* 昵称:
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" id="nickname" name="nickname" [(ngModel)]="formData.nickname">
+						</div>
+					</div>
+					<ng-container *ngIf="formData.type != 'edit'">
+						<div class="form-group m-form__group" style="padding-top: 0;">
+							<label for="password" class="col-form-label col-sm-12">
+								* 密码:
+							</label>
+							<div class="col-sm-12">
+								<input type="password" class="form-control" id="password" name="password" [(ngModel)]="formData.password">
+							</div>
+						</div>
+					</ng-container>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal();">
+					关闭
+				</button>
+				<button type="submit" class="btn btn-primary" (click)="saveModal();">
+					保存
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

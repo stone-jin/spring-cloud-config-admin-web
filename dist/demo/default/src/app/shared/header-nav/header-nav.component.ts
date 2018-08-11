@@ -4,7 +4,7 @@ import {
     ViewEncapsulation,
     AfterViewInit,
 } from '@angular/core';
-import { Ajax } from '../ajax/ajax.service';
+import {Ajax} from '../ajax/ajax.service';
 
 declare let mLayout: any;
 declare let toastr: any;
@@ -15,8 +15,9 @@ declare let toastr: any;
 })
 export class HeaderNavComponent implements OnInit, AfterViewInit {
     public userInfo: any;
-    constructor(private ajax: Ajax) { }
-    ngOnInit() { }
+    public formData: any;
+    constructor(private ajax: Ajax) {}
+    ngOnInit() {}
     ngAfterViewInit() {
         mLayout.initHeader();
         this.getUserInfo();
@@ -30,4 +31,6 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
             toastr.error('获取用户信息失败!');
         }
     }
+
+    saveModal() {}
 }
