@@ -51,8 +51,7 @@ export class UserManageComponent implements OnInit {
                             if (typeof raw.data !== 'undefined') {
                                 dataSet = raw.data;
                             }
-                            console.log(dataSet);
-                            return dataSet.content;
+                            return dataSet;
                         },
                     },
                 },
@@ -364,6 +363,20 @@ export class UserManageComponent implements OnInit {
                 toastr.error('新增用户失败!');
             }
         } else {
+            try {
+                let params = {
+                    username: this.formData.username,
+                    nickname: this.formData.nickname,
+                    password: this.formData.password,
+                    role: 2,
+                };
+                let result = await this.ajax.post('/xhr/admin', params);
+                toastr.success('新增用户成功!');
+                $('#m_modal_1').modal('hide');
+                this.reloadData();
+            } catch (e) {
+                toastr.error('新增用户失败!');
+            }
         }
     }
 
