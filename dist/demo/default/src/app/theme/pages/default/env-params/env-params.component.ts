@@ -336,7 +336,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                     toastr.success('删除环境参数成功!');
                     this.reloadData();
                 } catch (e) {
-                    toastr.error('删除环境参数失败!');
+                    toastr.error((e.message && e.message.length > 0) ||'删除环境参数失败!');
                 }
             }
         });
@@ -384,7 +384,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                 $('#m_modal_1').modal('hide');
                 this.reloadData();
             } catch (e) {
-                toastr.error('新增环境失败!');
+                toastr.error((e.message && e.message.length > 0) ||'新增环境失败!');
             }
         } else {
             try {
@@ -398,7 +398,7 @@ export class EnvParamsComponent implements OnInit, AfterViewInit {
                 $('#m_modal_1').modal('hide');
                 this.reloadData();
             } catch (e) {
-                toastr.error('编辑环境失败!');
+                toastr.error((e.message && e.message.length > 0) ||'编辑环境失败!');
             }
         }
     }

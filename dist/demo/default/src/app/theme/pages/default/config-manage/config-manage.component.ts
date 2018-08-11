@@ -346,7 +346,7 @@ export class ConfigManageComponent implements OnInit {
             });
         } catch (e) {
             console.log(e);
-            toastr.error('配置中心获取存储配置失败');
+            toastr.error((e.message && e.message.length > 0) ||'配置中心获取存储配置失败');
         }
     }
 
@@ -403,7 +403,7 @@ export class ConfigManageComponent implements OnInit {
             );
             toastr.success('保存存储配置信息成功!');
         } catch (e) {
-            toastr.error('保存存储配置信息失败!');
+            toastr.error((e.message && e.message.length > 0) ||'保存存储配置信息失败!');
         }
     }
 
@@ -430,7 +430,7 @@ export class ConfigManageComponent implements OnInit {
             item.value = '{cipher}' + result;
             toastr.success('加密成功!');
         } catch (e) {
-            toastr.error('加密失败!');
+            toastr.error((e.message && e.message.length > 0) ||'加密失败!');
         }
         mApp.unblock('#persistentList');
         mApp.unblock('#envParamsList');
@@ -451,7 +451,7 @@ export class ConfigManageComponent implements OnInit {
             item.value = result;
             toastr.success('解密成功!');
         } catch (e) {
-            toastr.error('解密失败!');
+            toastr.error((e.message && e.message.length > 0) ||'解密失败!');
         }
         mApp.unblock('#persistentList');
         mApp.unblock('#envParamsList');

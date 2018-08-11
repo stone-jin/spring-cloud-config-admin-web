@@ -1,7 +1,7 @@
-import { OnInit } from '@angular/core';
-import { Component, AfterViewInit } from '@angular/core';
-import { ScriptLoaderService } from '../../../../_services/script-loader.service';
-import { Ajax } from '../../../../shared/ajax/ajax.service';
+import {OnInit} from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
+import {ScriptLoaderService} from '../../../../_services/script-loader.service';
+import {Ajax} from '../../../../shared/ajax/ajax.service';
 
 declare let toastr: any;
 declare let $: any;
@@ -23,9 +23,9 @@ export class ProductCompponent implements AfterViewInit, OnInit {
     label: String = '';
     envList: any[] = [];
     master: Boolean = false;
-    constructor(private _script: ScriptLoaderService, private ajax: Ajax) { }
+    constructor(private _script: ScriptLoaderService, private ajax: Ajax) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
     async initEnvList() {
         let result = await this.ajax.get('/xhr/env');
@@ -113,7 +113,9 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                 $('#m_modal_1').modal('hide');
                 this.datatable.reload();
             } catch (e) {
-                toastr.error('新增项目失败!');
+                toastr.error(
+                    (e.message && e.message.length > 0) || '新增项目失败!'
+                );
             }
         } else {
             try {
@@ -138,7 +140,9 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                 $('#m_modal_1').modal('hide');
                 this.datatable.reload();
             } catch (e) {
-                toastr.error('更新项目失败!');
+                toastr.error(
+                    (e.message && e.message.length > 0) || '更新项目失败!'
+                );
             }
         }
     }
@@ -203,7 +207,9 @@ export class ProductCompponent implements AfterViewInit, OnInit {
                     toastr.success('删除项目成功!');
                     this.datatable.reload();
                 } catch (e) {
-                    toastr.error('删除项目失败!');
+                    toastr.error(
+                        (e.message && e.message.length > 0) || '删除项目失败!'
+                    );
                 }
             }
         });
@@ -218,7 +224,7 @@ export class ProductCompponent implements AfterViewInit, OnInit {
         try {
             let result = await this.ajax.post(
                 '/xhr/project/label?' +
-                `projectId=${this.formData.id}&labelName=${this.label}`,
+                    `projectId=${this.formData.id}&labelName=${this.label}`,
                 {}
             );
             toastr.success('新增配置版本成功!');
@@ -228,7 +234,9 @@ export class ProductCompponent implements AfterViewInit, OnInit {
             });
             this.bInAdd = false;
         } catch (e) {
-            toastr.error('新增配置版本失败!');
+            toastr.error(
+                (e.message && e.message.length > 0) || '新增配置版本失败!'
+            );
         }
     }
 
@@ -241,7 +249,9 @@ export class ProductCompponent implements AfterViewInit, OnInit {
             );
             toastr.success('删除配置版本成功!');
         } catch (e) {
-            toastr.error('删除配置版本失败!');
+            toastr.error(
+                (e.message && e.message.length > 0) || '删除配置版本失败!'
+            );
         }
     }
 }

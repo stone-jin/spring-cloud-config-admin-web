@@ -264,7 +264,7 @@ export class UserManageComponent implements OnInit {
                     toastr.success('删除用户成功!');
                     this.datatable.reload();
                 } catch (e) {
-                    toastr.error('删除用户失败!');
+                    toastr.error((e.message && e.message.length > 0) ||'删除用户失败!');
                 }
             }
         });
@@ -360,7 +360,7 @@ export class UserManageComponent implements OnInit {
                 $('#m_modal_1').modal('hide');
                 this.reloadData();
             } catch (e) {
-                toastr.error('新增用户失败!');
+                toastr.error((e.message && e.message.length > 0) ||'新增用户失败!');
             }
         } else {
             try {
@@ -375,7 +375,7 @@ export class UserManageComponent implements OnInit {
                 $('#m_modal_1').modal('hide');
                 this.reloadData();
             } catch (e) {
-                toastr.error('编辑用户失败!');
+                toastr.error((e.message && e.message.length > 0) ||'编辑用户失败!');
             }
         }
     }

@@ -282,7 +282,7 @@ export class EncrpyKeyComponent implements AfterViewInit, OnInit {
                 $('#m_modal_1').modal('hide');
                 this.datatable.reload();
             } catch (e) {
-                toastr.error('新增加密key失败!');
+                toastr.error((e.message && e.message.length > 0) ||'新增加密key失败!');
             }
         } else {
             try {
@@ -295,7 +295,7 @@ export class EncrpyKeyComponent implements AfterViewInit, OnInit {
                 $('#m_modal_1').modal('hide');
                 this.datatable.reload();
             } catch (e) {
-                toastr.error('更新加密key失败!');
+                toastr.error((e.message && e.message.length > 0) ||'更新加密key失败!');
             }
         }
     }
@@ -346,7 +346,7 @@ export class EncrpyKeyComponent implements AfterViewInit, OnInit {
                     toastr.success('删除加密key成功!');
                     this.datatable.reload();
                 } catch (e) {
-                    toastr.error('删除加密key失败!');
+                    toastr.error((e.message && e.message.length > 0) ||'删除加密key失败!');
                 }
             }
         });
