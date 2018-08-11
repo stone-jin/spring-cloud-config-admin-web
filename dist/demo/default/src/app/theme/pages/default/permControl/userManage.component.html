@@ -39,8 +39,98 @@
 <div class="m-content">
     <div class="m-portlet m-portlet--mobile">
         <div class="m-portlet__body">
+            <div class="m-form m-form--label-align-right m--margin-top-10 m--margin-bottom-20">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+                        <div class="form-group m-form__group row align-items-center">
+                            <div class="col-md-4">
+                                <div class="m-input-icon m-input-icon--left">
+                                    <input class="form-control m-input m-input--solid" id="generalSearch" placeholder="请输入搜索关键字..." type="text">
+                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                        <button type="button" class="btn btn-info m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" (click)="createUser()">
+                            <span>
+                                <i class="la la-plus">
+                                </i>
+                                新建用户
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div id="m_datatable"></div>
         </div>
     </div>
     <!-- END EXAMPLE TABLE PORTLET-->
+    <!--begin::Modal-->
+    <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered m-form m-form--state" role="document">
+            <form class="modal-content" id="user-create-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type != 'edit'">
+                        新增用户
+                    </h5>
+                    <h5 class="modal-title" id="exampleModalLabel" *ngIf="formData.type == 'edit'">
+                        编辑用户
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="m-form__content">
+                        <div class="form-group m-form__group" style="padding-top: 0;">
+                            <label for="username" class="col-form-label col-sm-12">
+                                * 账号:
+                            </label>
+                            <div class="col-sm-12">
+                                <ng-container *ngIf="formData.type != 'edit'">
+                                    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="formData.username">
+                                </ng-container>
+                                <ng-container *ngIf="formData.type == 'edit'">
+                                    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="formData.username" disabled="true">
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group" style="padding-top: 0;">
+                            <label for="nickname" class="col-form-label col-sm-12">
+                                * 昵称:
+                            </label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="nickname" name="nickname" [(ngModel)]="formData.nickname">
+                            </div>
+                        </div>
+                        <ng-container *ngIf="formData.type != 'edit'">
+                            <div class="form-group m-form__group" style="padding-top: 0;">
+                                <label for="password" class="col-form-label col-sm-12">
+                                    * 密码:
+                                </label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="password" name="password" [(ngModel)]="formData.password">
+                                </div>
+                            </div>
+                        </ng-container>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal();">
+                        关闭
+                    </button>
+                    <button type="submit" class="btn btn-primary" (click)="saveModal();">
+                        保存
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
