@@ -1,3 +1,4 @@
+import {AjaxToastrService} from './../AjaxToastr/ajaxToastr.service';
 import {
     Component,
     OnInit,
@@ -19,9 +20,9 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
     public formData: any = {
         nickname: '',
         oldPwd: '',
-        newPwd: ''
+        newPwd: '',
     };
-    constructor(private ajax: Ajax) {}
+    constructor(private ajax: Ajax, private ajaxToastr: AjaxToastrService) {}
     ngOnInit() {}
     ngAfterViewInit() {
         mLayout.initHeader();
@@ -33,56 +34,56 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
             this.userInfo = await this.ajax.get('/xhr/user');
             console.log(this.userInfo);
         } catch (e) {
-            toastr.error((e.message && e.message.length > 0) ||'获取用户信息失败!');
+            this.ajaxToastr.error(e, '获取用户信息失败!');
         }
     }
 
     async saveModal() {
-        try{
-            let result = await this.ajax.put("/xhr/user/nickname", {
-                nickname: this.formData.nickname
-            })
+        try {
+            let result = await this.ajax.put('/xhr/user/nickname', {
+                nickname: this.formData.nickname,
+            });
             toastr.success('更新用户信息成功!');
-            $("#edit_user_form").modal('hide')
+            $('#edit_user_form').modal('hide');
             this.getUserInfo();
-        }catch(e){
-            toastr.error((e.message && e.message.length > 0) ||'更新用户信息失败!');
+        } catch (e) {
+            this.ajaxToastr.error(e, '更新用户信息失败!');
         }
     }
 
     closeModal() {
-        $("#edit_user_form").modal('hide')
+        $('#edit_user_form').modal('hide');
     }
 
-    editUserInfo(){
+    editUserInfo() {
         this.formData = {
-            nickname: this.userInfo.nickname
-        }
-        $("#edit_user_form").modal('show')
+            nickname: this.userInfo.nickname,
+        };
+        $('#edit_user_form').modal('show');
     }
 
-    closePasswordModal(){
-        $("#edit_password_modal").modal('hide')
+    closePasswordModal() {
+        $('#edit_password_modal').modal('hide');
     }
 
-    async savePasswordModal(){
-        try{
-            let result = await this.ajax.put("/xhr/user/password", {
+    async savePasswordModal() {
+        try {
+            let result = await this.ajax.put('/xhr/user/password', {
                 newPwd: this.formData.newPwd,
-                oldPwd: this.formData.oldPwd
-            })
+                oldPwd: this.formData.oldPwd,
+            });
             toastr.success('更新用户密码成功!');
-            $("#edit_password_modal").modal('hide')
-        }catch(e){
-            toastr.error((e.message && e.message.length > 0) || '更新用户密码失败!');
+            $('#edit_password_modal').modal('hide');
+        } catch (e) {
+            this.ajaxToastr.error(e, '更新用户密码失败!');
         }
     }
 
-    editPassword(){
+    editPassword() {
         this.formData = {
             newPwd: '',
-            oldPwd: ''
-        }
-        $("#edit_password_modal").modal('show')
+            oldPwd: '',
+        };
+        $('#edit_password_modal').modal('show');
     }
 }

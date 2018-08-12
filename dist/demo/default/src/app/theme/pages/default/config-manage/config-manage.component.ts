@@ -1,7 +1,8 @@
-import { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import { Ajax } from '../../../../shared/ajax/ajax.service';
+import {OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Ajax} from '../../../../shared/ajax/ajax.service';
 import * as yaml from 'js-yaml';
+import {AjaxToastrService} from '../../../../shared/AjaxToastr/ajaxToastr.service';
 
 declare let toastr: any;
 declare let swal: any;
@@ -25,7 +26,7 @@ export class ConfigManageComponent implements OnInit {
     persistentList: any[] = [];
     persistent: any[] = [];
     configFromConfigServerList: any[] = [];
-    editorOptions = { theme: 'vs-dark', language: 'yaml', automaticLayout: true };
+    editorOptions = {theme: 'vs-dark', language: 'yaml', automaticLayout: true};
     editorOptionsProperties = {
         theme: 'vs-dark',
         language: 'ini',
@@ -34,7 +35,7 @@ export class ConfigManageComponent implements OnInit {
     code_properties: String = ``;
     code: string = ``;
     configType: number = 1;
-    constructor(private ajax: Ajax) { }
+    constructor(private ajax: Ajax, private ajaxToastr: AjaxToastrService) {}
 
     ngOnInit(): void {
         this.initProductList();
@@ -254,7 +255,7 @@ export class ConfigManageComponent implements OnInit {
                     } else if (
                         json[keys[i]].indexOf('[') == 0 &&
                         json[keys[i]].lastIndexOf(']') ==
-                        json[keys[i]].length - 1
+                            json[keys[i]].length - 1
                     ) {
                         result[tmps[j]] = JSON.parse(json[keys[i]]);
                     } else {
@@ -280,7 +281,7 @@ export class ConfigManageComponent implements OnInit {
         var isjson =
             typeof obj == 'object' &&
             Object.prototype.toString.call(obj).toLowerCase() ==
-            '[object object]' &&
+                '[object object]' &&
             !obj.length;
         return isjson;
     }
@@ -308,7 +309,7 @@ export class ConfigManageComponent implements OnInit {
                 bEnd = false;
             }
         }
-        return { bEnd, result };
+        return {bEnd, result};
     }
 
     /**
@@ -327,9 +328,9 @@ export class ConfigManageComponent implements OnInit {
             let tmp = result.filter(item => {
                 if (
                     item.name.substring(item.name.lastIndexOf('-') + 1) ===
-                    this.selectEnvInfo.name &&
+                        this.selectEnvInfo.name &&
                     item.name.substring(0, item.name.lastIndexOf('-')) ===
-                    this.selectProductInfo.name
+                        this.selectProductInfo.name
                 ) {
                     return true;
                 } else {
@@ -346,7 +347,7 @@ export class ConfigManageComponent implements OnInit {
             });
         } catch (e) {
             console.log(e);
-            toastr.error((e.message && e.message.length > 0) ||'配置中心获取存储配置失败');
+            this.ajaxToastr.error(e, '配置中心获取存储配置失败');
         }
     }
 
@@ -396,14 +397,14 @@ export class ConfigManageComponent implements OnInit {
             }
             let url = `?project=${this.selectProductInfo.name}&profile=${
                 this.selectEnvInfo.name
-                }&label=${this.selectLabelInfo.name}`;
+            }&label=${this.selectLabelInfo.name}`;
             let result = await this.ajax.post(
                 '/xhr/property/persistent' + url,
                 params
             );
             toastr.success('保存存储配置信息成功!');
         } catch (e) {
-            toastr.error((e.message && e.message.length > 0) ||'保存存储配置信息失败!');
+            this.ajaxToastr.error(e, '保存存储配置信息失败!');
         }
     }
 
@@ -430,7 +431,7 @@ export class ConfigManageComponent implements OnInit {
             item.value = '{cipher}' + result;
             toastr.success('加密成功!');
         } catch (e) {
-            toastr.error((e.message && e.message.length > 0) ||'加密失败!');
+            this.ajaxToastr.error(e, '加密失败!');
         }
         mApp.unblock('#persistentList');
         mApp.unblock('#envParamsList');
@@ -451,7 +452,7 @@ export class ConfigManageComponent implements OnInit {
             item.value = result;
             toastr.success('解密成功!');
         } catch (e) {
-            toastr.error((e.message && e.message.length > 0) ||'解密失败!');
+            this.ajaxToastr.error(e, '解密失败!');
         }
         mApp.unblock('#persistentList');
         mApp.unblock('#envParamsList');

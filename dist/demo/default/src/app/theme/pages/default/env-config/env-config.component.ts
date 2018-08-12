@@ -1,3 +1,4 @@
+import {AjaxToastrService} from './../../../../shared/AjaxToastr/ajaxToastr.service';
 import {OnInit} from '@angular/core';
 import {Component, AfterViewInit} from '@angular/core';
 import {ScriptLoaderService} from '../../../../_services/script-loader.service';
@@ -19,7 +20,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
     };
     dataList: any[] = [];
     datatable: any = null;
-    constructor(private ajax: Ajax) {}
+    constructor(private ajax: Ajax, private ajaxToastr: AjaxToastrService) {}
 
     ngOnInit(): void {}
 
@@ -310,7 +311,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                 $('#m_modal_1').modal('hide');
                 this.datatable.reload();
             } catch (e) {
-                toastr.error((e.message && e.message.length > 0) ||'新增环境失败!');
+                this.ajaxToastr.error(e, '新增环境失败!');
             }
         } else {
             try {
@@ -326,7 +327,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                 $('#m_modal_1').modal('hide');
                 this.datatable.reload();
             } catch (e) {
-                toastr.error((e.message && e.message.length > 0) ||'更新环境失败!');
+                this.ajaxToastr.error(e, '更新环境失败!');
             }
         }
     }
@@ -379,7 +380,7 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
                     toastr.success('删除环境成功!');
                     this.datatable.reload();
                 } catch (e) {
-                    toastr.error((e.message && e.message.length > 0) ||'删除环境失败!');
+                    this.ajaxToastr.error(e, '删除环境失败!');
                 }
             }
         });

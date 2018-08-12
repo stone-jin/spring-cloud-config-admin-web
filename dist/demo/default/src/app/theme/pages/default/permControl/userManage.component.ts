@@ -1,3 +1,4 @@
+import {AjaxToastrService} from './../../../../shared/AjaxToastr/ajaxToastr.service';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {Ajax} from '../../../../shared/ajax/ajax.service';
@@ -15,7 +16,11 @@ export class UserManageComponent implements OnInit {
     userInfo: any = {};
     datatable: any;
     formData: any = {};
-    constructor(private router: Router, private ajax: Ajax) {}
+    constructor(
+        private router: Router,
+        private ajax: Ajax,
+        private ajaxToastr: AjaxToastrService
+    ) {}
 
     ngOnInit() {
         this.checkUserPerm();
@@ -264,7 +269,7 @@ export class UserManageComponent implements OnInit {
                     toastr.success('删除用户成功!');
                     this.datatable.reload();
                 } catch (e) {
-                    toastr.error((e.message && e.message.length > 0) ||'删除用户失败!');
+                    this.ajaxToastr.error(e, '删除用户失败!');
                 }
             }
         });
@@ -360,7 +365,7 @@ export class UserManageComponent implements OnInit {
                 $('#m_modal_1').modal('hide');
                 this.reloadData();
             } catch (e) {
-                toastr.error((e.message && e.message.length > 0) ||'新增用户失败!');
+                this.ajaxToastr.error(e, '新增用户失败!');
             }
         } else {
             try {
@@ -375,7 +380,7 @@ export class UserManageComponent implements OnInit {
                 $('#m_modal_1').modal('hide');
                 this.reloadData();
             } catch (e) {
-                toastr.error((e.message && e.message.length > 0) ||'编辑用户失败!');
+                this.ajaxToastr.error(e, '编辑用户失败!');
             }
         }
     }

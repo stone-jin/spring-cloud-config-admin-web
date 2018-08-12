@@ -103,7 +103,7 @@
                                     <div class="m-checkbox-list">
                                         <ng-container *ngFor="let item of envList; let i = index">
                                             <label class="m-env-item m-checkbox">
-                                                <input type="checkbox" [(ngModel)]="item.checked" id="productEnv" name="productEnv"> {{item.name}}
+                                                <input type="checkbox" [(ngModel)]="item.checked" id="productEnv-{{i}}" name="productEnv"> {{item.name}}
                                                 <span></span>
                                             </label>
                                         </ng-container>
