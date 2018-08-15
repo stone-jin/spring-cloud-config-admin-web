@@ -1,7 +1,7 @@
-import {AjaxToastrService} from './../../../../shared/AjaxToastr/ajaxToastr.service';
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
-import {Ajax} from '../../../../shared/ajax/ajax.service';
+import { AjaxToastrService } from './../../../../shared/AjaxToastr/ajaxToastr.service';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { Ajax } from '../../../../shared/ajax/ajax.service';
 
 declare let swal: any;
 declare let toastr: any;
@@ -20,7 +20,7 @@ export class UserManageComponent implements OnInit {
         private router: Router,
         private ajax: Ajax,
         private ajaxToastr: AjaxToastrService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.checkUserPerm();
@@ -93,7 +93,7 @@ export class UserManageComponent implements OnInit {
                 },
 
                 icons: {
-                    sort: {asc: 'la la-arrow-up', desc: 'la la-arrow-down'},
+                    sort: { asc: 'la la-arrow-up', desc: 'la la-arrow-down' },
                     pagination: {
                         next: 'la la-angle-right',
                         prev: 'la la-angle-left',
@@ -122,7 +122,7 @@ export class UserManageComponent implements OnInit {
             },
 
             rows: {
-                callback: function() {},
+                callback: function() { },
                 // auto hide columns, if rows overflow. work on non locked columns
                 autoHide: false,
             },
@@ -135,7 +135,7 @@ export class UserManageComponent implements OnInit {
                     sortable: 'asc',
                     filterable: false,
                     width: 300,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: '{{username}}',
                 },
                 {
@@ -144,7 +144,7 @@ export class UserManageComponent implements OnInit {
                     sortable: 'asc',
                     filterable: false,
                     width: 300,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: '{{nickname}}',
                 },
                 {
@@ -153,7 +153,7 @@ export class UserManageComponent implements OnInit {
                     sortable: 'asc',
                     filterable: false,
                     width: 300,
-                    responsive: {visible: 'lg'},
+                    responsive: { visible: 'lg' },
                     template: function(row) {
                         return row.role == 1 ? '超级管理员' : '普通成员';
                     },
@@ -229,7 +229,7 @@ export class UserManageComponent implements OnInit {
                                 select: '请选择每页显示数量',
                             },
                             info:
-                                '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
+                            '显示第 {{start}} - {{end}} 条记录，总共 {{total}} 条',
                         },
                     },
                 },

@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
     ActivatedRouteSnapshot,
     CanActivate,
     Router,
     RouterStateSnapshot,
 } from '@angular/router';
-import {UserService} from '../_services/user.service';
+import { UserService } from '../_services/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private _router: Router, private _userService: UserService) {}
+    constructor(private _router: Router, private _userService: UserService) { }
 
     async canActivate(
         route: ActivatedRouteSnapshot,
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
         } catch (e) {
             if (state.url != '/login') {
                 this._router.navigate(['/login'], {
-                    queryParams: {returnUrl: state.url},
+                    queryParams: { returnUrl: state.url },
                 });
             } else {
                 this._router.navigate(['/login']);

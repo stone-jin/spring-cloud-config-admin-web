@@ -1,7 +1,7 @@
-import {Http} from '@angular/http';
-import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Http } from '@angular/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare let location: any;
 
@@ -11,11 +11,11 @@ export class Ajax {
         private httpClient: HttpClient,
         private _router: Router,
         private router: ActivatedRoute
-    ) {}
+    ) { }
 
     async get(url, params?: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpClient.get(url, {params: params}).subscribe(
+            this.httpClient.get(url, { params: params }).subscribe(
                 async (result: any) => {
                     try {
                         await this.checkResult(result);
@@ -57,7 +57,7 @@ export class Ajax {
             let hash = location.hash.substring(0, location.hash.indexOf('?'));
             if (hash != '#/login') {
                 this._router.navigate(['/login'], {
-                    queryParams: {returnUrl: location.hash},
+                    queryParams: { returnUrl: location.hash },
                 });
             }
             throw new Error(result);
@@ -82,23 +82,23 @@ export class Ajax {
                     }),
                 })
                 .subscribe(
-                    async (result: any) => {
-                        try {
-                            await this.checkResult(result);
-                            resolve(result.data);
-                        } catch (e) {
-                            reject(result);
-                        }
-                    },
-                    (error: any) => {
-                        console.log('====>', error);
-                        if (error.url == 'http://localhost:4200/login?error') {
-                            reject('登录失败');
-                        } else {
-                            console.log('====>登录成功');
-                            resolve();
-                        }
+                async (result: any) => {
+                    try {
+                        await this.checkResult(result);
+                        resolve(result.data);
+                    } catch (e) {
+                        reject(result);
                     }
+                },
+                (error: any) => {
+                    console.log('====>', error);
+                    if (error.url == 'http://localhost:4200/login?error') {
+                        reject('登录失败');
+                    } else {
+                        console.log('====>登录成功');
+                        resolve();
+                    }
+                }
                 );
         });
     }
@@ -124,7 +124,7 @@ export class Ajax {
 
     async delete(url, params?: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.httpClient.delete(url, {params: params}).subscribe(
+            this.httpClient.delete(url, { params: params }).subscribe(
                 async (result: any) => {
                     try {
                         await this.checkResult(result);

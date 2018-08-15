@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 declare let toastr: any;
 
 @Injectable()
 export class AjaxToastrService {
-    constructor() {}
+    constructor() { }
 
     error(e, message) {
         toastr.error(e.message && e.message.length > 0 ? e.message : message);

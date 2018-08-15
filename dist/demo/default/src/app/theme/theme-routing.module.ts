@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {ThemeComponent} from './theme.component';
-import {Routes, RouterModule} from '@angular/router';
-import {AuthGuard} from '../auth/_guards/auth.guard';
+import { NgModule } from '@angular/core';
+import { ThemeComponent } from './theme.component';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../auth/_guards/auth.guard';
 
 const routes: Routes = [
     {
@@ -16,42 +16,42 @@ const routes: Routes = [
             {
                 path: 'env/env-config',
                 loadChildren:
-                    './pages/default/env-config/env-config.module#EnvConfigModule',
+                './pages/default/env-config/env-config.module#EnvConfigModule',
             },
             {
                 path: 'env/env-params',
                 loadChildren:
-                    './pages/default/env-params/env-params.module#EnvParamsModule',
+                './pages/default/env-params/env-params.module#EnvParamsModule',
             },
             {
                 path: 'env/var-config',
                 loadChildren:
-                    './pages/default/var-config/var-config.module#VarConfigModule',
+                './pages/default/var-config/var-config.module#VarConfigModule',
             },
             {
                 path: 'env/encrpy-key',
                 loadChildren:
-                    './pages/default/encrpy-key/encrpy-key.module#EncrpyKeyModule',
+                './pages/default/encrpy-key/encrpy-key.module#EncrpyKeyModule',
             },
             {
                 path: 'product/product',
                 loadChildren:
-                    './pages/default/product/product.module#ProductModule',
+                './pages/default/product/product.module#ProductModule',
             },
             {
                 path: 'config/manage',
                 loadChildren:
-                    './pages/default/config-manage/config-manage.module#ConfigManageModule',
+                './pages/default/config-manage/config-manage.module#ConfigManageModule',
             },
             {
                 path: 'permControl/userManage',
                 loadChildren:
-                    './pages/default/permControl/userManage.module#UserManageModule',
+                './pages/default/permControl/userManage.module#UserManageModule',
             },
             {
                 path: '404',
                 loadChildren:
-                    './pages/default/not-found/not-found.module#NotFoundModule',
+                './pages/default/not-found/not-found.module#NotFoundModule',
             },
             {
                 path: '',
@@ -71,4 +71,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class ThemeRoutingModule {}
+export class ThemeRoutingModule { }

@@ -4,8 +4,8 @@ import {
     ViewEncapsulation,
     AfterViewInit,
 } from '@angular/core';
-import {Helpers} from '../../helpers';
-import {Ajax} from '../ajax/ajax.service';
+import { Helpers } from '../../helpers';
+import { Ajax } from '../ajax/ajax.service';
 
 declare let mLayout: any;
 
@@ -15,7 +15,7 @@ declare let mLayout: any;
 })
 export class AsideNavComponent implements OnInit, AfterViewInit {
     userInfo: any;
-    constructor(private ajax: Ajax) {}
+    constructor(private ajax: Ajax) { }
     ngOnInit() {
         this.getUserInfo();
     }

@@ -1,11 +1,11 @@
-import {AjaxToastrService} from './../AjaxToastr/ajaxToastr.service';
+import { AjaxToastrService } from './../AjaxToastr/ajaxToastr.service';
 import {
     Component,
     OnInit,
     ViewEncapsulation,
     AfterViewInit,
 } from '@angular/core';
-import {Ajax} from '../ajax/ajax.service';
+import { Ajax } from '../ajax/ajax.service';
 
 declare let mLayout: any;
 declare let toastr: any;
@@ -22,8 +22,8 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
         oldPwd: '',
         newPwd: '',
     };
-    constructor(private ajax: Ajax, private ajaxToastr: AjaxToastrService) {}
-    ngOnInit() {}
+    constructor(private ajax: Ajax, private ajaxToastr: AjaxToastrService) { }
+    ngOnInit() { }
     ngAfterViewInit() {
         mLayout.initHeader();
         this.getUserInfo();
