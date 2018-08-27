@@ -10,6 +10,7 @@ declare let $: any;
 declare let mApp: any;
 @Component({
     templateUrl: './config-manage.component.html',
+    styleUrls: ['./config-manage.component.scss']
 })
 export class ConfigManageComponent implements OnInit {
     productList: any[] = [];
@@ -92,9 +93,73 @@ export class ConfigManageComponent implements OnInit {
         // });
     }
 
+    changeYamlPage(){
+        let params = {}
+        for (let i = 0; i < this.persistent.length; i++) {
+            params[this.persistent[i].key] = this.persistent[i].value;
+            if (
+                this.persistent[i].key === '' ||
+                this.persistent[i].value === ''
+            ) {
+                toastr.error('当前存储配置不能为空，请进行补全!');
+                return;
+            }
+        }
+        this.persistent = [];
+        let keys = Object.keys(params);
+        for (let i = 0; i < keys.length; i++) {
+            this.persistent.push({
+                key: keys[i],
+                value: params[keys[i]],
+            });
+        }
+        this.code = yaml.safeDump(this.translateToYaml(params));
+        if(this.code.indexOf('{}') == 0){
+            this.code = ''
+        }
+        $("#m_modal_yaml_editor").modal('show');
+    }
+
+    changePropertyPage(){
+        let params = {}
+        for (let i = 0; i < this.persistent.length; i++) {
+            params[this.persistent[i].key] = this.persistent[i].value;
+            if (
+                this.persistent[i].key === '' ||
+                this.persistent[i].value === ''
+            ) {
+                toastr.error('当前存储配置不能为空，请进行补全!');
+                return;
+            }
+        }
+        this.persistent = [];
+        let keys = Object.keys(params);
+        for (let i = 0; i < keys.length; i++) {
+            this.persistent.push({
+                key: keys[i],
+                value: params[keys[i]],
+            });
+        }
+        this.code = yaml.safeDump(this.translateToYaml(params));
+        this.code_properties = ``;
+        keys.map(item => {
+            this.code_properties +=
+                item + '=' + params[item] + '\n';
+        });
+        $("#m_modal_property_editor").modal('show');
+    }
+
     async configTypeChange(configType) {
-        this.configType = configType;
-        await this.getPersistentList();
+        switch(configType){
+            case 1:
+                break;
+            case 2:
+                this.changeYamlPage()
+                break;
+            case 3:
+                this.changePropertyPage()
+                break;
+        }
     }
 
     async initProductList() {
@@ -357,42 +422,14 @@ export class ConfigManageComponent implements OnInit {
     async save() {
         try {
             let params = {};
-            if (this.configType == 1) {
-                for (let i = 0; i < this.persistent.length; i++) {
-                    params[this.persistent[i].key] = this.persistent[i].value;
-                    if (
-                        this.persistent[i].key === '' ||
-                        this.persistent[i].value === ''
-                    ) {
-                        toastr.error('当前存储配置不能为空，请进行补全!');
-                        return;
-                    }
-                }
-            } else if (this.configType == 2) {
-                let tmp = yaml.safeLoad(this.code);
-                let result = false;
-                while (!result) {
-                    let tmpResult = this.YamlToJSON(tmp);
-                    result = tmpResult.bEnd;
-                    tmp = tmpResult.result;
-                }
-                params = tmp;
-            } else if (this.configType == 3) {
-                let result = this.code_properties.split('\n');
-                for (let i = 0; i < result.length; i++) {
-                    let item = result[i].replace(/\s+/g, '');
-                    if (item.length === 0) {
-                        continue;
-                    }
-                    let tmps = item.split('=');
-                    if (tmps.length !== 2) {
-                        toastr.error('properties请都按照对应的键值对配置!');
-                        return;
-                    }
-                    if (tmps[0].indexOf('#') == 0) {
-                        continue;
-                    }
-                    params[tmps[0]] = tmps[1];
+            for (let i = 0; i < this.persistent.length; i++) {
+                params[this.persistent[i].key] = this.persistent[i].value;
+                if (
+                    this.persistent[i].key === '' ||
+                    this.persistent[i].value === ''
+                ) {
+                    toastr.error('当前存储配置不能为空，请进行补全!');
+                    return;
                 }
             }
             let url = `?project=${this.selectProductInfo.name}&profile=${
@@ -553,5 +590,60 @@ export class ConfigManageComponent implements OnInit {
             key: '',
             value: '',
         });
+    }
+
+    closeEditorModal(){
+        $("#m_modal_yaml_editor").modal('hide');
+        $("#m_modal_property_editor").modal('hide');
+    }
+
+    // 保存数据
+    async saveYmlEditor(){
+        let tmp = yaml.safeLoad(this.code);
+        let result = false;
+        while (!result) {
+            let tmpResult = this.YamlToJSON(tmp);
+            result = tmpResult.bEnd;
+            tmp = tmpResult.result;
+        }
+        this.persistentList = tmp;
+        this.persistent = [];
+        let keys = Object.keys(this.persistentList);
+        for (let i = 0; i < keys.length; i++) {
+            this.persistent.push({
+                key: keys[i],
+                value: this.persistentList[keys[i]],
+            });
+        }
+        $("#m_modal_yaml_editor").modal('hide');
+    }
+
+    async savePropertyEditor(){
+        let params = {}
+        let result = this.code_properties.split('\n');
+        for (let i = 0; i < result.length; i++) {
+            let item = result[i].replace(/\s+/g, '');
+            if (item.length === 0) {
+                continue;
+            }
+            let tmps = item.split('=');
+            if (tmps.length !== 2) {
+                toastr.error('properties请都按照对应的键值对配置!');
+                return;
+            }
+            if (tmps[0].indexOf('#') == 0) {
+                continue;
+            }
+            params[tmps[0]] = tmps[1];
+        }
+        this.persistent = [];
+        let keys = Object.keys(params);
+        for (let i = 0; i < keys.length; i++) {
+            this.persistent.push({
+                key: keys[i],
+                value: params[keys[i]],
+            });
+        }
+        $("#m_modal_property_editor").modal("hide")
     }
 }
