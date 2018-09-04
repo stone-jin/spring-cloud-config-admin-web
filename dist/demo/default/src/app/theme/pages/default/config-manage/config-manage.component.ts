@@ -98,8 +98,7 @@ export class ConfigManageComponent implements OnInit {
         for (let i = 0; i < this.persistent.length; i++) {
             params[this.persistent[i].key] = this.persistent[i].value;
             if (
-                this.persistent[i].key === '' ||
-                this.persistent[i].value === ''
+                this.persistent[i].key === ''
             ) {
                 toastr.error('当前存储配置不能为空，请进行补全!');
                 return;
@@ -125,8 +124,7 @@ export class ConfigManageComponent implements OnInit {
         for (let i = 0; i < this.persistent.length; i++) {
             params[this.persistent[i].key] = this.persistent[i].value;
             if (
-                this.persistent[i].key === '' ||
-                this.persistent[i].value === ''
+                this.persistent[i].key === ''
             ) {
                 toastr.error('当前存储配置不能为空，请进行补全!');
                 return;
@@ -390,7 +388,18 @@ export class ConfigManageComponent implements OnInit {
             });
 
             $('#m_modal_1').modal('show');
-            let tmp = result.filter(item => {
+            this.configFromConfigServerList = result.map(item=>{
+                let keys = Object.keys(item.source);
+                item.tmpResult = [];
+                for(let i = 0; i < keys.length; i++){
+                    item.tmpResult.push({
+                        name: keys[i],
+                        value: item.source[keys[i]]
+                    });
+                }
+                return item;
+            });
+            /*let tmp = result.filter(item => {
                 if (
                     item.name.substring(item.name.lastIndexOf('-') + 1) ===
                     this.selectEnvInfo.name &&
@@ -409,7 +418,7 @@ export class ConfigManageComponent implements OnInit {
                     name: item,
                     value: tmp[item],
                 });
-            });
+            });*/
         } catch (e) {
             console.log(e);
             this.ajaxToastr.error(e, '配置中心获取存储配置失败');
@@ -425,8 +434,7 @@ export class ConfigManageComponent implements OnInit {
             for (let i = 0; i < this.persistent.length; i++) {
                 params[this.persistent[i].key] = this.persistent[i].value;
                 if (
-                    this.persistent[i].key === '' ||
-                    this.persistent[i].value === ''
+                    this.persistent[i].key === ''
                 ) {
                     toastr.error('当前存储配置不能为空，请进行补全!');
                     return;
@@ -446,7 +454,7 @@ export class ConfigManageComponent implements OnInit {
     }
 
     getEncrpytStatus(item) {
-        if (item.value.indexOf('{cipher}') >= 0) {
+        if (`${item.value}`.indexOf('{cipher}') >= 0) {
             return '1';
         } else {
             return '0';

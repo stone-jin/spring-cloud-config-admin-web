@@ -167,7 +167,7 @@
                                             </td>
                                             <td>
                                                 <input class="form-control m-input m-input--solid" placeholder="请输入value..." type="text" [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}"
-                                                    required>
+                                                    >
                                             </td>
                                             <td>
                                                 <div class="item-operate">
@@ -220,8 +220,10 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <table class="table table-bordered table-striped table-hover m-table">
-                                        <thead class="thead-inverse">
+                                    <ng-container *ngFor="let item of configFromConfigServerList">
+                                        <table class="table table-bordered table-striped table-hover m-table">
+                                            <caption>{{item.name}}}</caption>
+                                            <thead class="thead-inverse">
                                             <tr>
                                                 <th>
                                                     键
@@ -230,25 +232,26 @@
                                                     值
                                                 </th>
                                             </tr>
-                                        </thead>
-                                        <tbody *ngIf="configFromConfigServerList.length > 0">
-                                            <tr *ngFor="let item of configFromConfigServerList; let i = index;">
-                                                <td>
-                                                    {{item.name}}
-                                                </td>
-                                                <td>
-                                                    {{item.value}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <tbody *ngIf="configFromConfigServerList.length === 0">
-                                            <tr>
-                                                <td colspan="2">
-                                                    当前配置中心无当前环境的配置信息
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody *ngIf="item.tmpResult.length > 0">
+                                                <tr *ngFor="let tmp of item.tmpResult; let i = index;">
+                                                    <td>
+                                                        {{tmp.name}}
+                                                    </td>
+                                                    <td>
+                                                        {{tmp.value}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="item.tmpResult.length === 0">
+                                                <tr>
+                                                    <td colspan="2">
+                                                        当前配置中心无当前环境的配置信息
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </ng-container>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
