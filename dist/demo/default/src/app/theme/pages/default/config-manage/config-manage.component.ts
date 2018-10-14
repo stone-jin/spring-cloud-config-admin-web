@@ -399,28 +399,8 @@ export class ConfigManageComponent implements OnInit {
                 }
                 return item;
             });
-            /*let tmp = result.filter(item => {
-                if (
-                    item.name.substring(item.name.lastIndexOf('-') + 1) ===
-                    this.selectEnvInfo.name &&
-                    item.name.substring(0, item.name.lastIndexOf('-')) ===
-                    this.selectProductInfo.name
-                ) {
-                    return true;
-                } else {
-                    return false;
-                }
-            })[0].source;
-            let keys = Object.keys(tmp);
-            this.configFromConfigServerList = [];
-            keys.map(item => {
-                this.configFromConfigServerList.push({
-                    name: item,
-                    value: tmp[item],
-                });
-            });*/
         } catch (e) {
-            console.log(e);
+            console.log(e)
             this.ajaxToastr.error(e, '配置中心获取存储配置失败');
         }
     }
@@ -530,7 +510,7 @@ export class ConfigManageComponent implements OnInit {
         for (let i = 0; i < this.persistent.length; i++) {
             if (this.persistent[i].key === item.pKey) {
                 this.persistent[i].value = item.pValue;
-                this.save();
+                // this.save();
                 return;
             }
         }
@@ -548,7 +528,7 @@ export class ConfigManageComponent implements OnInit {
             }
         }
 
-        this.save();
+        // this.save();
     }
 
     /**

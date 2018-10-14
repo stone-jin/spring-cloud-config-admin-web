@@ -119,29 +119,23 @@
                                 当前存储配置详情:
                             </label>
                             <div style="float:right;">
-                                <button class="btn btn-link" (click)="getFromConfigServer()">配置中心获取</button>
+                                <button type="button" class="btn btn-link" (click)="getFromConfigServer()" >配置中心获取</button>
                             </div>
                             <span class="clearfix"></span>
                         </div>
-                        <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 0px;">
+                        <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 0px;margin-top: 20px;position: relative;">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#m_tabs_2_1" (click)="configTypeChange(1);">
                                     <span>列表模式</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" (click)="configTypeChange(2);">
-                                    <i class="la la-cloud-download"></i>
-                                    <span>yml模式</span>
-                                </a>
+                            <li style="position:absolute; right: 0px;">
+                                <div>
+                                    <button class="btn btn-primary btn-sm" type="button" (click)="configTypeChange(2);">yml模式</button>
+                                    <button class="btn btn-primary btn-sm" type="button" (click)="configTypeChange(3);">property模式</button>
+                                </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" (click)="configTypeChange(3);">
-                                    <i class="la la-comment"></i>
-                                    
-                                    <span>property模式</span>
-                                </a>
-                            </li>
+
                         </ul>
                         <div class="tab-content" id="persistentList" style="border-bottom: 1px solid #ebedf2; border-right: 1px solid #ebedf2;border-left: 1px solid #ebedf2">
                             <div class="tab-pane active" id="m_tabs_2_1" role="tabpanel">
@@ -194,7 +188,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button class="btn btn-link" (click)="addConfig()">新增配置</button>
+                                <button class="btn btn-link" (click)="addConfig()" type="button">新增配置</button>
                             </div>
                             <div class="tab-pane" id="m_tabs_2_2" role="tabpanel">
                             </div>
@@ -221,8 +215,8 @@
                                 </div>
                                 <div class="modal-body">
                                     <ng-container *ngFor="let item of configFromConfigServerList">
+                                        <h1><strong>{{item.name}}:</strong></h1>
                                         <table class="table table-bordered table-striped table-hover m-table">
-                                            <caption>{{item.name}}}</caption>
                                             <thead class="thead-inverse">
                                             <tr>
                                                 <th>
@@ -325,7 +319,7 @@
                                                             <td>
                                                                 <ng-container [ngSwitch]="fCanReplace(item)">
                                                                     <ng-container *ngSwitchCase="true">
-                                                                        <button class="btn btn-primary btn-sm" (click)="replaceItem(item);">替换</button>
+                                                                        <button class="btn btn-primary btn-sm" (click)="replaceItem(item);" type="button">替换</button>
                                                                     </ng-container>
                                                                     <ng-container *ngSwitchCase="false">
                                                                         -

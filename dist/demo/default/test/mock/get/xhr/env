@@ -1,0 +1,20 @@
+{
+    "code": 200,
+    "data": [{
+        "id": 1,
+        "name": "测试",
+        "registryAddress": "127.0.0.1",
+        "configServerName": "http://localhost:8888/",
+        "envParams": [],
+        "contextPath": "/ContextPath"
+    }, {
+        "id": 2,
+        "name": "线上",
+        "registryAddress": "127.0.0.1",
+        "configServerName": "http://localhost:9000/",
+        "envParams": [],
+        "contextPath": "/xxx"
+    }],
+    "message": null,
+    "now": 1527228696011
+}

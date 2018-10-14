@@ -112,14 +112,6 @@ export class EnvConfigCompponent implements AfterViewInit, OnInit {
 
             // columns definition
             columns: [
-                // {
-                //     field: 'id',
-                //     title: 'id',
-                //     width: 80,
-                //     textAlign: 'center',
-                //     overflow: 'visible',
-                //     template: '{{id}}',
-                // },
                 {
                     field: 'name',
                     title: '环境名',

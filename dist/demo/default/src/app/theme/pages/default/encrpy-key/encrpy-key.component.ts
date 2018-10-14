@@ -115,14 +115,6 @@ export class EncrpyKeyComponent implements AfterViewInit, OnInit {
 
             // columns definition
             columns: [
-                // {
-                //     field: 'id',
-                //     title: 'id',
-                //     width: 80,
-                //     textAlign: 'center',
-                //     overflow: 'visible',
-                //     template: '{{id}}',
-                // },
                 {
                     field: 'eKey',
                     title: 'eKey',
