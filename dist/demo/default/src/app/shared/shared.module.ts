@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Ajax } from './ajax/ajax.service';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { AjaxToastrService } from './AjaxToastr/ajaxToastr.service';
+import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 
 let components = [
     QuickSidebarComponent,
@@ -41,6 +42,7 @@ let services = [Ajax, AjaxToastrService];
         FormsModule,
         HttpClientModule,
         MonacoEditorModule,
+        NgZorroAntdModule,
     ],
     declarations: [...components],
     providers: [...services],

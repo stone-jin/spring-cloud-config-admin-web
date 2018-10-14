@@ -15,31 +15,41 @@ export class UserService {
     forgotPassword(email: string) {
         return this.http
             .post('/api/forgot-password', JSON.stringify({ email }), this.jwt())
-            .map((response: Response) => response.json());
+            .subscribe((res: any)=>{
+                res.data
+            })
     }
 
     getAll() {
         return this.http
             .get('/api/users', this.jwt())
-            .map((response: Response) => response.json());
+            .subscribe((res: any)=>{
+                res.data
+            })
     }
 
     getById(id: number) {
         return this.http
             .get('/api/users/' + id, this.jwt())
-            .map((response: Response) => response.json());
+            .subscribe((res: any)=>{
+                res.data
+            })
     }
 
     update(user: User) {
         return this.http
             .put('/api/users/' + user.id, user, this.jwt())
-            .map((response: Response) => response.json());
+            .subscribe((res: any)=>{
+                res.data
+            })
     }
 
     delete(id: number) {
         return this.http
-            .delete('/api/users/' + id, this.jwt())
-            .map((response: Response) => response.json());
+            .delete('/api/users/' + id, this.jwt()).subscribe((res: any)=>{
+                res.data
+            })
+            // .map((response: Response) => response.json());
     }
 
     // private helper methods

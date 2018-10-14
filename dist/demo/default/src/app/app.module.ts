@@ -10,6 +10,7 @@ import { ThemeRoutingModule } from './theme/theme-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 
 @NgModule({
     declarations: [ThemeComponent, AppComponent],
@@ -20,6 +21,7 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
         AppRoutingModule,
         ThemeRoutingModule,
         AuthModule,
+        NgZorroAntdModule,
         MonacoEditorModule.forRoot(), // use forRoot() in main app module only.
     ],
     providers: [ScriptLoaderService],

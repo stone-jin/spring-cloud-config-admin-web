@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { DefaultComponent } from '../../../../shared/defalt/default.component';
 import { SharedModule } from '../../../../shared/shared.module';
 
-import { ChipsModule } from 'primeng/primeng';
 
 const routes: Routes = [
     {
@@ -27,7 +26,6 @@ const components: any[] = [];
         CommonModule,
         RouterModule.forChild(routes),
         SharedModule,
-        ChipsModule,
     ],
     declarations: [ProductCompponent],
     exports: [RouterModule],

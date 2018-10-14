@@ -9,7 +9,6 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScriptLoaderService } from '../_services/script-loader.service';
 import { AuthenticationService } from './_services/authentication.service';
-import { AlertService } from './_services/alert.service';
 import { UserService } from './_services/user.service';
 import { AlertComponent } from './_directives/alert.component';
 import { Helpers } from '../helpers';
@@ -42,7 +41,6 @@ export class AuthComponent implements OnInit {
         private _userService: UserService,
         private _route: ActivatedRoute,
         private _authService: AuthenticationService,
-        private _alertService: AlertService,
         private cfr: ComponentFactoryResolver,
         private ajax: Ajax
     ) { }
@@ -89,30 +87,8 @@ export class AuthComponent implements OnInit {
             this._router.navigate([this.returnUrl]);
         } catch (e) {
             this.showAlert('alertSignin');
-            this._alertService.error(e.message);
             this.loading = false;
         }
-    }
-
-    forgotPass() {
-        this.loading = true;
-        this._userService.forgotPassword(this.model.account).subscribe(
-            data => {
-                this.showAlert('alertSignin');
-                this._alertService.success(
-                    'Cool! Password recovery instruction has been sent to your email.',
-                    true
-                );
-                this.loading = false;
-                this.displaySignInForm();
-                this.model = {};
-            },
-            error => {
-                this.showAlert('alertForgotPass');
-                this._alertService.error(error);
-                this.loading = false;
-            }
-        );
     }
 
     showAlert(target) {
