@@ -1,7 +1,7 @@
 {
     "code": 200,
     "data": [{
-        "name": "xxx",
+        "name": "https://github.com/dyc87112/spring-cloud-config-admin/issues/100",
         "source": {
             "ssss": "123"
         }

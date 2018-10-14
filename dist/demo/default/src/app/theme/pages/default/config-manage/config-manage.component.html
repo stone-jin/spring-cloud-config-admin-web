@@ -202,7 +202,7 @@
                     </div>
                     <!--begin::Modal-->
                     <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">
@@ -216,7 +216,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <ng-container *ngFor="let item of configFromConfigServerList">
-                                        <h1><strong>{{item.name}}:</strong></h1>
+                                        <span style="margin-bottom: 10px;display: block;"><strong>{{item.name}}:</strong></span>
                                         <table class="table table-bordered table-striped table-hover m-table">
                                             <thead class="thead-inverse">
                                             <tr>
