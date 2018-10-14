@@ -48,7 +48,8 @@
                     </div>
                 </div>
                 <div class="m-portlet__body">
-                    <ng-container *ngFor="let item of productList; let i = index;">
+                    <input class="form-control m-input m-input--solid" placeholder="请输入查询条件" type="text" [(ngModel)]="searchProduct" [ngModelOptions]="{standalone: true}" style="margin-bottom: 10px;">
+                    <ng-container *ngFor="let item of getFilterProduct(productList); let i = index;">
                         <ng-container *ngIf="item.id === this.selectProductId">
                             <button type="button" class="btn btn-primary btn-block">
                                 {{item.name}}

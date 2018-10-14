@@ -36,10 +36,21 @@ export class ConfigManageComponent implements OnInit {
     code_properties: String = ``;
     code: string = ``;
     configType: number = 1;
+    searchProduct: string = '';
     constructor(private ajax: Ajax, private ajaxToastr: AjaxToastrService) { }
 
     ngOnInit(): void {
         this.initProductList();
+    }
+
+    getFilterProduct(productList){
+        return productList.filter(item=>{
+            if(item.name.indexOf(this.searchProduct) >= 0){
+                return true;
+            }else{
+                return false;
+            }
+        })
     }
 
     ngAfterViewInit(): void {
